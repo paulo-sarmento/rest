@@ -4,3 +4,9 @@
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
 }
+
+.filter {
+  padding: 1rem 0;
+  background: #F2F0F0;
+  overflow: hidden;
+}
