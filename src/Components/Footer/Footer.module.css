@@ -1,0 +1,25 @@
+.footer-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+  color: #ffff;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.social-media-container {
+  display: flex;
+  align-items: center;
+}
+
+.social-icon {
+  font-size: 2.625rem;
+  margin-right: 2rem;
+}
