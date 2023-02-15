@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "../Layout/Container";
 import Card from "../UI/Card";
 import classes from "./Products.module.css";
 
@@ -11,7 +12,9 @@ const Products = ({ productsList }) => {
 
   return (
     <section>
-      <ul>{items}</ul>
+      <Container>
+        <ul className={classes.list}>{items}</ul>
+      </Container>
     </section>
   );
 };

@@ -1,0 +1,12 @@
+.list {
+  padding: 0.75rem 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+  grid-template-rows: repeat(3, minmax(50px, 230px));
+  gap: 1rem;
+}
+
+.container {
+  padding: 0 1rem;
+}

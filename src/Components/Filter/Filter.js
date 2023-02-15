@@ -18,7 +18,7 @@ const Filter = () => {
 
   const onClickBackHandler = () => {
     setIsActive(0);
-  }
+  };
 
   let content = (
     <Container>
