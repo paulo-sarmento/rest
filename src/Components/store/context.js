@@ -41,12 +41,21 @@ const DUMMY_PRODUCTS = [
 
 const Context = React.createContext({
   DUMMY_PRODUCTS: DUMMY_PRODUCTS,
-  isFilteredProducts: () => {},
+  isFilteredProducts: (filter) => {},
   filteredProducts: null,
+  setFilteredProducts: null,
+  onRouteChangeHandler: (route) => {},
+  route: "home",
+  setRoute: "home",
 });
 
 export const ContextProvider = (props) => {
   const [filteredProducts, setFilteredProducts] = useState(null);
+  const [route, setRoute] = useState("home");
+
+  const onRouteChangeHandler = (route) => {
+    setRoute(route);
+  };
 
   const normalizeString = (str) => {
     // remove espaços em branco no início e no final
@@ -72,6 +81,10 @@ export const ContextProvider = (props) => {
         DUMMY_PRODUCTS,
         isFilteredProducts,
         filteredProducts,
+        setFilteredProducts,
+        onRouteChangeHandler,
+        route,
+        setRoute,
       }}
     >
       {props.children}

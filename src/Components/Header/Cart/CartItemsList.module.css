@@ -1,0 +1,13 @@
+.main {
+  background: #707070;
+}
+
+.table-head {
+  display: grid;
+  grid-template-columns: 55% 15% 30%;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  gap: 10px;
+  padding: 1rem 0;
+}

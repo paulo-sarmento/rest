@@ -1,4 +1,5 @@
 import React, { useRef, useContext } from "react";
+import Context from "../../store/context";
 import classes from "./SearchBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,9 +8,8 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-import Context from "../../store/context";
 
-const Search = ({ onClickBack}) => {
+const Search = ({ onClickBack }) => {
   const ctx = useContext(Context);
   const inputRef = useRef();
 

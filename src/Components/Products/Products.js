@@ -6,7 +6,13 @@ import classes from "./Products.module.css";
 const Products = ({ productsList }) => {
   const items = productsList.map((item) => {
     return (
-      <Card id={item.id} img={item.img} name={item.name} price={item.price} />
+      <Card
+        id={item.id}
+        img={item.img}
+        name={item.name}
+        price={item.price}
+        amount={1}
+      />
     );
   });
 

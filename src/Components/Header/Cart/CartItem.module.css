@@ -1,0 +1,29 @@
+.cart-item {
+  display: grid;
+  grid-template-columns: 55% 15% 30%;
+  color: #fff;
+  gap: 10px;
+  box-sizing: border-box;
+  padding-bottom: 1rem;
+}
+
+.container-product {
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  color: #ffea4a;
+  font-weight: 600;
+}

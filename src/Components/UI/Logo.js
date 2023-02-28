@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Logo.module.css";
+import Context from "../store/context";
 
 const Logo = () => {
+  const ctx = useContext(Context);
+
+  const onClickHandler = () => {
+    ctx.onRouteChangeHandler("home");
+  };
+
   return (
-    <div className={classes.logo}>
+    <div className={classes.logo} onClick={onClickHandler}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="80"
