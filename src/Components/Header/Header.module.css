@@ -1,3 +1,7 @@
+.header {
+  background: #fff;
+}
+
 .wrapper {
   display: flex;
   justify-content: space-between;

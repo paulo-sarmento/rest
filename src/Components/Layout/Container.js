@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import classes from "./Container.module.css";
 
-const Container = (props) => {
-  const classList = [classes.wrapper, props.className].join(" ");
+const Container = ({ className, children }) => {
+  const classList = [classes.wrapper, className].join(" ");
 
-  return <div className={classList}>{props.children}</div>;
+  return <div className={classList}>{children}</div>;
 };
 
 export default Container;

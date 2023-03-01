@@ -5,16 +5,18 @@
   color: #707070;
   line-height: 1.5;
   font-size: 1.125rem;
+  background: #F2F0F0;
 }
 
 .filter {
   padding: 1rem 0;
-  background: #f2f0f0;
   overflow: hidden;
 }
 
 .main {
   background: #ff9540;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .footer {

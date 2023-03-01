@@ -9,6 +9,7 @@ import {
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 import Container from "../Layout/Container";
+import Button from "./Button";
 
 const Modal = ({ open, onClose }) => {
   if (!open) return null;
@@ -24,7 +25,7 @@ const Modal = ({ open, onClose }) => {
         <div className={classes.wrapper}>
           <a href="#">Pedidos</a>
           <a href="#">Administrador</a>
-          <button className={classes["login-btn"]}>Entrar</button>
+          <Button className={classes["login-btn"]}>Entrar</Button>
           <a href="#">criar conta</a>
         </div>
       </Container>

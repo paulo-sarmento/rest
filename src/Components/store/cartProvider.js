@@ -7,13 +7,14 @@ import CartContext from "./cart-context";
 
 const defaultCartState = {
   items: [],
+  totalPrice: 0,
   totalAmount: 0,
 };
 
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    const updatedTotalAmount =
-      state.totalAmount + action.item.price * action.item.amount;
+    const updatedtotalPrice = state.totalPrice + action.item.price * action.item.amount;
+    const updatedtotalAmount = state.totalAmount + action.item.amount;
 
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
@@ -35,15 +36,18 @@ const cartReducer = (state, action) => {
 
     return {
       items: updatedItems,
-      totalAmount: updatedTotalAmount,
+      totalPrice: updatedtotalPrice,
+      totalAmount: updatedtotalAmount,
     };
   } else if (action.type === "REMOVE") {
+    let totalPrice;
     let totalAmount;
     let updatedItems = [...state.items];
 
     state.items.filter((item, index) => {
       if (item.id === action.id) {
-        totalAmount = state.totalAmount - item.price;
+        totalPrice = state.totalPrice - item.price;
+        totalAmount = state.totalAmount--;
         if (item.amount > 1) {
           item.amount--;
         } else {
@@ -53,6 +57,7 @@ const cartReducer = (state, action) => {
     });
     return {
       items: updatedItems,
+      totalPrice,
       totalAmount,
     };
   }
@@ -76,6 +81,7 @@ const CartProvider = (props) => {
 
   const cartContext = {
     items: cartState.items,
+    totalPrice: cartState.totalPrice,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,

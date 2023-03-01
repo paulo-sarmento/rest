@@ -3,6 +3,7 @@ import Container from "../../Layout/Container";
 import CartItem from "./CartItem";
 import CartContext from "../../store/cart-context";
 import classes from "./CartItemsList.module.css";
+import Button from "../../UI/Button";
 
 const CartItemsList = () => {
   const ctx = useContext(CartContext);
@@ -18,7 +19,6 @@ const CartItemsList = () => {
       />
     );
   });
-
   return (
     <section className={classes.main}>
       <Container>
@@ -29,9 +29,10 @@ const CartItemsList = () => {
         </div>
         <ul className={classes.list}>{items}</ul>
         <div>
-          <span>Total</span>
+          <span className={classes.total}>Total:</span>
+          <span className={classes.price}>{` R$ ${ctx.totalPrice.toFixed(2)}`}</span>
         </div>
-        <button>finalizar compra</button>
+        <Button className={classes["btn-comprar"]}>finalizar compra</Button>
       </Container>
     </section>
   );

@@ -1,5 +1,32 @@
 .cart {
   font-size: 1.75rem;
-  color: #FF2415;
+  color: #ff2415;
   padding: 0.75rem;
+  position: relative;
+}
+
+.number {
+  position: absolute;
+  top: 12px;
+  right: 9px;
+}
+
+.total-amountWrapper {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff2415;
+  border-radius: 100%;
+  color: #fff;
+  position: relative;
+}
+
+.total-amount {
+  font-size: 18px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
