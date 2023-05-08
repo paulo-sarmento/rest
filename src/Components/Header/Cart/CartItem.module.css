@@ -5,25 +5,58 @@
   gap: 10px;
   box-sizing: border-box;
   padding-bottom: 1rem;
+  position: relative;
 }
 
-.container-product {
-  display: flex;
-  align-items: center;
+.wrapper-product {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  justify-items: flex-end;
+}
+
+.container-img {
+  width: 60px;
+  height: 60px;
 }
 
 .img {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
+.name {
+  word-wrap: break-word;
 }
 
 .price {
   color: #ffea4a;
   font-weight: 600;
+}
+
+.action-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: -90px;
+}
+
+.button {
+  width: 45px;
+  height: 45px;
+  border-radius: 0;
+  background: transparent;
+  border-radius: 100%;
+  margin-right: 8px;
+  color: #fff;
+  border: 2px solid #ffea4a;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.amount {
+  display: flex;
+  justify-content: center;
 }

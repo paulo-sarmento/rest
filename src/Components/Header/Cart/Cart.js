@@ -18,13 +18,17 @@ const Cart = () => {
     ctx.onRouteChangeHandler("cart");
   };
 
+  const cartItemsNumber = ctxCart.items.reduce((curNumber, item) => {
+    return curNumber + item.amount;
+  }, 0);
+
   return (
     <div className={classes.cart}>
       <div className="cart_icon" onClick={onClickHandler}>
         <div className={classes.number}>
           <div className={classes["total-amountWrapper"]}>
             <span className={classes["total-amount"]}>
-              {ctxCart.totalAmount}
+              {cartItemsNumber}
             </span>
           </div>
         </div>
