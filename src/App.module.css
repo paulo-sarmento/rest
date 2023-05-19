@@ -35,3 +35,11 @@ body {
 .footer {
   background: #ff2415;
 }
+
+.title {
+  text-transform: uppercase;
+  color: #ff2415;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 2px;
+}

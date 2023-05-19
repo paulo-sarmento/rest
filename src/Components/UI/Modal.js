@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Modal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Logo from "./Logo";
@@ -10,8 +10,18 @@ import {
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 import Container from "../Layout/Container";
 import Button from "./Button";
+import Context from "../Context/context";
+import Login from "../Login/Login";
 
 const Modal = ({ open, onClose }) => {
+  const ctx = useContext(Context);
+
+  const onClickHandler = () => {
+    if (ctx.isSignIn === false) {
+      ctx.setShowLogin(true);
+    }
+  };
+
   if (!open) return null;
   return (
     <>
@@ -25,9 +35,18 @@ const Modal = ({ open, onClose }) => {
         <div className={classes.wrapper}>
           <a href="#">Pedidos</a>
           <a href="#">Administrador</a>
-          <Button className={classes["login-btn"]}>Entrar</Button>
-          <a href="#">criar conta</a>
+          {ctx.isSignIn === false ? (
+            <>
+              <Button className={classes["login-btn"]} onClick={onClickHandler}>
+                Entrar
+              </Button>
+              <a href="#">criar conta</a>
+            </>
+          ) : (
+            <p>{`Olá, ${ctx.user.name}`}</p>
+          )}
         </div>
+        {ctx.showLogin && <Login />}
       </Container>
     </>
   );

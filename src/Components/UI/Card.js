@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CartContext from "../store/cart-context";
+import CartContext from "../Context/cart-context";
 import classes from "./Card.module.css";
 
 const Card = ({ id, img, name, price }) => {
@@ -22,7 +22,13 @@ const Card = ({ id, img, name, price }) => {
           <img src={img} alt="" className={classes.img} />
         </div>
         <h1>{name}</h1>
-        <h2 className={classes.price}>{`R$ ${price}`}</h2>
+        <h2 className={classes.price}>
+          {price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 2,
+          })}
+        </h2>
       </li>
     </>
   );

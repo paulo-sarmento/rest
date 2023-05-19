@@ -1,26 +1,34 @@
-import React, { useContext } from "react";
-import Container from "../../Layout/Container";
-import CartItem from "./CartItem";
-import CartContext from "../../store/cart-context";
+import React, { useContext, useState } from "react";
 import classes from "./CartItemsList.module.css";
+import Container from "../../Layout/Container";
 import Button from "../../UI/Button";
+import Login from "../../Login/Login";
+import Context from "../../Context/context";
+import CartContext from "../../Context/cart-context";
+
+import CartItem from "./CartItem";
 
 const CartItemsList = () => {
-  const ctx = useContext(CartContext);
+  const ctx = useContext(Context);
+  const cartCtx = useContext(CartContext);
 
   const cartItemRemoveHandler = (id) => {
-    ctx.removeItem(id);
+    cartCtx.removeItem(id);
   };
 
   const cartItemAddHandler = (item) => {
-    ctx.addItem({ ...item, amount: 1 });
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const onClickHandler = () => {
-    console.log("teste")
-  }
+    if (ctx.isSignIn) {
+      cartCtx.makeOrder();
+    } else {
+      ctx.setShowLogin(true);
+    }
+  };
 
-  const items = ctx.items.map((item) => {
+  const items = cartCtx.items.map((item) => {
     return (
       <CartItem
         id={item.id}
@@ -33,17 +41,21 @@ const CartItemsList = () => {
       />
     );
   });
+
   return (
     <section className={classes.main}>
       <Container className={classes.container}>
         <ul className={classes.list}>{items}</ul>
         <div>
           <span className={classes.total}>Total:</span>
-          <span className={classes.price}>{` R$ ${ctx.totalPrice.toFixed(
+          <span className={classes.price}>{` R$ ${cartCtx.totalPrice.toFixed(
             2
           )}`}</span>
         </div>
-        <Button className={classes["btn-comprar"]} onClick={onClickHandler}>finalizar compra</Button>
+        <Button className={classes["btn-comprar"]} onClick={onClickHandler}>
+          finalizar compra
+        </Button>
+        {ctx.showLogin && <Login />}
       </Container>
     </section>
   );

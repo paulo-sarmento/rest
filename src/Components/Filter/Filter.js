@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Context from "../store/context";
+import Context from "../Context/context";
 import Container from "../Layout/Container";
 import classes from "./Filter.module.css";
 import SearchIcon from "./SearchBar/SearchIcon";
@@ -21,7 +21,7 @@ const Filter = () => {
   const onClickBackHandler = () => {
     setIsActive(0);
 
-    ctx.setFilteredProducts(ctx.DUMMY_PRODUCTS);
+    ctx.setFilteredProducts(ctx.products);
   };
 
   let content = (

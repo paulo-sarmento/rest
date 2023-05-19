@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import classes from "./Logo.module.css";
-import Context from "../store/context";
+import Context from "../Context/context";
 
 const Logo = () => {
   const ctx = useContext(Context);

@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import Context from "../../store/context";
+import Context from "../../Context/context";
 import classes from "./SearchBar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,7 +14,7 @@ const Search = ({ onClickBack }) => {
   const inputRef = useRef();
 
   const onChangeHandler = () => {
-    ctx.isFilteredProducts(inputRef.current.value);
+    ctx.filterProducts(inputRef.current.value);
   };
 
   return (

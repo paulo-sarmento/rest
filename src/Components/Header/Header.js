@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import classes from "./Header.module.css";
 import Container from "../Layout/Container";
 import Logo from "../UI/Logo";
@@ -11,6 +11,7 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import Context from "../Context/context";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,8 @@ const Header = () => {
     setIsOpen(false);
   };
 
+  const ctx = useContext(Context);
+
   return (
     <>
       <header className={classes.header} id="header">
@@ -29,7 +32,7 @@ const Header = () => {
           <div className={classes["menu-icon"]} onClick={onClickHandler}>
             <FontAwesomeIcon icon={solid("bars")} />
           </div>
-          <Logo />
+          {ctx.route === "home" ? <Logo /> : <></>}
           <Cart />
         </Container>
         <Modal open={isOpen} onClose={closeHandler} />

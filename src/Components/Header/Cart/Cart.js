@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Context from "../../store/context";
+import Context from "../../Context/context";
 import classes from "./Cart.module.css";
-import CartContext from "../../store/cart-context";
+import CartContext from "../../Context/cart-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   solid,
@@ -27,9 +27,7 @@ const Cart = () => {
       <div className="cart_icon" onClick={onClickHandler}>
         <div className={classes.number}>
           <div className={classes["total-amountWrapper"]}>
-            <span className={classes["total-amount"]}>
-              {cartItemsNumber}
-            </span>
+            <span className={classes["total-amount"]}>{cartItemsNumber}</span>
           </div>
         </div>
         <FontAwesomeIcon icon={solid("cart-plus")} />

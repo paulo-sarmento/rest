@@ -7,13 +7,15 @@ import CartContext from "./cart-context";
 
 const defaultCartState = {
   items: [],
+  orders: [],
   totalPrice: 0,
   totalAmount: 0,
 };
 
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    const updatedtotalPrice = state.totalPrice + action.item.price * action.item.amount;
+    const updatedtotalPrice =
+      state.totalPrice + action.item.price * action.item.amount;
     const updatedtotalAmount = state.totalAmount + action.item.amount;
 
     const existingCartItemIndex = state.items.findIndex(
@@ -36,6 +38,7 @@ const cartReducer = (state, action) => {
 
     return {
       items: updatedItems,
+      orders: state.orders,
       totalPrice: updatedtotalPrice,
       totalAmount: updatedtotalAmount,
     };
@@ -60,6 +63,19 @@ const cartReducer = (state, action) => {
       totalPrice,
       totalAmount,
     };
+  } else if (action.type === "ORDER") {
+    let Order = {
+      ...state.items,
+      amount: state.totalAmount,
+      totalPrice: state.totalPrice,
+    };
+
+    return {
+      items: state.items,
+      orders: Order,
+      totalPrice: state.totalPrice,
+      totalAmount: state.totalAmount,
+    };
   }
 
   return defaultCartState;
@@ -79,12 +95,18 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id });
   };
 
+  const makeOrderHandler = () => {
+    dispatchCartAction({ type: "ORDER" });
+  };
+
   const cartContext = {
     items: cartState.items,
+    orders: cartState.orders,
     totalPrice: cartState.totalPrice,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    makeOrder: makeOrderHandler,
   };
 
   return (
