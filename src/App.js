@@ -47,7 +47,9 @@ const App = () => {
         </footer>
       </div>
     );
-  } else if (ctx.route === "pedidos") {
+  }
+
+  if (ctx.route === "pedidos") {
     content = (
       <div className={classes.App}>
         <Header />
@@ -63,7 +65,8 @@ const App = () => {
         </footer>
       </div>
     );
-  } else if (ctx.route === "main") {
+  }
+  if (ctx.route === "main") {
     return content;
   }
 

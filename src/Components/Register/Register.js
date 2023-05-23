@@ -1,19 +1,24 @@
 import React, { useContext, useState } from "react";
 
-import classes from "./Login.module.css";
+import classes from "./Register.module.css";
+
 import Container from "../Layout/Container";
 import Logo from "../UI/Logo";
-import Register from "../Register/Register";
 
 import Context from "../Context/context";
 
-function Login() {
-  const ctx = useContext(Context);
-
+function Register() {
+  const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
+
+  const ctx = useContext(Context);
+
+  const onNameChangeHandler = (e) => {
+    setName(e.target.value);
+  };
 
   const onEmailChangeHandler = (e) => {
     setMail(e.target.value);
@@ -27,7 +32,7 @@ function Login() {
     e.preventDefault();
 
     const req = async () => {
-      const url = "http://localhost:3001/signin";
+      const url = "http://localhost:3001/register";
 
       const res = await fetch(url, {
         method: "POST",
@@ -35,6 +40,7 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          name,
           mail,
           password,
         }),
@@ -56,24 +62,31 @@ function Login() {
     req();
   };
 
-  const onClickHandler = () => {
-    ctx.setShowRegister(true);
-  };
-
   return (
     <Container className={classes.modal}>
       <Logo />
       <form className={classes.form} onSubmit={onSubmitHandler}>
         <fieldset>
-          <legend>Login</legend>
+          <legend>Cadastro</legend>
+          <div>
+            <label htmlFor="name">Nome</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={name}
+              onChange={onNameChangeHandler}
+              required
+            />
+          </div>
           <div>
             <label htmlFor="email-address">Email</label>
             <input
               type="email"
               name="email-address"
               id="email-address"
-              value={mail}
               onChange={onEmailChangeHandler}
+              value={mail}
               required
             />
           </div>
@@ -89,21 +102,16 @@ function Login() {
             />
           </div>
         </fieldset>
-        <p>{error}</p>
         <div>
-          <button type="submit">LOGIN</button>
+          <button type="submit">CADASTRAR</button>
         </div>
         <div>
-          <button>Esqueceu a senha?</button>
-        </div>
-        <div>
-          <p>Não possui uma conta?</p>
-          <button onClick={onClickHandler}>Cadastre-se</button>
+          <p>Já possui uma conta?</p>
+          <button>Login</button>
         </div>
       </form>
-      {ctx.showRegister && <Register />}
     </Container>
   );
 }
 
-export default Login;
+export default Register;

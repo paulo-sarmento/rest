@@ -5,13 +5,8 @@
 
 .input {
   width: 100%;
+  box-sizing: border-box;
   border: none;
-  box-sizing: border-box;
-}
-
-input[type="text"] {
-  width: 100%;
-  box-sizing: border-box;
   border-radius: 4px;
   font-size: 1.125rem;
   background-image: url("../../UI/searchicon.svg");

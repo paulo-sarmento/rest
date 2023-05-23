@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { createPortal } from "react-dom";
 import classes from "./Header.module.css";
 import Container from "../Layout/Container";
 import Logo from "../UI/Logo";
@@ -35,7 +36,10 @@ const Header = () => {
           {ctx.route === "home" ? <Logo /> : <></>}
           <Cart />
         </Container>
-        <Modal open={isOpen} onClose={closeHandler} />
+        {createPortal(
+          <Modal open={isOpen} onClose={closeHandler} />,
+          document.getElementById("root")
+        )}
       </header>
     </>
   );

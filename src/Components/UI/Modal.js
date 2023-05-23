@@ -23,6 +23,7 @@ const Modal = ({ open, onClose }) => {
   };
 
   if (!open) return null;
+
   return (
     <>
       <Container className={classes.modal}>

@@ -49,6 +49,7 @@ export const ContextProvider = (props) => {
   const [isSignIn, setIsSignIn] = useState(false);
   const [user, setUser] = useState({ id: "", name: "", mail: "" });
   const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   const fetchProductsHandler = useCallback(async () => {
     setError(null);
@@ -115,6 +116,7 @@ export const ContextProvider = (props) => {
       value={{
         products,
         filteredProducts,
+        setFilteredProducts,
         filterProducts,
         route,
         onRouteChangeHandler,
@@ -123,6 +125,8 @@ export const ContextProvider = (props) => {
         user,
         setShowLogin,
         showLogin,
+        setShowRegister,
+        showRegister,
       }}
     >
       {props.children}
