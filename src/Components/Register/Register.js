@@ -2,19 +2,21 @@ import React, { useContext, useState } from "react";
 
 import classes from "./Register.module.css";
 
+import Context from "../Context/context";
+
 import Container from "../Layout/Container";
 import Logo from "../UI/Logo";
 
-import Context from "../Context/context";
+import { createPortal } from "react-dom";
 
-function Register() {
+const Register = ({ showRegister, showLogin }) => {
+  const ctx = useContext(Context);
+
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-
-  const ctx = useContext(Context);
 
   const onNameChangeHandler = (e) => {
     setName(e.target.value);
@@ -54,7 +56,7 @@ function Register() {
 
       if (data.id) {
         ctx.onLogin(data);
-        ctx.setShowLogin(false);
+        showRegister(false);
         ctx.onRouteChangeHandler("main");
       }
     };
@@ -62,56 +64,86 @@ function Register() {
     req();
   };
 
+  const onClickHandler = () => {
+    showRegister(false);
+    showLogin(true);
+
+    return (
+      <>
+        {createPortal(
+          <Register showRegister={showRegister} />,
+          document.getElementById("root")
+        )}
+      </>
+    );
+  };
+
   return (
     <Container className={classes.modal}>
       <Logo />
-      <form className={classes.form} onSubmit={onSubmitHandler}>
-        <fieldset>
-          <legend>Cadastro</legend>
-          <div>
-            <label htmlFor="name">Nome</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={name}
-              onChange={onNameChangeHandler}
-              required
-            />
+      <div className={classes.wrapper}>
+        <form className={classes.form} onSubmit={onSubmitHandler}>
+          <fieldset>
+            <legend className={classes.title}>Cadastro</legend>
+            <div className={classes.input}>
+              <label htmlFor="name" className={classes.label}>
+                Nome
+              </label>
+              <input
+                className={classes["input-field"]}
+                type="text"
+                name="name"
+                id="name"
+                value={name}
+                onChange={onNameChangeHandler}
+                required
+              />
+            </div>
+            <div className={classes.input}>
+              <label htmlFor="email-address" className={classes.label}>
+                Email
+              </label>
+              <input
+                className={classes["input-field"]}
+                type="email"
+                name="email-address"
+                id="email-address"
+                onChange={onEmailChangeHandler}
+                value={mail}
+                required
+              />
+            </div>
+            <div className={classes.input}>
+              <label htmlFor="password" className={classes.label}>
+                Senha
+              </label>
+              <input
+                className={classes["input-field"]}
+                type="password"
+                name="password"
+                id="password"
+                onChange={onPasswordChangeHandler}
+                value={password}
+                required
+              />
+            </div>
+          </fieldset>
+          <p>{error}</p>
+          <div className={classes["btn-field"]}>
+            <button type="submit" className={classes.btn}>
+              CADASTRAR
+            </button>
           </div>
-          <div>
-            <label htmlFor="email-address">Email</label>
-            <input
-              type="email"
-              name="email-address"
-              id="email-address"
-              onChange={onEmailChangeHandler}
-              value={mail}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={onPasswordChangeHandler}
-              value={password}
-              required
-            />
-          </div>
-        </fieldset>
-        <div>
-          <button type="submit">CADASTRAR</button>
-        </div>
-        <div>
+        </form>
+        <div className={classes["wrapper-btn"]}>
           <p>Já possui uma conta?</p>
-          <button>Login</button>
+          <button onClick={onClickHandler} className={classes["btn-login"]}>
+            Login
+          </button>
         </div>
-      </form>
+      </div>
     </Container>
   );
-}
+};
 
 export default Register;

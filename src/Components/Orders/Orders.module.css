@@ -1,0 +1,41 @@
+.section {
+  background: #707070;
+  color: #fff;
+}
+
+.title {
+  text-transform: uppercase;
+  color: #ff2415;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 2px;
+  padding-bottom: 1rem;
+}
+
+.item-title {
+  font-size: 0.75rem;
+  padding: 1rem 0;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 70% 10% 20%;
+  padding-bottom: 1rem;
+}
+
+.item {
+  border-bottom: 1px solid #ffea4a;
+}
+
+.list {
+  padding-top: 1.5rem;
+  padding-bottom: 2.25rem;
+}
+
+.total {
+  font-weight: 700;
+  color: #ffea4a;
+  display: inline-block;
+  padding-bottom: 1rem;
+  margin-left: 8px;
+}

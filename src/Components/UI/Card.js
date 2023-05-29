@@ -17,7 +17,7 @@ const Card = ({ id, img, name, price }) => {
 
   return (
     <>
-      <li className={classes.card} onClick={onClickHandler}>
+      <li key={id} className={classes.card} onClick={onClickHandler}>
         <div className={classes["container-img"]}>
           <img src={img} alt="" className={classes.img} />
         </div>

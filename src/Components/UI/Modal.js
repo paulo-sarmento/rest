@@ -1,28 +1,99 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+
 import classes from "./Modal.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Context from "../Context/context";
+import LoginContext from "../Context/loginContext";
+
+import Container from "../Layout/Container";
 import Logo from "./Logo";
+import Button from "./Button";
+import Login from "../Login/Login";
+import Register from "../Register/Register";
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import Orders from "../Orders/Orders";
+
+import { createPortal } from "react-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   solid,
   regular,
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-import Container from "../Layout/Container";
-import Button from "./Button";
-import Context from "../Context/context";
-import Login from "../Login/Login";
 
-const Modal = ({ open, onClose }) => {
+const Modal = ({ onOpen, onClose }) => {
   const ctx = useContext(Context);
+  const loginContext = useContext(LoginContext);
 
-  const onClickHandler = () => {
+  // const [showOrders, setShowOrders] = useState(false);
+
+  const onClickLoginHandler = () => {
     if (ctx.isSignIn === false) {
-      ctx.setShowLogin(true);
+      loginContext.setShowLogin(true);
     }
   };
 
-  if (!open) return null;
+  const onClickRegisterHandler = () => {
+    if (ctx.isSignIn === false) {
+      loginContext.setShowRegister(true);
+    }
+  };
+
+  const onClickOrdersHandler = () => {
+    if (ctx.isSignIn === true) {
+      ctx.onRouteChangeHandler("pedidos");
+      onClose();
+    } else {
+      loginContext.setShowLogin(true);
+    }
+  };
+
+  if (!onOpen) return null;
+
+  if (onOpen && loginContext.showLogin) {
+    return (
+      <>
+        {createPortal(
+          <Login
+            showLogin={loginContext.setShowLogin}
+            showRegister={loginContext.setShowRegister}
+            showForgotPassword={loginContext.setSetShowForgotPassword}
+          />,
+          document.getElementById("root")
+        )}
+      </>
+    );
+  }
+
+  if (onOpen && loginContext.showRegister) {
+    return (
+      <>
+        {createPortal(
+          <Register
+            showRegister={loginContext.setShowRegister}
+            showLogin={loginContext.setShowLogin}
+          />,
+          document.getElementById("root")
+        )}
+      </>
+    );
+  }
+
+  if (onOpen && loginContext.showForgotPassword) {
+    return (
+      <>
+        {createPortal(
+          <ForgotPassword
+            showForgotPassword={loginContext.setSetShowForgotPassword}
+            showLogin={loginContext.setShowLogin}
+          />,
+          document.getElementById("root")
+        )}
+      </>
+    );
+  }
 
   return (
     <>
@@ -34,22 +105,27 @@ const Modal = ({ open, onClose }) => {
           </span>
         </div>
         <div className={classes.wrapper}>
-          <a href="#">Pedidos</a>
-          <a href="#">Administrador</a>
+          <a onClick={onClickOrdersHandler}>Pedidos</a>
+          <a>Administrador</a>
           {ctx.isSignIn === false ? (
             <>
-              <Button className={classes["login-btn"]} onClick={onClickHandler}>
+              <Button
+                className={classes["login-btn"]}
+                onClick={onClickLoginHandler}
+              >
                 Entrar
               </Button>
-              <a href="#">criar conta</a>
+              <a href="#" onClick={onClickRegisterHandler}>
+                criar conta
+              </a>
             </>
           ) : (
             <p>{`Olá, ${ctx.user.name}`}</p>
           )}
         </div>
-        {ctx.showLogin && <Login />}
       </Container>
     </>
   );
 };
+
 export default Modal;

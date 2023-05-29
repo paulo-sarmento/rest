@@ -1,17 +1,22 @@
 import React, { useContext } from "react";
+
 import "./reset.css";
 import classes from "./App.module.css";
 
-import Context, { ContextProvider } from "./Components/Context/context";
+import Context from "./Components/Context/context";
+import { LoginContextProvider } from "./Components/Context/loginContext";
+
 import Header from "./Components/Header/Header";
 import Logo from "./Components/UI/Logo";
 import Filter from "./Components/Filter/Filter";
 import Products from "./Components/Products/Products";
 import CartItemsList from "./Components/Header/Cart/CartItemsList";
 import Footer from "./Components/Footer/Footer";
+import Orders from "./Components/Orders/Orders";
 
 const App = () => {
   const ctx = useContext(Context);
+
   let content = (
     <div className={classes.App}>
       <Header />
@@ -40,7 +45,9 @@ const App = () => {
           <h1 className={classes.title}>Carrinho</h1>
         </section>
         <main className={classes.main}>
-          <CartItemsList />
+          <LoginContextProvider>
+            <CartItemsList />
+          </LoginContextProvider>
         </main>
         <footer className={classes.footer}>
           <Footer />
@@ -58,7 +65,7 @@ const App = () => {
           <h1 className={classes.title}>Pedidos</h1>
         </section>
         <main className={classes.main}>
-          <CartItemsList />
+          <Orders />
         </main>
         <footer className={classes.footer}>
           <Footer />

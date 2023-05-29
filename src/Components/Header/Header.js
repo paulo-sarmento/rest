@@ -1,10 +1,17 @@
 import React, { useState, useContext } from "react";
-import { createPortal } from "react-dom";
+
 import classes from "./Header.module.css";
+
+import Context from "../Context/context";
+import { LoginContextProvider } from "../Context/loginContext";
+
 import Container from "../Layout/Container";
 import Logo from "../UI/Logo";
 import Cart from "./Cart/Cart";
 import Modal from "../UI/Modal";
+
+import { createPortal } from "react-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   solid,
@@ -12,19 +19,18 @@ import {
   brands,
   icon,
 } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-import Context from "../Context/context";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const ctx = useContext(Context);
+
+  const [modal, setModal] = useState(false);
 
   const onClickHandler = () => {
-    setIsOpen(true);
+    setModal(true);
   };
   const closeHandler = () => {
-    setIsOpen(false);
+    setModal(false);
   };
-
-  const ctx = useContext(Context);
 
   return (
     <>
@@ -37,7 +43,9 @@ const Header = () => {
           <Cart />
         </Container>
         {createPortal(
-          <Modal open={isOpen} onClose={closeHandler} />,
+          <LoginContextProvider>
+            <Modal onOpen={modal} onClose={closeHandler} />
+          </LoginContextProvider>,
           document.getElementById("root")
         )}
       </header>

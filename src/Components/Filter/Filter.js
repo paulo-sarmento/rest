@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
+
 import Context from "../Context/context";
+
 import Container from "../Layout/Container";
 import classes from "./Filter.module.css";
 import SearchIcon from "./SearchBar/SearchIcon";

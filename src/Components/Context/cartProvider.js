@@ -64,18 +64,43 @@ const cartReducer = (state, action) => {
       totalAmount,
     };
   } else if (action.type === "ORDER") {
-    let Order = {
-      ...state.items,
-      amount: state.totalAmount,
+    const order = {
+      id: action.user.id,
       totalPrice: state.totalPrice,
     };
 
-    return {
-      items: state.items,
-      orders: Order,
-      totalPrice: state.totalPrice,
-      totalAmount: state.totalAmount,
+    const orderProducts = state.items.map((item) => {
+      return {
+        id: item.id,
+        qtd: item.amount,
+      };
+    });
+
+    const req = async () => {
+      const url = "http://localhost:3001/order";
+
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ order, orderProducts }),
+      });
+
+      // const data = await res.json();
+
+      // if (data.error) {
+      //   setError(data.error);
+      // }
+
+      // if (data.id) {
+      //   ctx.onLogin(data);
+      //   showRegister(false);
+      //   ctx.onRouteChangeHandler("main");
+      // }
     };
+
+    req();
   }
 
   return defaultCartState;
@@ -95,8 +120,8 @@ const CartProvider = (props) => {
     dispatchCartAction({ type: "REMOVE", id });
   };
 
-  const makeOrderHandler = () => {
-    dispatchCartAction({ type: "ORDER" });
+  const makeOrderHandler = (user) => {
+    dispatchCartAction({ type: "ORDER", user });
   };
 
   const cartContext = {

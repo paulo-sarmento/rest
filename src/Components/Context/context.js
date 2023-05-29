@@ -1,55 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-// const DUMMY_PRODUCTS = [
-//   {
-//     id: "m1",
-//     img: "../../assets/img/coca.png",
-//     name: "Coca Cola lata 350ml",
-//     price: 2.44,
-//   },
-//   {
-//     id: "m2",
-//     img: "../../assets/img/fanta-laranja.png",
-//     name: "Fanta Laranja lata 350ml",
-//     price: 3.9,
-//   },
-//   {
-//     id: "m3",
-//     img: "../../assets/img/guarana.jpg",
-//     name: "Guarana Antarctica lata 350ml",
-//     price: 2.78,
-//   },
-//   {
-//     id: "m4",
-//     img: "../../assets/img/orange-juice.png",
-//     name: "Suco de laranja copo 300ml",
-//     price: 4.99,
-//   },
-//   {
-//     id: "m5",
-//     img: "../../assets/img/peps.png",
-//     name: "Peps lata 350ml",
-//     price: 2.09,
-//   },
-//   {
-//     id: "m6",
-//     img: "../../assets/img/water-bottle.png",
-//     name: "Água mineral 350ml",
-//     price: 1.99,
-//   },
-// ];
-
 const Context = React.createContext();
 
-export const ContextProvider = (props) => {
-  const [filteredProducts, setFilteredProducts] = useState(null);
-  const [route, setRoute] = useState("home");
+export const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
-  const [isSignIn, setIsSignIn] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState(null);
+
+  const [route, setRoute] = useState("home");
+
   const [user, setUser] = useState({ id: "", name: "", mail: "" });
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [error, setError] = useState(null);
 
   const fetchProductsHandler = useCallback(async () => {
     setError(null);
@@ -93,6 +54,13 @@ export const ContextProvider = (props) => {
     setIsSignIn(true);
   };
 
+  const filterProducts = (filter) => {
+    const newFilteredProducts = products.filter((product) =>
+      normalizeString(product.name).includes(normalizeString(filter))
+    );
+    setFilteredProducts(newFilteredProducts);
+  };
+
   const normalizeString = (str) => {
     // remove espaços em branco no início e no final
     str = str.trim();
@@ -102,13 +70,6 @@ export const ContextProvider = (props) => {
     str = str.toLowerCase();
     // retorna a string normalizada
     return str;
-  };
-
-  const filterProducts = (filter) => {
-    const newFilteredProducts = products.filter((product) =>
-      normalizeString(product.name).includes(normalizeString(filter))
-    );
-    setFilteredProducts(newFilteredProducts);
   };
 
   return (
@@ -123,13 +84,9 @@ export const ContextProvider = (props) => {
         onLogin,
         isSignIn,
         user,
-        setShowLogin,
-        showLogin,
-        setShowRegister,
-        showRegister,
       }}
     >
-      {props.children}
+      {children}
     </Context.Provider>
   );
 };
