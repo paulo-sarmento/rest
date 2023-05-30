@@ -11,8 +11,6 @@ import Button from "./Button";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import Orders from "../Orders/Orders";
-
 import { createPortal } from "react-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

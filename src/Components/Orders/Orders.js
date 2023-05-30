@@ -3,19 +3,16 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import classes from "./Orders.module.css";
 
 import Context from "../Context/context";
-
-import Header from "../Header/Header";
 import Container from "../Layout/Container";
-import Logo from "../UI/Logo";
 
 const Orders = () => {
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const [orders, setOrders] = useState([]);
 
   const ctx = useContext(Context);
 
   const fetchOrdersHandler = useCallback(async () => {
-    setError(null);
+    setMessage(null);
     try {
       const res = await fetch(
         `http://localhost:3001/orders?user=${ctx.user.id}`
@@ -24,25 +21,46 @@ const Orders = () => {
       const data = await res.json();
 
       if (data.length === 0) {
-        setError("Nenhum pedido realizado");
+        return setMessage("Nenhum pedido realizado");
       } else {
-        const loadedOrders = [];
+        const groupData = data.reduce((acc, obj) => {
+          const id = obj.id_pedido;
+          if (!acc[id]) {
+            acc[id] = [];
+          }
+          acc[id].push(obj);
+          return acc;
+        }, {});
 
-        for (const key in data) {
-          loadedOrders.push({
-            id: Number(key) + 1,
-            data: new Date(data[key].data),
-            name: data[key].nome,
-            amount: data[key].qtd,
-            price: data[key].preco,
-            totalPrice: data[key].total,
+        const dataOrders = Object.entries(groupData).map((order) => {
+          return order[1];
+        });
+
+        const structuredOrders = dataOrders.map((item) => {
+          const [{ id_pedido, data, total }] = item;
+
+          const products = item.map((product) => {
+            const { nome, qtd, preco } = product;
+
+            return {
+              name: nome,
+              amount: qtd,
+              price: preco,
+            };
           });
-        }
 
-        setOrders(loadedOrders);
+          return {
+            id: id_pedido,
+            data: new Date(data),
+            products: products,
+            totalPrice: total,
+          };
+        });
+
+        setOrders(structuredOrders);
       }
     } catch (error) {
-      setError(error.message);
+      setMessage(error.message);
     }
   }, []);
 
@@ -64,7 +82,7 @@ const Orders = () => {
     return formattedDate;
   };
 
-  const Card = ({ id, data, name, amount, price, totalPrice }) => {
+  const Card = ({ id, data, products, totalPrice }) => {
     return (
       <>
         <li key={id} className={classes.item}>
@@ -73,17 +91,19 @@ const Orders = () => {
               data
             )}`}</h2>
           </div>
-          <div className={classes.wrapper}>
-            <h3>{name}</h3>
-            <h3>{amount}</h3>
-            <h3>
-              {price.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}
-            </h3>
-          </div>
+          {products.map((product, index) => (
+            <div className={classes.wrapper} key={index}>
+              <h3>{product.name}</h3>
+              <h3>{product.amount}</h3>
+              <h3>
+                {product.price.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                  minimumFractionDigits: 2,
+                })}
+              </h3>
+            </div>
+          ))}
           <div>
             <h2>
               Total:
@@ -101,25 +121,33 @@ const Orders = () => {
     );
   };
 
-  const items = orders.map((item) => {
+  const items = orders.map((item, i) => {
     return (
       <Card
-        id={item.id}
+        id={i + 1}
         data={item.data}
-        name={item.name}
-        amount={item.amount}
-        price={item.price}
+        products={item.products}
         totalPrice={item.totalPrice}
       />
     );
   });
 
   return (
-    <section className={classes.section}>
-      <Container>
-        <ul className={classes.list}>{items}</ul>
-      </Container>
-    </section>
+    <>
+      {message === null ? (
+        <section className={classes.section}>
+          <Container>
+            <ul className={classes.list}>{items}</ul>
+          </Container>
+        </section>
+      ) : (
+        <section className={classes.section}>
+          <Container>
+            <p className={classes.error}>{message}</p>
+          </Container>
+        </section>
+      )}
+    </>
   );
 };
 

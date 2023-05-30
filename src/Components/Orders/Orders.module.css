@@ -15,6 +15,7 @@
 .item-title {
   font-size: 0.75rem;
   padding: 1rem 0;
+  font-weight: 700;
 }
 
 .wrapper {
@@ -38,4 +39,12 @@
   display: inline-block;
   padding-bottom: 1rem;
   margin-left: 8px;
+}
+
+.error {
+  color: #fff;
+  line-height: 1;
+  font-size: 1.5rem;
+  padding: 1.125rem 0;
+  text-align: center;
 }

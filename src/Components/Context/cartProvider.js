@@ -86,18 +86,6 @@ const cartReducer = (state, action) => {
         },
         body: JSON.stringify({ order, orderProducts }),
       });
-
-      // const data = await res.json();
-
-      // if (data.error) {
-      //   setError(data.error);
-      // }
-
-      // if (data.id) {
-      //   ctx.onLogin(data);
-      //   showRegister(false);
-      //   ctx.onRouteChangeHandler("main");
-      // }
     };
 
     req();

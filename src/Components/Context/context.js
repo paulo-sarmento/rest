@@ -10,10 +10,10 @@ export const ContextProvider = ({ children }) => {
 
   const [user, setUser] = useState({ id: "", name: "", mail: "" });
   const [isSignIn, setIsSignIn] = useState(false);
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
 
   const fetchProductsHandler = useCallback(async () => {
-    setError(null);
+    setMessage(null);
     try {
       const response = await fetch("http://localhost:3001/");
       if (!response.ok) {
@@ -36,8 +36,8 @@ export const ContextProvider = ({ children }) => {
 
       setProducts(loadedProducts);
       console.log(loadedProducts);
-    } catch (error) {
-      setError(error.message);
+    } catch (err) {
+      setMessage(err.message);
     }
   }, []);
 
