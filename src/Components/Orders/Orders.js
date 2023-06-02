@@ -23,7 +23,7 @@ const Orders = () => {
       if (data.length === 0) {
         return setMessage("Nenhum pedido realizado");
       } else {
-        const groupData = data.reduce((acc, obj) => {
+        const groupOrders = data.reduce((acc, obj) => {
           const id = obj.id_pedido;
           if (!acc[id]) {
             acc[id] = [];
@@ -32,14 +32,15 @@ const Orders = () => {
           return acc;
         }, {});
 
-        const dataOrders = Object.entries(groupData).map((order) => {
-          return order[1];
-        });
+        //groupOrders agrupa os pedidos de mesmo ID, verificando se o acumulador possui alguma propriedade com o valor de id_pedido. se não possuir cria um
+        //array novo e passa o objeto para ele. se já possui uma propriedade com o valor de id_pedido apenas passa o objeto para esse array
 
-        const structuredOrders = dataOrders.map((item) => {
-          const [{ id_pedido, data, total }] = item;
+        let structuredOrders = [];
 
-          const products = item.map((product) => {
+        for (let order in groupOrders) {
+          const [{ id_pedido, data, total }] = groupOrders[order];
+
+          const products = groupOrders[order].map((product) => {
             const { nome, qtd, preco } = product;
 
             return {
@@ -49,13 +50,18 @@ const Orders = () => {
             };
           });
 
-          return {
+          structuredOrders.push({
             id: id_pedido,
             data: new Date(data),
             products: products,
             totalPrice: total,
-          };
-        });
+          });
+        }
+
+        //esse loop for in faz um loop pelas propriedades do objeto groupOrders, que nesse caso representam os ID's dos pedidos agrupados anteriormente.
+        //via desestruturação é salvo o id_pedido, data e total do pedido e depois é feito um map no array retornando apenas nome, qtd e preco para criar um array
+        //com os produtos desse meu pedido, logo após isso essa estrutura é passado para o meu array structuredOrders. ficando uma estrutura igual essa
+        //[ id: , data: products: [{ nome: , amount: , price: }], totalPrice: ]. salvando todos os produtos do pedido separadamente em um array
 
         setOrders(structuredOrders);
       }
