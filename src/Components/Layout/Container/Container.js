@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import classes from "./Container.module.css";
 
 const Container = ({ className, children }) => {

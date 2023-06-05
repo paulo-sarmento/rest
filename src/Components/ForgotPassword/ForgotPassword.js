@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import classes from "./ForgotPassword.module.css";
 
-import Container from "../Layout/Container";
+import Container from "../Layout/Container/Container";
 import Login from "../Login/Login";
 
 import { createPortal } from "react-dom";

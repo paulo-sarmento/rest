@@ -1,13 +1,10 @@
 import React from "react";
+
 import classes from "./Footer.module.css";
-import Container from "../Layout/Container";
+
+import Container from "../Layout/Container/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import { brands } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 const Footer = () => {
   return (

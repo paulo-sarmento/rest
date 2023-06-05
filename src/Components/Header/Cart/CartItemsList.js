@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import classes from "./CartItemsList.module.css";
 
-import Container from "../../Layout/Container";
-import Logo from "../../UI/Logo";
-import Button from "../../UI/Button";
+import Container from "../../Layout/Container/Container";
+import Logo from "../../UI/Logo/Logo";
+import Button from "../../UI/Button/Button";
 import CartItem from "./CartItem";
 
-import Context from "../../Context/context";
-import CartContext from "../../Context/cart-context";
+import Context from "../../Context/Context";
+import CartContext from "../../Context/CartContext";
 
 const CartItemsList = () => {
   const { items, totalPrice, removeItem, addItem, makeOrder } = useContext(
@@ -60,9 +60,13 @@ const CartItemsList = () => {
           <ul className={classes.list}>{cartItems}</ul>
           <div>
             <span className={classes.total}>Total:</span>
-            <span className={classes.price}>{` R$ ${totalPrice.toFixed(
-              2
-            )}`}</span>
+            <span className={classes.price}>
+              {totalPrice.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+                minimumFractionDigits: 2,
+              })}
+            </span>
           </div>
           <Button
             className={classes["btn-comprar"]}

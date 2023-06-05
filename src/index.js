@@ -7,11 +7,12 @@ import App from "./App";
 import Error from "./Pages/Error/Error";
 import Home from "./Pages/Home/Home";
 import CartItemsList from "./Components/Header/Cart/CartItemsList";
-import Login from "./Components/Login/Login";
-import Register from "./Components/Register/Register";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import Orders from "./Pages/Orders/Orders";
 
-import { ContextProvider } from "./Components/Context/context";
-import CartProvider from "./Components/Context/cartProvider";
+import { ContextProvider } from "./Components/Context/ContextProvider";
+import CartProvider from "./Components/Context/CartProvider";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "orders",
+        element: <Orders />,
       },
     ],
   },

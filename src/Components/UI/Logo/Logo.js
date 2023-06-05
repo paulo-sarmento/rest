@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import classes from "./Logo.module.css";
-import Context from "../Context/context";
 
 const Logo = () => {
-  const ctx = useContext(Context);
+  const navigate = useNavigate();
 
   const onClickHandler = () => {
-    ctx.onRouteChangeHandler("home");
+    navigate("/");
   };
 
   return (

@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import CartContext from "../Context/cart-context";
+
 import classes from "./Card.module.css";
 
+import CartContext from "../../Context/CartContext";
+
 const Card = ({ id, img, name, price }) => {
-  const ctx = useContext(CartContext);
+  const { addItem } = useContext(CartContext);
 
   const onClickHandler = () => {
-    ctx.addItem({
+    addItem({
       id,
       img,
       name,

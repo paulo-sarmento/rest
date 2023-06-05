@@ -2,21 +2,22 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 
 import classes from "./Orders.module.css";
 
-import Context from "../Context/context";
-import Container from "../Layout/Container";
+import Container from "../../Components/Layout/Container/Container";
+
+import Context from "../../Components/Context/Context";
+
+import Logo from "../../Components/UI/Logo/Logo";
 
 const Orders = () => {
   const [message, setMessage] = useState(null);
   const [orders, setOrders] = useState([]);
 
-  const ctx = useContext(Context);
+  const { user } = useContext(Context);
 
   const fetchOrdersHandler = useCallback(async () => {
     setMessage(null);
     try {
-      const res = await fetch(
-        `http://localhost:3001/orders?user=${ctx.user.id}`
-      );
+      const res = await fetch(`http://localhost:3001/orders?user=${user.id}`);
 
       const data = await res.json();
 
@@ -141,11 +142,17 @@ const Orders = () => {
   return (
     <>
       {message === null ? (
-        <section className={classes.section}>
-          <Container>
-            <ul className={classes.list}>{items}</ul>
-          </Container>
-        </section>
+        <>
+          <section>
+            <Logo />
+            <h1 className={classes.title}>PEDIDOS</h1>
+          </section>
+          <section className={classes.section}>
+            <Container>
+              <ul className={classes.list}>{items}</ul>
+            </Container>
+          </section>
+        </>
       ) : (
         <section className={classes.section}>
           <Container>

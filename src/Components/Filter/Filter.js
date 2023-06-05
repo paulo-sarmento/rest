@@ -1,16 +1,17 @@
 import React, { useState, useContext } from "react";
 
-import Context from "../Context/context";
-
-import Container from "../Layout/Container";
+import Container from "../Layout/Container/Container";
 import classes from "./Filter.module.css";
 import SearchIcon from "./SearchBar/SearchIcon";
 import SearchBar from "./SearchBar/SearchBar";
 
+import Context from "../Context/Context";
+
 const Filter = () => {
   const [activeCategory, setActiveCategory] = useState("Bebidas");
   const [isActive, setIsActive] = useState(0);
-  const ctx = useContext(Context);
+
+  const { setFilteredProducts, products } = useContext(Context);
 
   const onClickHandler = (category) => {
     setActiveCategory(category);
@@ -23,7 +24,7 @@ const Filter = () => {
   const onClickBackHandler = () => {
     setIsActive(0);
 
-    ctx.setFilteredProducts(ctx.products);
+    setFilteredProducts(products);
   };
 
   let content = (

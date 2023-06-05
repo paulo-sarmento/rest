@@ -1,19 +1,15 @@
 import React from "react";
+
 import classes from "./CartItem.module.css";
-import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  solid,
-  regular,
-  brands,
-  icon,
-} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
-import Button from "../../UI/Button";
+
+import { motion } from "framer-motion/dist/framer-motion";
+
+import Button from "../../UI/Button/Button";
 
 const CartItem = ({ id, img, name, price, amount, onAdd, onRemove }) => {
-  
   return (
     <motion.li
+      key={id}
       className={classes["cart-item"]}
       drag={"x"}
       dragConstraints={{ right: 95, left: 0 }}
@@ -38,7 +34,13 @@ const CartItem = ({ id, img, name, price, amount, onAdd, onRemove }) => {
         <span>{amount}</span>
       </div>
       <div className={classes.wrapper}>
-        <h2 className={classes.price}>{`R$ ${price}`}</h2>
+        <h2 className={classes.price}>
+          {price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 2,
+          })}
+        </h2>
       </div>
     </motion.li>
   );

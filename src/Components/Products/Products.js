@@ -1,13 +1,14 @@
 import React from "react";
-import Container from "../Layout/Container";
-import Card from "../UI/Card";
+
+import Container from "../Layout/Container/Container";
+import Card from "../UI/Card/Card";
 import classes from "./Products.module.css";
 
 const Products = ({ productsList }) => {
   const items = productsList.map((item) => {
     return (
       <Card
-        id={item.id}
+        key={item.id}
         img={item.img}
         name={item.name}
         price={item.price}

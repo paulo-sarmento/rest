@@ -1,26 +1,22 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import classes from "./Register.module.css";
+import classes from "./Login.module.css";
 
-import Context from "../Context/context";
+import Container from "../../Components/Layout/Container/Container";
+import Logo from "../../Components/UI/Logo/Logo";
 
-import Container from "../Layout/Container";
-import Logo from "../UI/Logo";
+import Context from "../../Components/Context/Context";
 
-import { createPortal } from "react-dom";
+const Login = () => {
+  const { onLogin } = useContext(Context);
 
-const Register = ({ showRegister, showLogin }) => {
-  const ctx = useContext(Context);
+  const navigate = useNavigate();
 
-  const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
-
-  const onNameChangeHandler = (e) => {
-    setName(e.target.value);
-  };
 
   const onEmailChangeHandler = (e) => {
     setMail(e.target.value);
@@ -34,7 +30,7 @@ const Register = ({ showRegister, showLogin }) => {
     e.preventDefault();
 
     const req = async () => {
-      const url = "http://localhost:3001/register";
+      const url = "http://localhost:3001/signin";
 
       const res = await fetch(url, {
         method: "POST",
@@ -42,7 +38,6 @@ const Register = ({ showRegister, showLogin }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
           mail,
           password,
         }),
@@ -55,27 +50,16 @@ const Register = ({ showRegister, showLogin }) => {
       }
 
       if (data.id) {
-        ctx.onLogin(data);
-        showRegister(false);
-        ctx.onRouteChangeHandler("main");
+        onLogin(data);
+        navigate("/");
       }
     };
 
     req();
   };
 
-  const onClickHandler = () => {
-    showRegister(false);
-    showLogin(true);
-
-    return (
-      <>
-        {createPortal(
-          <Register showRegister={showRegister} />,
-          document.getElementById("root")
-        )}
-      </>
-    );
+  const onClickRegisterHandler = () => {
+    navigate("/register");
   };
 
   return (
@@ -84,21 +68,7 @@ const Register = ({ showRegister, showLogin }) => {
       <div className={classes.wrapper}>
         <form className={classes.form} onSubmit={onSubmitHandler}>
           <fieldset>
-            <legend className={classes.title}>Cadastro</legend>
-            <div className={classes.input}>
-              <label htmlFor="name" className={classes.label}>
-                Nome
-              </label>
-              <input
-                className={classes["input-field"]}
-                type="text"
-                name="name"
-                id="name"
-                value={name}
-                onChange={onNameChangeHandler}
-                required
-              />
-            </div>
+            <legend className={classes.title}>Login</legend>
             <div className={classes.input}>
               <label htmlFor="email-address" className={classes.label}>
                 Email
@@ -108,8 +78,8 @@ const Register = ({ showRegister, showLogin }) => {
                 type="email"
                 name="email-address"
                 id="email-address"
-                onChange={onEmailChangeHandler}
                 value={mail}
+                onChange={onEmailChangeHandler}
                 required
               />
             </div>
@@ -128,17 +98,21 @@ const Register = ({ showRegister, showLogin }) => {
               />
             </div>
           </fieldset>
-          <p>{error}</p>
+          <p className={classes.error}>{error}</p>
           <div className={classes["btn-field"]}>
             <button type="submit" className={classes.btn}>
-              CADASTRAR
+              LOGIN
             </button>
           </div>
         </form>
+        <div className={classes["btn-field"]}></div>
         <div className={classes["wrapper-btn"]}>
-          <p>Já possui uma conta?</p>
-          <button onClick={onClickHandler} className={classes["btn-login"]}>
-            Login
+          <p>Não possui uma conta?</p>
+          <button
+            onClick={onClickRegisterHandler}
+            className={classes["btn-register"]}
+          >
+            Cadastre-se
           </button>
         </div>
       </div>
@@ -146,4 +120,4 @@ const Register = ({ showRegister, showLogin }) => {
   );
 };
 
-export default Register;
+export default Login;
