@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, createContext } from "react";
 
-const Context = React.createContext();
+const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -35,7 +35,6 @@ export const ContextProvider = ({ children }) => {
       }
 
       setProducts(loadedProducts);
-      console.log(loadedProducts);
     } catch (err) {
       setMessage(err.message);
     }

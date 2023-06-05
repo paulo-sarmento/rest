@@ -8,6 +8,14 @@
   padding-top: 1rem;
 }
 
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  color: #ff2415;
+}
+
 .table-head {
   display: grid;
   grid-template-columns: 55% 15% 30%;
@@ -31,6 +39,6 @@
 }
 
 .price {
-  color: #FFEA4A;
+  color: #ffea4a;
   margin-left: 5px;
 }

@@ -1,8 +1,12 @@
+.footer {
+  background: #ff2415;
+}
+
 .footer-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   gap: 2rem;
-  padding: 2rem 0;
+  padding: 2rem 0.75rem;
   color: #ffff;
   box-sizing: border-box;
   font-size: 1rem;

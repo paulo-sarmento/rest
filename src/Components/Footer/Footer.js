@@ -12,8 +12,8 @@ import {
 const Footer = () => {
   return (
     <>
-      <Container>
-        <div className={classes["footer-wrapper"]}>
+      <footer className={classes.footer}>
+        <Container className={classes["footer-wrapper"]}>
           <div>
             <h3 className={classes.title}>Encontre nosso restaurante</h3>
             <p>Av. Sanim Play, 4546 - Centro. Rolim de Moura 76940000</p>
@@ -34,8 +34,8 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </footer>
     </>
   );
 };

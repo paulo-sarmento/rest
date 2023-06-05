@@ -15,31 +15,13 @@ body {
   overflow-x: hidden;
 }
 
-.App {
+.app {
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
   font-size: 1.125rem;
 }
 
-.filter {
+/* .filter {
   padding: 1rem 0;
   overflow: hidden;
-}
-
-.main {
-  background: #ff9540;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.footer {
-  background: #ff2415;
-}
-
-.title {
-  text-transform: uppercase;
-  color: #ff2415;
-  font-weight: 800;
-  text-align: center;
-  letter-spacing: 2px;
-}
+} */
