@@ -58,6 +58,7 @@ const cartReducer = (state, action) => {
         }
       }
     });
+
     return {
       items: updatedItems,
       totalPrice,

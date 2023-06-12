@@ -36,6 +36,15 @@ const Modal = ({ isOpen, onClose }) => {
     navigate("/register");
   };
 
+  const onClickAdmHandler = () => {
+    if (isSignIn) {
+      onClose();
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <Container className={classes.modal}>
       <div className={classes.header}>
@@ -46,7 +55,7 @@ const Modal = ({ isOpen, onClose }) => {
       </div>
       <div className={classes.wrapper}>
         <a onClick={onClickOrdersHandler}>Pedidos</a>
-        <a>Administrador</a>
+        <a onClick={onClickAdmHandler}>Administrador</a>
         {isSignIn === false ? (
           <>
             <Button

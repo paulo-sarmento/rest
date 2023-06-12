@@ -61,16 +61,14 @@ const Filter = () => {
     </Container>
   );
 
-  {
-    if (isActive) {
-      content = (
-        <Container>
-          <div className={classes.wrapper}>
-            <SearchBar onClickBack={onClickBackHandler} />
-          </div>
-        </Container>
-      );
-    }
+  if (isActive) {
+    content = (
+      <Container>
+        <div className={classes.wrapper}>
+          <SearchBar onClickBack={onClickBackHandler} />
+        </div>
+      </Container>
+    );
   }
 
   return <>{content}</>;

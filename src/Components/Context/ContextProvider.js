@@ -11,12 +11,8 @@ export const ContextProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
 
   const fetchProductsHandler = useCallback(async () => {
-    setMessage(null);
     try {
       const response = await fetch("http://localhost:3001/");
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
 
       const data = await response.json();
 

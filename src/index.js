@@ -10,6 +10,8 @@ import CartItemsList from "./Components/Header/Cart/CartItemsList";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Orders from "./Pages/Orders/Orders";
+import Private from "./Pages/Private/Private";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 import { ContextProvider } from "./Components/Context/ContextProvider";
 import CartProvider from "./Components/Context/CartProvider";
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <Orders />,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <Private>
+            <Dashboard />
+          </Private>
+        ),
       },
     ],
   },
