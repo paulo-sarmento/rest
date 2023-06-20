@@ -1,0 +1,16 @@
+.list-item {
+  display: grid;
+  grid-template-columns: 15% 30% 30% 25%;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #d9d7d7;
+}
+
+.span {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.125rem;
+  line-height: 1.1;
+}

@@ -21,7 +21,7 @@ export const ContextProvider = ({ children }) => {
       for (const key in data) {
         loadedProducts.push({
           id: data[key].id,
-          img: data[key].img,
+          img: `http://localhost:3001/${data[key].img}`,
           name: data[key].nome,
           price: data[key].preco,
           amount: data[key].qtd,
@@ -62,6 +62,20 @@ export const ContextProvider = ({ children }) => {
     setIsSignIn(true);
   };
 
+  const formatDate = (date) => {
+    const options = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+
+    const formattedDate = new Date(date).toLocaleString("pt-BR", options);
+    return formattedDate;
+  };
+
   return (
     <Context.Provider
       value={{
@@ -72,6 +86,7 @@ export const ContextProvider = ({ children }) => {
         onLogin,
         isSignIn,
         user,
+        formatDate,
       }}
     >
       {children}

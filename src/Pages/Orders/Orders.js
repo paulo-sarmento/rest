@@ -12,7 +12,7 @@ const Orders = () => {
   const [message, setMessage] = useState(null);
   const [orders, setOrders] = useState([]);
 
-  const { user } = useContext(Context);
+  const { user, formatDate } = useContext(Context);
 
   const fetchOrdersHandler = useCallback(async () => {
     setMessage(null);
@@ -74,20 +74,6 @@ const Orders = () => {
   useEffect(() => {
     fetchOrdersHandler();
   }, [fetchOrdersHandler]); // [] determina quando essa função de useEffect será executada, somente será executada novamente se as dependências listadas dentro do [] mudar
-
-  const formatDate = (date) => {
-    const options = {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    };
-
-    const formattedDate = new Date(date).toLocaleString("pt-BR", options);
-    return formattedDate;
-  };
 
   const Card = ({ id, data, products, totalPrice }) => {
     return (
