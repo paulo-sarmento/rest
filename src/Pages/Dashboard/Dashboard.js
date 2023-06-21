@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+
 import { createPortal } from "react-dom";
 
 import classes from "./Dashboard.module.css";
@@ -7,22 +8,47 @@ import Product from "./Product/Product";
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
 import Order from "./Order/Order";
-import AddProduct from "./Product/AddProduct/AddProduct";
+import Modal from "./Product/Modal/Modal";
 
 import Context from "../../Components/Context/Context";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [editingProduct, setEditingProduct] = useState({});
+
   const onAddProductHandler = () => {
     setIsOpen(true);
   };
 
   const closeHandler = () => {
+    setEditingProduct([]);
     setIsOpen(false);
   };
 
   const { products } = useContext(Context);
+
+  const onEditProduct = (id) => {
+    setIsOpen(true);
+
+    (async () => {
+      const res = await fetch("http://localhost:3001/editing-product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+
+      const product = await res.json();
+
+      setEditingProduct(product);
+    })();
+  };
+
+  const onRemoveProduct = (id) => {};
 
   const productsList = products.map((item) => {
     return (
@@ -33,6 +59,8 @@ const Dashboard = () => {
         name={item.name}
         price={item.price}
         amount={1}
+        onEdit={onEditProduct}
+        onRemove={onRemoveProduct}
       />
     );
   });
@@ -40,7 +68,6 @@ const Dashboard = () => {
   return (
     <>
       <section>
-        <AddProduct />
         <Logo />
         <Container className={classes["container-products"]}>
           <div className={classes.wrapper}>
@@ -60,7 +87,12 @@ const Dashboard = () => {
         </Container>
       </section>
       {createPortal(
-        <AddProduct isOpen={isOpen} onClose={closeHandler} />,
+        <Modal
+          isOpen={isOpen}
+          onClose={closeHandler}
+          editingProduct={editingProduct}
+          setEditingProduct={setEditingProduct}
+        />,
         document.getElementById("root")
       )}
     </>

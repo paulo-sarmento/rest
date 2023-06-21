@@ -1,23 +1,25 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 
-import classes from "./AddProduct.module.css";
+import classes from "./EditProduct.module.css";
 
 import Container from "../../../../Components/Layout/Container/Container";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
-const AddProduct = ({ isOpen, onClose }) => {
+const EditProduct = ({ isOpen, onClose, product }) => {
   if (!isOpen) return null;
+
+  const { id, nome, preco, img } = product;
 
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState("");
 
-  const [product, setProduct] = useState("");
+  const [name, setName] = useState("");
   const [price, setPrice] = useState("");
 
-  const onProductChangeHandler = (e) => {
-    setProduct(e.target.value);
+  const onNameChangeHandler = (e) => {
+    setName(e.target.value);
   };
 
   const onPriceChangeHandler = (e) => {
@@ -30,44 +32,6 @@ const AddProduct = ({ isOpen, onClose }) => {
     setImageURL(URL.createObjectURL(file));
   };
 
-  const onSubmitFormHandler = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("img", file);
-
-    URL.revokeObjectURL(file);
-
-    setFile(null);
-
-    const req = async () => {
-      const up = await fetch("http://localhost:3001/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      const { img } = await up.json();
-
-      const res = await fetch("http://localhost:3001/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product,
-          price,
-          img,
-        }),
-      });
-    };
-
-    req();
-
-    setProduct("");
-    setImageURL("");
-    setPrice("");
-  };
-
   return (
     <Container className={classes.bg}>
       <div className={classes.modal}>
@@ -78,10 +42,9 @@ const AddProduct = ({ isOpen, onClose }) => {
           className={classes.form}
           method="post"
           encType="multipart/form-data"
-          onSubmit={onSubmitFormHandler}
         >
           <fieldset>
-            <legend className={classes.title}>CADASTRAR PRODUTO</legend>
+            <legend className={classes.title}>EDITAR PRODUTO</legend>
             <div className={classes["wrapper-input"]}>
               <label
                 htmlFor="img"
@@ -109,11 +72,7 @@ const AddProduct = ({ isOpen, onClose }) => {
             </div>
             <div className={classes["wrapper-preview"]}>
               <img
-                src={
-                  imageURL
-                    ? imageURL
-                    : "http://localhost:3000/assets/img/default.jpg"
-                }
+                src={`http://localhost:3001/${img}`}
                 className={classes["img-preview"]}
               />
             </div>
@@ -126,8 +85,8 @@ const AddProduct = ({ isOpen, onClose }) => {
                 type="text"
                 name="product"
                 id="product"
-                onChange={onProductChangeHandler}
-                value={product}
+                onChange={onNameChangeHandler}
+                value={nome}
                 required
               />
             </div>
@@ -142,7 +101,7 @@ const AddProduct = ({ isOpen, onClose }) => {
                 name="price"
                 id="price"
                 onChange={onPriceChangeHandler}
-                value={price}
+                value={preco}
                 required
               />
             </div>
@@ -159,4 +118,4 @@ const AddProduct = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
