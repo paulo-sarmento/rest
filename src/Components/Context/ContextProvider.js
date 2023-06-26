@@ -4,6 +4,7 @@ import Context from "./Context";
 
 export const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [inactiveProducts, setInactiveProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(null);
 
   const [user, setUser] = useState({ id: "", name: "", mail: "" });
@@ -16,19 +17,34 @@ export const ContextProvider = ({ children }) => {
 
       const data = await response.json();
 
-      const loadedProducts = [];
+      let inactive = [];
+      let active = [];
+      let loadedProducts = [];
 
-      for (const key in data) {
-        loadedProducts.push({
-          id: data[key].id,
-          img: `http://localhost:3001/${data[key].img}`,
-          name: data[key].nome,
-          price: data[key].preco,
-          amount: data[key].qtd,
+      data.forEach((product) => {
+        if (product.inativo) {
+          return inactive.push({
+            id: product.id,
+            img: `http://localhost:3001/${product.img}`,
+            name: product.nome,
+            price: product.preco,
+            amount: product.qtd,
+          });
+        }
+
+        return active.push({
+          id: product.id,
+          img: `http://localhost:3001/${product.img}`,
+          name: product.nome,
+          price: product.preco,
+          amount: product.qtd,
         });
-      }
+      });
 
-      setProducts(loadedProducts);
+      loadedProducts.push(inactive, active);
+
+      setInactiveProducts(loadedProducts[0]);
+      setProducts(loadedProducts[1]);
     } catch (err) {
       setMessage(err.message);
     }
@@ -36,7 +52,7 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProductsHandler();
-  }, [fetchProductsHandler]); // [] determina quando essa função de useEffect será executada, somente será executada novamente se as dependências listadas dentro do [] mudar
+  }, []); // [] determina quando essa função de useEffect será executada, somente será executada novamente se as dependências listadas dentro do [] mudar
 
   const normalizeString = (str) => {
     // remove espaços em branco no início e no final
@@ -80,6 +96,7 @@ export const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         products,
+        inactiveProducts,
         filteredProducts,
         setFilteredProducts,
         filterProducts,

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import { createPortal } from "react-dom";
 
@@ -10,12 +10,21 @@ import Logo from "../../Components/UI/Logo/Logo";
 import Order from "./Order/Order";
 import Modal from "./Product/Modal/Modal";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+
 import Context from "../../Components/Context/Context";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [editingProduct, setEditingProduct] = useState({});
+
+  const [showInactiveForm, setShowInactiveForm] = useState(false);
+
+  const [inactivateProductID, setInactivateProductID] = useState(null);
+
+  const [showInactiveProducts, setShowInactiveProducts] = useState(false);
 
   const onAddProductHandler = () => {
     setIsOpen(true);
@@ -26,7 +35,7 @@ const Dashboard = () => {
     setIsOpen(false);
   };
 
-  const { products } = useContext(Context);
+  const { products, inactiveProducts } = useContext(Context);
 
   const onEditProduct = (id) => {
     setIsOpen(true);
@@ -48,22 +57,79 @@ const Dashboard = () => {
     })();
   };
 
-  const onRemoveProduct = (id) => {};
+  const onCloseDeleteProductHandler = () => {
+    setShowInactiveForm(false);
+    setInactivateProductID(null);
+  };
 
-  const productsList = products.map((item) => {
-    return (
-      <Product
-        key={item.id}
-        id={item.id}
-        img={item.img}
-        name={item.name}
-        price={item.price}
-        amount={1}
-        onEdit={onEditProduct}
-        onRemove={onRemoveProduct}
-      />
-    );
-  });
+  const onConfirmDeleteProductHandler = () => {
+    (async () => {
+      const res = await fetch("http://localhost:3001/inactivate-product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inactivateProductID,
+        }),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      setShowInactiveForm(false);
+      setInactivateProductID(null);
+    })();
+  };
+
+  const onShowInactiveProductsChangeHandler = () => {
+    if (showInactiveProducts) {
+      setShowInactiveProducts(false);
+    } else {
+      setShowInactiveProducts(true);
+    }
+  };
+
+  let productsList;
+
+  {
+    showInactiveProducts
+      ? (productsList = inactiveProducts.map((item) => {
+          return (
+            <Product
+              key={item.id}
+              id={item.id}
+              img={item.img}
+              name={item.name}
+              price={item.price}
+              amount={1}
+              onEdit={onEditProduct}
+              onDelete={(id) => {
+                setShowInactiveForm(true);
+                setInactivateProductID(id);
+              }}
+            />
+          );
+        }))
+      : (productsList = products.map((item) => {
+          return (
+            <Product
+              key={item.id}
+              id={item.id}
+              img={item.img}
+              name={item.name}
+              price={item.price}
+              amount={1}
+              onEdit={onEditProduct}
+              onDelete={(id) => {
+                setShowInactiveForm(true);
+                setInactivateProductID(id);
+              }}
+            />
+          );
+        }));
+  }
 
   return (
     <>
@@ -78,6 +144,19 @@ const Dashboard = () => {
             >
               add novo
             </button>
+            <div className={classes["inactive-wrapper"]}>
+              <span className={classes["inactive-span"]}>inativos</span>
+              <label htmlFor="inactive" className={classes.inactive}>
+                <input
+                  type="checkbox"
+                  name="inactive"
+                  id="inactive"
+                  onChange={onShowInactiveProductsChangeHandler}
+                  {...(showInactiveProducts ? { checked: "checked" } : {})}
+                />
+                <span className={classes.slider}></span>
+              </label>
+            </div>
           </div>
           <ul className={classes.list}>{productsList}</ul>
         </Container>
@@ -86,6 +165,41 @@ const Dashboard = () => {
           <Order />
         </Container>
       </section>
+      {showInactiveForm ? (
+        <>
+          <Container className={classes.bg}>
+            <div className={classes.modal}>
+              <div className={classes["wrapper-modal"]}>
+                <h1 className={classes["form-title"]}>
+                  {showInactiveProducts
+                    ? "ativar produto?"
+                    : "inativar produto?"}
+                </h1>
+                <div className={classes["wrapper-btn"]}>
+                  <button
+                    className={classes["btn-form"]}
+                    onClick={onConfirmDeleteProductHandler}
+                  >
+                    <span className={classes["delete"]}>
+                      <FontAwesomeIcon icon={solid("check")} />
+                    </span>
+                  </button>
+                  <button
+                    className={classes["btn-form"]}
+                    onClick={onCloseDeleteProductHandler}
+                  >
+                    <span className={classes["no-delete"]}>
+                      <FontAwesomeIcon icon={solid("x")} />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </>
+      ) : (
+        <></>
+      )}
       {createPortal(
         <Modal
           isOpen={isOpen}

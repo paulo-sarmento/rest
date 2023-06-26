@@ -5,13 +5,13 @@ import classes from "./Product.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
-const Product = ({ id, img, name, price, onEdit, onRemove }) => {
+const Product = ({ id, img, name, price, onEdit, onDelete }) => {
   const onClickEditProductHandler = (e) => {
     onEdit(id);
   };
 
   const onClickDeleteProductHandler = (e) => {
-    onRemove(id);
+    onDelete(id);
   };
 
   return (
