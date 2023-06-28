@@ -24,7 +24,11 @@ const Dashboard = () => {
 
   const [inactivateProductID, setInactivateProductID] = useState(null);
 
-  const [showInactiveProducts, setShowInactiveProducts] = useState(false);
+  const [showInactiveProducts, setShowInactiveProducts] = useState(() => {
+    const storedValue = sessionStorage.getItem("showInactiveProducts");
+
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
 
   const onAddProductHandler = () => {
     setIsOpen(true);
@@ -57,12 +61,12 @@ const Dashboard = () => {
     })();
   };
 
-  const onCloseDeleteProductHandler = () => {
+  const onCloseInactivateProductHandler = () => {
     setShowInactiveForm(false);
     setInactivateProductID(null);
   };
 
-  const onConfirmDeleteProductHandler = () => {
+  const onConfirmInactivateProductHandler = () => {
     (async () => {
       const res = await fetch("http://localhost:3001/inactivate-product", {
         method: "POST",
@@ -80,55 +84,59 @@ const Dashboard = () => {
 
       setShowInactiveForm(false);
       setInactivateProductID(null);
+
+      window.location.reload();
     })();
   };
 
   const onShowInactiveProductsChangeHandler = () => {
     if (showInactiveProducts) {
       setShowInactiveProducts(false);
+      sessionStorage.setItem("showInactiveProducts", JSON.stringify(false));
     } else {
       setShowInactiveProducts(true);
+      sessionStorage.setItem("showInactiveProducts", JSON.stringify(true));
     }
   };
 
   let productsList;
 
-  {
-    showInactiveProducts
-      ? (productsList = inactiveProducts.map((item) => {
-          return (
-            <Product
-              key={item.id}
-              id={item.id}
-              img={item.img}
-              name={item.name}
-              price={item.price}
-              amount={1}
-              onEdit={onEditProduct}
-              onDelete={(id) => {
-                setShowInactiveForm(true);
-                setInactivateProductID(id);
-              }}
-            />
-          );
-        }))
-      : (productsList = products.map((item) => {
-          return (
-            <Product
-              key={item.id}
-              id={item.id}
-              img={item.img}
-              name={item.name}
-              price={item.price}
-              amount={1}
-              onEdit={onEditProduct}
-              onDelete={(id) => {
-                setShowInactiveForm(true);
-                setInactivateProductID(id);
-              }}
-            />
-          );
-        }));
+  if (showInactiveProducts && inactiveProducts.length > 0) {
+    productsList = inactiveProducts.map((item) => {
+      return (
+        <Product
+          key={item.id}
+          id={item.id}
+          img={item.img}
+          name={item.name}
+          price={item.price}
+          amount={1}
+          onEdit={onEditProduct}
+          onDelete={(id) => {
+            setShowInactiveForm(true);
+            setInactivateProductID(id);
+          }}
+        />
+      );
+    });
+  } else {
+    productsList = products.map((item) => {
+      return (
+        <Product
+          key={item.id}
+          id={item.id}
+          img={item.img}
+          name={item.name}
+          price={item.price}
+          amount={1}
+          onEdit={onEditProduct}
+          onDelete={(id) => {
+            setShowInactiveForm(true);
+            setInactivateProductID(id);
+          }}
+        />
+      );
+    });
   }
 
   return (
@@ -158,7 +166,19 @@ const Dashboard = () => {
               </label>
             </div>
           </div>
-          <ul className={classes.list}>{productsList}</ul>
+          <ul className={classes.list}>
+            {showInactiveProducts ? (
+              inactiveProducts.length === 0 ? (
+                <li>
+                  <h1>nenhum produto inativo</h1>
+                </li>
+              ) : (
+                productsList
+              )
+            ) : (
+              productsList
+            )}
+          </ul>
         </Container>
         <Container className={classes["container-orders"]}>
           <h1 className={classes.title}>Pedidos</h1>
@@ -178,7 +198,7 @@ const Dashboard = () => {
                 <div className={classes["wrapper-btn"]}>
                   <button
                     className={classes["btn-form"]}
-                    onClick={onConfirmDeleteProductHandler}
+                    onClick={onConfirmInactivateProductHandler}
                   >
                     <span className={classes["delete"]}>
                       <FontAwesomeIcon icon={solid("check")} />
@@ -186,7 +206,7 @@ const Dashboard = () => {
                   </button>
                   <button
                     className={classes["btn-form"]}
-                    onClick={onCloseDeleteProductHandler}
+                    onClick={onCloseInactivateProductHandler}
                   >
                     <span className={classes["no-delete"]}>
                       <FontAwesomeIcon icon={solid("x")} />

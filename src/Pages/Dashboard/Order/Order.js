@@ -2,12 +2,16 @@ import React, { useEffect, useCallback, useState, useContext } from "react";
 
 import classes from "./Order.module.css";
 
+import Filter from "./Filter/Filter";
+
 import Context from "../../../Components/Context/Context";
 
 const Order = () => {
-  const [orders, setOrders] = useState();
+  const [orders, setOrders] = useState(null);
+  const [filteredOrders, setFilteredOrders] = useState(null);
   const [message, setMessage] = useState();
-  const { formatDate } = useContext(Context);
+
+  const { formatDate, normalizeString } = useContext(Context);
 
   const fetchOrdersHandler = useCallback(async () => {
     try {
@@ -22,11 +26,12 @@ const Order = () => {
           id: data[key].id,
           date: formatDate(data[key].data),
           costumer: data[key].nome,
-          total: data[key].total.toLocaleString("pt-BR", {
+          totalStringifyed: data[key].total.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
             minimumFractionDigits: 2,
           }),
+          total: data[key].total,
         });
       }
 
@@ -40,34 +45,103 @@ const Order = () => {
     fetchOrdersHandler();
   }, [fetchOrdersHandler]);
 
-  const ordersList = orders ? (
-    orders.map((order) => {
-      return (
-        <li key={order.id} className={classes["list-item"]}>
-          <div>
-            <span className={classes.span}>ID</span>
-            <h2>{order.id}</h2>
-          </div>
-          <div>
-            <span className={classes.span}>Data</span>
-            <h2>{order.date}</h2>
-          </div>
-          <div>
-            <span className={classes.span}>Cliente</span>
-            <h2>{order.costumer}</h2>
-          </div>
-          <div>
-            <span className={classes.span}>Total</span>
-            <h2>{order.total}</h2>
-          </div>
-        </li>
-      );
-    })
-  ) : (
-    <li>Nenhum pedido encontrado.</li>
-  );
+  let ordersList;
+  let totalOrder = 0;
+  let totalOrderStringifyed = "";
 
-  return <ul>{ordersList}</ul>;
+  if (orders) {
+    if (filteredOrders) {
+      ordersList = filteredOrders.map((order) => {
+        totalOrder += order.total;
+        totalOrderStringifyed = totalOrder.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+          minimumFractionDigits: 2,
+        });
+
+        return (
+          <>
+            <li key={order.id} className={classes["list-item"]}>
+              <div>
+                <span className={classes.span}>ID</span>
+                <h2>{order.id}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Data</span>
+                <h2>{order.date}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Cliente</span>
+                <h2>{order.costumer}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Total</span>
+                <h2>{order.totalStringifyed}</h2>
+              </div>
+            </li>
+          </>
+        );
+      });
+    } else {
+      totalOrder = 0;
+      ordersList = orders.map((order) => {
+        totalOrder += order.total;
+        totalOrderStringifyed = totalOrder.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+          minimumFractionDigits: 2,
+        });
+
+        return (
+          <>
+            <li key={order.id} className={classes["list-item"]}>
+              <div>
+                <span className={classes.span}>ID</span>
+                <h2>{order.id}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Data</span>
+                <h2>{order.date}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Cliente</span>
+                <h2>{order.costumer}</h2>
+              </div>
+              <div>
+                <span className={classes.span}>Total</span>
+                <h2>{order.totalStringifyed}</h2>
+              </div>
+            </li>
+          </>
+        );
+      });
+    }
+  } else {
+    return (
+      <li className={classes["list-item-empty"]}>nenhum pedido realizado</li>
+    );
+  }
+
+  const filter = (filter) => {
+    const filteredOrders = orders.filter((order) =>
+      normalizeString(order.costumer).includes(normalizeString(filter))
+    );
+
+    setFilteredOrders(filteredOrders);
+  };
+
+  return (
+    <>
+      <Filter onFilter={filter} />
+      <ul>{ordersList}</ul>
+      <div>
+        <h1 className={classes.total}>
+          Total Geral:{" "}
+          <span className={classes["total-span"]}>{totalOrderStringifyed}</span>
+        </h1>
+      </div>
+    </>
+  );
 };
 
 export default Order;

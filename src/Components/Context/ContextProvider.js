@@ -7,8 +7,20 @@ export const ContextProvider = ({ children }) => {
   const [inactiveProducts, setInactiveProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(null);
 
-  const [user, setUser] = useState({ id: "", name: "", mail: "" });
-  const [isSignIn, setIsSignIn] = useState(false);
+  const [user, setUser] = useState(() => {
+    const storedValue = sessionStorage.getItem("user");
+
+    return storedValue
+      ? JSON.parse(storedValue)
+      : { id: "", name: "", mail: "" };
+  });
+
+  const [isSignIn, setIsSignIn] = useState(() => {
+    const storedValue = sessionStorage.getItem("isSignIn");
+
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
+
   const [message, setMessage] = useState(null);
 
   const fetchProductsHandler = useCallback(async () => {
@@ -75,7 +87,10 @@ export const ContextProvider = ({ children }) => {
 
   const onLogin = (user) => {
     setUser(user);
+    sessionStorage.setItem("user", JSON.stringify(user));
+
     setIsSignIn(true);
+    sessionStorage.setItem("isSignIn", JSON.stringify("true"));
   };
 
   const formatDate = (date) => {
@@ -104,6 +119,7 @@ export const ContextProvider = ({ children }) => {
         isSignIn,
         user,
         formatDate,
+        normalizeString,
       }}
     >
       {children}
