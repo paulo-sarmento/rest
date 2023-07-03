@@ -1,13 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 
 import { createPortal } from "react-dom";
 
 import classes from "./Dashboard.module.css";
 
 import Product from "./Product/Product";
+import Order from "./Order/Order";
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
-import Order from "./Order/Order";
 import Modal from "./Product/Modal/Modal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +30,10 @@ const Dashboard = () => {
     return storedValue ? JSON.parse(storedValue) : false;
   });
 
+  const [filteredProducts, setFilteredProducts] = useState(null);
+
+  const inputRef = useRef();
+
   const onAddProductHandler = () => {
     setIsOpen(true);
   };
@@ -39,7 +43,7 @@ const Dashboard = () => {
     setIsOpen(false);
   };
 
-  const { products, inactiveProducts } = useContext(Context);
+  const { products, inactiveProducts, normalizeString } = useContext(Context);
 
   const onEditProduct = (id) => {
     setIsOpen(true);
@@ -93,9 +97,13 @@ const Dashboard = () => {
     if (showInactiveProducts) {
       setShowInactiveProducts(false);
       sessionStorage.setItem("showInactiveProducts", JSON.stringify(false));
+      setFilteredProducts(null);
+      inputRef.current.value = "";
     } else {
       setShowInactiveProducts(true);
       sessionStorage.setItem("showInactiveProducts", JSON.stringify(true));
+      setFilteredProducts(null);
+      inputRef.current.value = "";
     }
   };
 
@@ -139,6 +147,22 @@ const Dashboard = () => {
     });
   }
 
+  const onFilterInputChangeHandler = () => {
+    filter(inputRef.current.value);
+  };
+
+  const filter = (filter) => {
+    if (filter.length > 0) {
+      const filteredProducts = productsList.filter((product) =>
+        normalizeString(product.props.name).includes(normalizeString(filter))
+      );
+
+      return setFilteredProducts(filteredProducts);
+    }
+
+    setFilteredProducts(null);
+  };
+
   return (
     <>
       <section>
@@ -166,15 +190,28 @@ const Dashboard = () => {
               </label>
             </div>
           </div>
+          <div className={classes["search-bar"]}>
+            <input
+              type="text"
+              className={classes.input}
+              placeholder="procurar..."
+              ref={inputRef}
+              onChange={onFilterInputChangeHandler}
+            ></input>
+          </div>
           <ul className={classes.list}>
             {showInactiveProducts ? (
               inactiveProducts.length === 0 ? (
                 <li>
                   <h1>nenhum produto inativo</h1>
                 </li>
+              ) : filteredProducts ? (
+                filteredProducts
               ) : (
                 productsList
               )
+            ) : filteredProducts ? (
+              filteredProducts
             ) : (
               productsList
             )}
@@ -223,6 +260,7 @@ const Dashboard = () => {
       {createPortal(
         <Modal
           isOpen={isOpen}
+          setIsOpen={setIsOpen}
           onClose={closeHandler}
           editingProduct={editingProduct}
           setEditingProduct={setEditingProduct}

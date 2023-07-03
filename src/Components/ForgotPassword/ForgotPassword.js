@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import classes from "./ForgotPassword.module.css";
 
 import Container from "../Layout/Container/Container";
-import Login from "../Login/Login";
+import Context from "../Context/Context";
 
-import { createPortal } from "react-dom";
-
-const ForgotPassword = ({ showLogin, showForgotPassword }) => {
+const ForgotPassword = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -15,6 +14,10 @@ const ForgotPassword = ({ showLogin, showForgotPassword }) => {
 
   const [error, setError] = useState("");
   const [isValid, setIsValid] = useState(false);
+
+  const navigate = useNavigate();
+
+  const { onLogout } = useContext(Context);
 
   const onEmailChangeHandler = (e) => {
     setMail(e.target.value);
@@ -33,10 +36,9 @@ const ForgotPassword = ({ showLogin, showForgotPassword }) => {
   };
 
   const onClickLoginHandler = () => {
-    showLogin(true);
-    showForgotPassword(false);
+    onLogout();
 
-    return <>{createPortal(<Login />, document.getElementById("root"))}</>;
+    navigate("/login");
   };
 
   const onSubmitHandler = (e) => {
@@ -86,9 +88,14 @@ const ForgotPassword = ({ showLogin, showForgotPassword }) => {
 
         if (data.error) {
           setError(data.error);
-        } else if (data.isValid) {
-          setError("");
-          setIsValid(data.isValid);
+          setPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
+        } else {
+          setError(data.message);
+          setPassword("");
+          setNewPassword("");
+          setConfirmPassword("");
         }
       }
     };

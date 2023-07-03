@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState, useContext } from "react";
 
 import classes from "./Order.module.css";
 
-import Filter from "./Filter/Filter";
+import Filter from "../Filter/Filter";
 
 import Context from "../../../Components/Context/Context";
 

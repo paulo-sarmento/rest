@@ -1,0 +1,11 @@
+features para implementar:
+- trocar senha - FEITO
+- logout button - FEITO
+- filtro de bebidas - comidas - combos
+
+antes do deploy:
+. verificação e correção de bugs
+. dar uma geral no código (se for necessário: implementar features de outra forma, reescrever códigos de forma melhor, fazer comentário onde for necessário. enfim dar uma geral e verificar tudo que foi feito).
+. responsividade CSS
+
+realizar deploy.

@@ -7,7 +7,13 @@ import Container from "../../../../Components/Layout/Container/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
-const Modal = ({ isOpen, onClose, editingProduct, setEditingProduct }) => {
+const Modal = ({
+  isOpen,
+  setIsOpen,
+  onClose,
+  editingProduct,
+  setEditingProduct,
+}) => {
   if (!isOpen) return null;
 
   const [file, setFile] = useState(null);
@@ -88,6 +94,8 @@ const Modal = ({ isOpen, onClose, editingProduct, setEditingProduct }) => {
     setImageURL("");
     setPrice("");
     setEditingProduct({});
+    setIsOpen(false);
+    window.location.reload();
   };
 
   return (

@@ -15,7 +15,7 @@ import Context from "../../Context/Context";
 const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const { isSignIn, user } = useContext(Context);
+  const { isSignIn, user, onLogout } = useContext(Context);
 
   const navigate = useNavigate();
 
@@ -45,6 +45,24 @@ const Modal = ({ isOpen, onClose }) => {
     }
   };
 
+  const onClickCartHandler = () => {
+    if (isSignIn) {
+      onClose();
+      navigate("/cart");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const onClickLogoutHandler = () => {
+    onLogout();
+  };
+
+  const onClickChangePasswordHandler = () => {
+    navigate("/forgot-password");
+    onClose();
+  };
+
   return (
     <Container className={classes.modal}>
       <div className={classes.header}>
@@ -55,8 +73,25 @@ const Modal = ({ isOpen, onClose }) => {
       </div>
       <div className={classes.wrapper}>
         <a onClick={onClickOrdersHandler}>Pedidos</a>
+        <a onClick={onClickCartHandler}>Carrinho</a>
         <a onClick={onClickAdmHandler}>Administrador</a>
-        {isSignIn === false ? (
+        {isSignIn ? (
+          <>
+            <p className={classes.hello}>{`Olá, ${user.name}`}</p>
+            <a
+              className={classes["change-password"]}
+              onClick={onClickChangePasswordHandler}
+            >
+              Alterar Senha
+            </a>
+            <button
+              onClick={onClickLogoutHandler}
+              className={classes["logout-btn"]}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
           <>
             <Button
               className={classes["login-btn"]}
@@ -68,8 +103,6 @@ const Modal = ({ isOpen, onClose }) => {
               criar conta
             </a>
           </>
-        ) : (
-          <p className={classes.hello}>{`Olá, ${user.name}`}</p>
         )}
       </div>
     </Container>

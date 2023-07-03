@@ -8,6 +8,7 @@ import Error from "./Pages/Error/Error";
 import Home from "./Pages/Home/Home";
 import CartItemsList from "./Components/Header/Cart/CartItemsList";
 import Login from "./Pages/Login/Login";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import Register from "./Pages/Register/Register";
 import Orders from "./Pages/Orders/Orders";
 import Private from "./Pages/Private/Private";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             <Dashboard />
           </Private>
         ),
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
       },
     ],
   },

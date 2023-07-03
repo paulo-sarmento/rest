@@ -52,4 +52,25 @@
 .hello {
   margin-top: 1rem;
   padding: 0.75rem;
+  color: #ff9540;
+}
+
+.logout-btn {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  background: #ff2415;
+  color: #fff;
+  padding: 0.875rem 0;
+  border-radius: 5px;
+}
+
+.change-password {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0 0.75rem !important;
+  color: #ff2415 !important;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
 }

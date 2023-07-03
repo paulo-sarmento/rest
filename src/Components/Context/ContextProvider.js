@@ -93,6 +93,14 @@ export const ContextProvider = ({ children }) => {
     sessionStorage.setItem("isSignIn", JSON.stringify("true"));
   };
 
+  const onLogout = () => {
+    setUser({ id: "", name: "", mail: "" });
+    sessionStorage.removeItem("user");
+
+    setIsSignIn(false);
+    sessionStorage.removeItem("isSignIn");
+  };
+
   const formatDate = (date) => {
     const options = {
       day: "2-digit",
@@ -116,6 +124,7 @@ export const ContextProvider = ({ children }) => {
         setFilteredProducts,
         filterProducts,
         onLogin,
+        onLogout,
         isSignIn,
         user,
         formatDate,
