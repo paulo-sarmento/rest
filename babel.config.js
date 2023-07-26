@@ -1,6 +1,12 @@
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
   return {
-    plugins: ['macros'],
-  }
-}
+    presets: ["@babel/preset-env"],
+    plugins: [
+      "macros",
+      "@babel/plugin-syntax-jsx",
+      "@babel/plugin-transform-nullish-coalescing-operator",
+      "@babel/plugin-transform-optional-chaining",
+    ],
+  };
+};

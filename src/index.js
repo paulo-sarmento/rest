@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -60,11 +62,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ContextProvider>
-    <CartProvider>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-    </CartProvider>
-  </ContextProvider>
+  <Provider store={store}>
+    <ContextProvider>
+      <CartProvider>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </CartProvider>
+    </ContextProvider>
+  </Provider>
 );

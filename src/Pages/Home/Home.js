@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useGetProductsQuery } from "../../features/products/productsSlice";
 
 import classes from "./Home.module.css";
 
@@ -9,19 +10,27 @@ import Context from "../../Components/Context/Context";
 
 const Home = () => {
   const { filteredProducts, products } = useContext(Context);
+  const { data, isLoading, isSuccess, isError, error } = useGetProductsQuery();
 
-  return (
-    <>
-      <section>
-        <Filter />
-      </section>
-      <main className={classes.main}>
-        <Products
-          productsList={filteredProducts ? filteredProducts : products}
-        />
-      </main>
-    </>
-  );
+  let content;
+  if (isLoading) {
+    content = <p>"Loading..."</p>;
+  } else if (isSuccess) {
+    content = (
+      <>
+        <section>
+          <Filter />
+        </section>
+        <main className={classes.main}>
+          <Products productsList={data} />
+        </main>
+      </>
+    );
+  } else if (isError) {
+    content = <p>{error}</p>;
+  }
+
+  return content;
 };
 
 export default Home;

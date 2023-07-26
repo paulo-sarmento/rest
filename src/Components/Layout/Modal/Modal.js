@@ -13,11 +13,11 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- i
 import Context from "../../Context/Context";
 
 const Modal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
   const { isSignIn, user, onLogout } = useContext(Context);
 
   const navigate = useNavigate();
+
+  if (!isOpen) return null;
 
   const onClickOrdersHandler = () => {
     if (isSignIn) {

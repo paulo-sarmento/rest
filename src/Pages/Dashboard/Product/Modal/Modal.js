@@ -14,8 +14,6 @@ const Modal = ({
   editingProduct,
   setEditingProduct,
 }) => {
-  if (!isOpen) return null;
-
   const [file, setFile] = useState(null);
   const [imageURL, setImageURL] = useState("");
 
@@ -29,6 +27,8 @@ const Modal = ({
       setPrice(editingProduct.preco);
     }
   }, [editingProduct]);
+
+  if (!isOpen) return null;
 
   const onNameChangeHandler = (e) => {
     setName(e.target.value);
