@@ -11,8 +11,8 @@ const Products = ({ productsList }) => {
         key={item.id}
         id={item.id}
         img={item.img}
-        name={item.name}
-        price={item.price}
+        name={item.nome}
+        price={item.preco}
         amount={1}
       />
     );

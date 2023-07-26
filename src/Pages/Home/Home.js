@@ -9,6 +9,7 @@ import Context from "../../Components/Context/Context";
 
 const Home = () => {
   const { filteredProducts, products } = useContext(Context);
+  console.log(products);
 
   return (
     <>
