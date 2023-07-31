@@ -1,38 +1,37 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-
 import classes from "./CartItemsList.module.css";
-
-import Container from "../../Layout/Container/Container";
-import Logo from "../../UI/Logo/Logo";
-import Button from "../../UI/Button/Button";
 import CartItem from "./CartItem";
-
-import Context from "../../Context/Context";
-import CartContext from "../../Context/CartContext";
+import Logo from "../../Components/UI/Logo/Logo";
+import Container from "../../Components/Layout/Container/Container";
+import Button from "../../Components/UI/Button/Button";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSliceActions } from "./cartSlice";
+import { selectAllItems, selectTotalPrice } from "./cartSlice";
+import { getUser } from "../auth/authSlice";
 
 const CartItemsList = () => {
-  const { items, totalPrice, removeItem, addItem, makeOrder } = useContext(
-    CartContext
-  );
+  const items = useSelector(selectAllItems);
+  const cartTotalPrice = useSelector(selectTotalPrice);
+  const user = useSelector(getUser);
 
-  const { isSignIn, user } = useContext(Context);
+  console.log(user);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const cartItemRemoveHandler = (id) => {
-    removeItem(id);
+    dispatch(cartSliceActions.removeItem(id));
   };
 
   const cartItemAddHandler = (item) => {
-    addItem({ ...item, amount: 1 });
+    dispatch(cartSliceActions.addItem(item));
   };
 
   const onClickBuyHandler = () => {
-    if (isSignIn) {
-      makeOrder(user);
+    if (user?.id) {
+      console.log("hi usuário logado");
     } else {
-      navigate("/login");
+      console.log("usuário deslogado");
     }
   };
 
@@ -44,8 +43,8 @@ const CartItemsList = () => {
       name={item.name}
       price={item.price}
       amount={item.amount}
-      onRemove={() => cartItemRemoveHandler(item.id)}
-      onAdd={() => cartItemAddHandler(item)}
+      onRemove={cartItemRemoveHandler}
+      onAdd={cartItemAddHandler}
     />
   ));
 
@@ -61,7 +60,7 @@ const CartItemsList = () => {
           <div>
             <span className={classes.total}>Total:</span>
             <span className={classes.price}>
-              {totalPrice.toLocaleString("pt-BR", {
+              {cartTotalPrice.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
                 minimumFractionDigits: 2,

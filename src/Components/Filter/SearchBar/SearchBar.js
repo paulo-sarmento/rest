@@ -1,19 +1,14 @@
-import React, { useRef, useContext } from "react";
-
 import classes from "./SearchBar.module.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import Context from "../../Context/Context";
+import { useRef } from "react";
 
-const Search = ({ onClickBack }) => {
-  const { filterProducts } = useContext(Context);
-
+const Search = ({ onClickBack, filter }) => {
   const inputRef = useRef();
 
   const onChangeHandler = () => {
-    filterProducts(inputRef.current.value);
+    filter(inputRef.current.value);
   };
 
   return (

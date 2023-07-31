@@ -12,12 +12,12 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- i
 
 import Context from "../../Context/Context";
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ openModal, onClose }) => {
   const { isSignIn, user, onLogout } = useContext(Context);
 
   const navigate = useNavigate();
 
-  if (!isOpen) return null;
+  if (!openModal) return null;
 
   const onClickOrdersHandler = () => {
     if (isSignIn) {

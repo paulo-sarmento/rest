@@ -1,12 +1,16 @@
-import React from "react";
-
 import classes from "./CartItem.module.css";
-
 import { motion } from "framer-motion";
+import Button from "../../Components/UI/Button/Button";
 
-import Button from "../../UI/Button/Button";
+const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
+  const onClickAddHandler = () => {
+    onAdd({ id, img, name, price, amount });
+  };
 
-const CartItem = ({ id, img, name, price, amount, onAdd, onRemove }) => {
+  const onClickRemoveHandler = () => {
+    onRemove(id);
+  };
+
   return (
     <motion.li
       key={id}
@@ -17,10 +21,10 @@ const CartItem = ({ id, img, name, price, amount, onAdd, onRemove }) => {
       dragMomentum={false}
     >
       <div className={classes["action-wrapper"]}>
-        <Button className={classes.button} onClick={onAdd}>
+        <Button className={classes.button} onClick={onClickAddHandler}>
           +
         </Button>
-        <Button className={classes.button} onClick={onRemove}>
+        <Button className={classes.button} onClick={onClickRemoveHandler}>
           −
         </Button>
       </div>

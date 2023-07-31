@@ -1,13 +1,10 @@
-import React from "react";
-
 import "./reset.css";
 import classes from "./App.module.css";
-
-import { Outlet, useLocation } from "react-router-dom";
-
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
 import Private from "./Pages/Private/Private";
+
+import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
   const { pathname } = useLocation();

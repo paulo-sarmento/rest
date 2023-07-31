@@ -1,30 +1,49 @@
-import React, { useState, useContext } from "react";
-
-import Container from "../Layout/Container/Container";
 import classes from "./Filter.module.css";
+import Container from "../Layout/Container/Container";
 import SearchIcon from "./SearchBar/SearchIcon";
 import SearchBar from "./SearchBar/SearchBar";
 
-import Context from "../Context/Context";
+import { useState } from "react";
+import { selectAllProducts } from "../../features/products/productsSlice";
+import { useSelector } from "react-redux";
 
-const Filter = () => {
+const normalizeString = (str) => {
+  // remove espaços em branco no início e no final
+  str = str.trim();
+  // remove acentos
+  str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  // converte para minúsculas
+  str = str.toLowerCase();
+  // retorna a string normalizada
+  return str;
+};
+
+const Filter = ({ filteredProducts }) => {
   const [activeCategory, setActiveCategory] = useState("Bebidas");
-  const [isActive, setIsActive] = useState(0);
+  const [openSearchBar, setOpenSearchBar] = useState(false);
 
-  const { setFilteredProducts, products } = useContext(Context);
+  const products = useSelector(selectAllProducts);
+
+  const filterProducts = (filter) => {
+    const newFilteredProducts = products.filter((product) =>
+      normalizeString(product.name).includes(normalizeString(filter))
+    );
+
+    filteredProducts(newFilteredProducts);
+  };
 
   const onClickHandler = (category) => {
     setActiveCategory(category);
   };
 
   const onClickSearchHander = () => {
-    setIsActive(1);
+    setOpenSearchBar(!openSearchBar);
   };
 
   const onClickBackHandler = () => {
-    setIsActive(0);
+    setOpenSearchBar(!openSearchBar);
 
-    setFilteredProducts(products);
+    filteredProducts(null);
   };
 
   let content = (
@@ -61,11 +80,11 @@ const Filter = () => {
     </Container>
   );
 
-  if (isActive) {
+  if (openSearchBar) {
     content = (
       <Container>
         <div className={classes.wrapper}>
-          <SearchBar onClickBack={onClickBackHandler} />
+          <SearchBar onClickBack={onClickBackHandler} filter={filterProducts} />
         </div>
       </Container>
     );

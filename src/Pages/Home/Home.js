@@ -1,33 +1,39 @@
-import React, { useContext } from "react";
-import { useGetProductsQuery } from "../../features/products/productsSlice";
-
 import classes from "./Home.module.css";
-
 import Filter from "../../Components/Filter/Filter";
 import Products from "../../Components/Products/Products";
 
-import Context from "../../Components/Context/Context";
+import { useGetProductsQuery } from "../../features/products/productsSlice";
+import { useState } from "react";
 
 const Home = () => {
-  const { filteredProducts, products } = useContext(Context);
-  const { data, isLoading, isSuccess, isError, error } = useGetProductsQuery();
+  const {
+    data: products,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetProductsQuery();
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
   let content;
   if (isLoading) {
-    content = <p>"Loading..."</p>;
+    content = <p>"Carregando..."</p>;
   } else if (isSuccess) {
     content = (
       <>
         <section>
-          <Filter />
+          <Filter filteredProducts={setFilteredProducts} />
         </section>
         <main className={classes.main}>
-          <Products productsList={data} />
+          <Products
+            productsList={filteredProducts ? filteredProducts : products}
+          />
         </main>
       </>
     );
   } else if (isError) {
-    content = <p>{error}</p>;
+    content = <p>"erro ao carregar produtos"</p>;
+    console.log(error);
   }
 
   return content;

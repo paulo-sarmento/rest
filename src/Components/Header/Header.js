@@ -1,28 +1,22 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import { createPortal } from "react-dom";
-
 import classes from "./Header.module.css";
-
 import Container from "../Layout/Container/Container";
-import Logo from "../UI/Logo/Logo";
-import CartIcon from "./Cart/Icon/CartIcon";
-import Modal from "../Layout/Modal/Modal";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import Logo from "../UI/Logo/Logo";
+import CartIcon from "../../features/cart/Icon/CartIcon";
+import Modal from "../Layout/Modal/Modal";
+
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import { createPortal } from "react-dom";
 
 const Header = () => {
   const { pathname } = useLocation();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const onClickHandler = () => {
-    setIsOpen(true);
-  };
-
-  const closeHandler = () => {
-    setIsOpen(false);
+    setOpenModal(!openModal);
   };
 
   return (
@@ -37,7 +31,7 @@ const Header = () => {
         </Container>
       </header>
       {createPortal(
-        <Modal isOpen={isOpen} onClose={closeHandler} />,
+        <Modal openModal={openModal} onClose={onClickHandler} />,
         document.getElementById("root")
       )}
     </>
