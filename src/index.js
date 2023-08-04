@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App";
 import Error from "./Pages/Error/Error";
@@ -16,59 +16,54 @@ import Orders from "./Pages/Orders/Orders";
 import Private from "./Pages/Private/Private";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 
-import { ContextProvider } from "./Components/Context/ContextProvider";
-import CartProvider from "./Components/Context/CartProvider";
-
-const router = createBrowserRouter([
-  {
-    element: <App />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "cart",
-        element: <CartItemsList />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "orders",
-        element: <Orders />,
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <Private>
-            <Dashboard />
-          </Private>
-        ),
-      },
-      {
-        path: "/forgot-password",
-        element: <ForgotPassword />,
-      },
-    ],
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     element: <App />,
+//     errorElement: <Error />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "cart",
+//         element: <CartItemsList />,
+//       },
+//       {
+//         path: "login",
+//         element: <Login />,
+//       },
+//       {
+//         path: "register",
+//         element: <Register />,
+//       },
+//       {
+//         path: "orders",
+//         element: <Orders />,
+//       },
+//       {
+//         path: "/dashboard",
+//         element: (
+//           <Private>
+//             <Dashboard />
+//           </Private>
+//         ),
+//       },
+//       {
+//         path: "/forgot-password",
+//         element: <ForgotPassword />,
+//       },
+//     ],
+//   },
+// ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <ContextProvider>
-      <CartProvider>
-        <RouterProvider router={router}>
-          <App />
-        </RouterProvider>
-      </CartProvider>
-    </ContextProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<App />} />
+      </Routes>
+    </BrowserRouter>
   </Provider>
 );

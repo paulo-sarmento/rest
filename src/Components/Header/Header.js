@@ -6,17 +6,14 @@ import Logo from "../UI/Logo/Logo";
 import CartIcon from "../../features/cart/Icon/CartIcon";
 import Modal from "../Layout/Modal/Modal";
 
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
 const Header = () => {
-  const { pathname } = useLocation();
-
-  const [openModal, setOpenModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const onClickHandler = () => {
-    setOpenModal(!openModal);
+    setShowModal(!showModal);
   };
 
   return (
@@ -26,12 +23,12 @@ const Header = () => {
           <div className={classes["menu-icon"]} onClick={onClickHandler}>
             <FontAwesomeIcon icon={solid("bars")} />
           </div>
-          {pathname === "/" ? <Logo /> : <></>}
+          <Logo />
           <CartIcon />
         </Container>
       </header>
       {createPortal(
-        <Modal openModal={openModal} onClose={onClickHandler} />,
+        <Modal showModal={showModal} closeModal={onClickHandler} />,
         document.getElementById("root")
       )}
     </>

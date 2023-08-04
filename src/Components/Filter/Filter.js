@@ -3,9 +3,8 @@ import Container from "../Layout/Container/Container";
 import SearchIcon from "./SearchBar/SearchIcon";
 import SearchBar from "./SearchBar/SearchBar";
 
+import { useGetProductsQuery } from "../../features/products/productsSlice";
 import { useState } from "react";
-import { selectAllProducts } from "../../features/products/productsSlice";
-import { useSelector } from "react-redux";
 
 const normalizeString = (str) => {
   // remove espaços em branco no início e no final
@@ -22,12 +21,14 @@ const Filter = ({ filteredProducts }) => {
   const [activeCategory, setActiveCategory] = useState("Bebidas");
   const [openSearchBar, setOpenSearchBar] = useState(false);
 
-  const products = useSelector(selectAllProducts);
+  const { data: products, isSuccess } = useGetProductsQuery();
 
   const filterProducts = (filter) => {
-    const newFilteredProducts = products.filter((product) =>
-      normalizeString(product.name).includes(normalizeString(filter))
-    );
+    const newFilteredProducts =
+      isSuccess &&
+      products.filter((product) =>
+        normalizeString(product.name).includes(normalizeString(filter))
+      );
 
     filteredProducts(newFilteredProducts);
   };

@@ -1,37 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-
 import classes from "./Private.module.css";
 
-import Context from "../../Components/Context/Context";
+import { Outlet } from "react-router-dom";
 
-const Private = ({ children }) => {
-  const { user } = useContext(Context);
-  const [responseStatus, setResponseStatus] = useState(null);
+import { useDashboardAccessQuery } from "../../features/auth/authSlice";
 
-  useEffect(() => {
-    const req = async () => {
-      const url = "http://localhost:3001/dashboard";
+const Private = () => {
+  const { isSuccess, isError, error, refetch } = useDashboardAccessQuery({
+    force: true,
+  });
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+  let content;
 
-      setResponseStatus(res.status);
-    };
+  if (isSuccess) {
+    content = <Outlet />;
+  } else if (isError) {
+    content = <h1 className={classes.status}>{error.data}</h1>;
+  }
 
-    req();
-  }, [user.token]);
-
-  if (responseStatus === 200) return children;
-  if (responseStatus === 401)
-    return <h1 className={classes.status}>Não Autorizado</h1>;
-  if (responseStatus === 403)
-    return <h1 className={classes.status}>Token inválido</h1>;
+  return content;
 };
 
 export default Private;

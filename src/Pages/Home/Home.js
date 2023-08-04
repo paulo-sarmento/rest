@@ -13,11 +13,12 @@ const Home = () => {
     isError,
     error,
   } = useGetProductsQuery();
+
   const [filteredProducts, setFilteredProducts] = useState(null);
 
   let content;
   if (isLoading) {
-    content = <p>"Carregando..."</p>;
+    content = <p>Carregando...</p>;
   } else if (isSuccess) {
     content = (
       <>

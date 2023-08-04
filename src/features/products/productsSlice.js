@@ -28,14 +28,4 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const selectProductsResult = apiSlice.endpoints.getProducts.select();
-
-const emptyProducts = [];
-
-//returns the array of products from the cache result
-export const selectAllProducts = createSelector(
-  selectProductsResult,
-  (productsResult) => productsResult?.data ?? emptyProducts
-);
-
 export const { useGetProductsQuery } = extendedApiSlice;

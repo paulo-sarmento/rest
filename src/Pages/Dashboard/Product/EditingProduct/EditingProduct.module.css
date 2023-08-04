@@ -1,0 +1,73 @@
+.form {
+  padding: 4rem;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #ff2415;
+  font-size: 1rem;
+}
+
+.wrapper-input {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.label-file {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.icon-wrapper {
+  display: flex;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.file-info {
+  font-weight: 500;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+
+.input {
+  padding: 0.3rem 0.8rem;
+  border: none;
+  color: #737373;
+  border-bottom: 1px solid #000;
+  outline: none;
+  font-size: 1rem;
+}
+
+.wrapper-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.img-preview {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.btn {
+  font-family: inherit;
+  background: #ff2415;
+  border: none;
+  color: #fff;
+  padding: 0.8rem 0;
+  margin-top: 0.8rem;
+  border-radius: 5px;
+  width: 100%;
+}

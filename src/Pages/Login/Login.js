@@ -29,12 +29,13 @@ const Login = () => {
 
     try {
       const loginQueryResponse = await login({ mail, password }).unwrap();
+
       dispatch(authSliceActions.onLogin(loginQueryResponse));
+
+      navigate("/");
     } catch (error) {
       setError(error.data);
     }
-
-    navigate("/");
   };
 
   const onClickRegisterHandler = () => {

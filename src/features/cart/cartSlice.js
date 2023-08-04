@@ -3,6 +3,7 @@ import {
   createEntityAdapter,
   createSelector,
 } from "@reduxjs/toolkit";
+import { apiSlice } from "../api/apiSlice";
 
 const cartAdapter = createEntityAdapter();
 
@@ -38,8 +39,28 @@ const cartSlice = createSlice({
         cartAdapter.removeOne(state, action.payload);
       }
     },
+    onOrder(state, action) {
+      cartAdapter.removeAll(state);
+      state.totalPrice = 0;
+      state.totalQuantity = 0;
+    },
   },
 });
+
+export const extendedApiCartSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    order: builder.mutation({
+      query: (body) => ({
+        url: "/order",
+        method: "POST",
+        body: { order: body.order, orderedProducts: body.items },
+      }),
+      invalidatesTags: [{ type: "Orders" }],
+    }),
+  }),
+});
+
+export const { useOrderMutation } = extendedApiCartSlice;
 
 export const cartSliceActions = cartSlice.actions;
 
@@ -56,7 +77,5 @@ export const selectTotalQuantity = createSelector(
 export const { selectAll: selectAllItems } = cartAdapter.getSelectors(
   (state) => state.cart
 );
-
-// export const selectItems = (state) => state.cart.items;
 
 export default cartSlice.reducer;

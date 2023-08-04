@@ -1,39 +1,43 @@
 import "./reset.css";
-import classes from "./App.module.css";
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
-import Private from "./Pages/Private/Private";
 
-import { Outlet, useLocation } from "react-router-dom";
+import Layout from "./Components/Layout/Layout";
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
+import CartItemsList from "./features/cart/CartItemsList";
+import Orders from "./Pages/Orders/Orders";
+import Private from "./Pages/Private/Private";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+
+import { Routes, Route } from "react-router-dom";
+import EditingProduct from "./Pages/Dashboard/Product/EditingProduct/EditingProduct";
 
 const App = () => {
-  const { pathname } = useLocation();
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}></Route>
 
-  let content = (
-    <div className={classes.app}>
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="register" element={<Register />}></Route>
+
+          <Route path="cart" element={<CartItemsList />}></Route>
+
+          <Route path="orders/:userId" element={<Orders />}></Route>
+
+          <Route path="dashboard" element={<Private />}>
+            <Route index element={<Dashboard />}></Route>
+
+            <Route
+              path="dashboard/edit/:productId"
+              element={<EditingProduct />}
+            ></Route>
+          </Route>
+        </Route>
+      </Routes>
+    </>
   );
-
-  if (pathname === "/login" || pathname === "/register") {
-    content = (
-      <div className={classes.app}>
-        <Outlet />
-      </div>
-    );
-  } else if (pathname === "/dashboard") {
-    content = (
-      <div className={classes.app}>
-        <Private>
-          <Outlet />
-        </Private>
-      </div>
-    );
-  }
-
-  return <>{content}</>;
 };
 
 export default App;

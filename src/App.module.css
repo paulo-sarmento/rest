@@ -14,13 +14,6 @@ body {
   background: #f2f0f0;
   overflow-x: hidden;
 }
-
-.app {
-  font-family: "Montserrat", sans-serif;
-  line-height: 1.5;
-  font-size: 1.125rem;
-}
-
 /* .filter {
   padding: 1rem 0;
   overflow: hidden;

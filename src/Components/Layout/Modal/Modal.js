@@ -1,107 +1,75 @@
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-
 import classes from "./Modal.module.css";
 
 import Container from "../Container/Container";
 import Logo from "../../UI/Logo/Logo";
-import Button from "../../UI/Button/Button";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
+import Button from "../../UI/Button/Button";
 
-import Context from "../../Context/Context";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { authSliceActions } from "../../../features/auth/authSlice";
 
-const Modal = ({ openModal, onClose }) => {
-  const { isSignIn, user, onLogout } = useContext(Context);
+const Modal = ({ showModal, closeModal }) => {
+  const [user, setUser] = useState(() => {
+    const storedValue = sessionStorage.getItem("user");
+
+    return storedValue ? JSON.parse(storedValue) : "";
+  });
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  if (!openModal) return null;
-
-  const onClickOrdersHandler = () => {
-    if (isSignIn) {
-      onClose();
-      navigate("/orders");
-    } else {
-      navigate("/login");
-    }
-  };
-
-  const onClickLoginHandler = () => {
+  const onLoginHandler = () => {
     navigate("/login");
   };
 
-  const onClickRegisterHandler = () => {
-    navigate("/register");
+  const onLogoutHandler = () => {
+    dispatch(authSliceActions.onLogout());
+    setUser("");
   };
 
-  const onClickAdmHandler = () => {
-    if (isSignIn) {
-      onClose();
-      navigate("/dashboard");
-    } else {
-      navigate("/login");
-    }
+  const onClickHandler = () => {
+    closeModal();
   };
 
-  const onClickCartHandler = () => {
-    if (isSignIn) {
-      onClose();
-      navigate("/cart");
-    } else {
-      navigate("/login");
-    }
-  };
-
-  const onClickLogoutHandler = () => {
-    onLogout();
-  };
-
-  const onClickChangePasswordHandler = () => {
-    navigate("/forgot-password");
-    onClose();
-  };
+  if (!showModal) return null;
 
   return (
     <Container className={classes.modal}>
       <div className={classes.header}>
         <Logo />
-        <span onClick={onClose} className={classes["close-btn"]}>
+        <span onClick={closeModal} className={classes["close-btn"]}>
           <FontAwesomeIcon icon={solid("x")} />
         </span>
       </div>
       <div className={classes.wrapper}>
-        <a onClick={onClickOrdersHandler}>Pedidos</a>
-        <a onClick={onClickCartHandler}>Carrinho</a>
-        <a onClick={onClickAdmHandler}>Administrador</a>
-        {isSignIn ? (
+        <Link to={`orders/${user.id || 0}`} onClick={onClickHandler}>
+          Pedidos
+        </Link>
+        <Link to="cart" onClick={onClickHandler}>
+          Carrinho
+        </Link>
+        <Link to="dashboard" onClick={onClickHandler}>
+          Administrador
+        </Link>
+
+        {user.id ? (
           <>
             <p className={classes.hello}>{`Olá, ${user.name}`}</p>
-            <a
-              className={classes["change-password"]}
-              onClick={onClickChangePasswordHandler}
-            >
-              Alterar Senha
-            </a>
-            <button
-              onClick={onClickLogoutHandler}
-              className={classes["logout-btn"]}
-            >
+            <a className={classes["change-password"]}>Alterar Senha</a>
+            <button className={classes["logout-btn"]} onClick={onLogoutHandler}>
               Logout
             </button>
           </>
         ) : (
           <>
-            <Button
-              className={classes["login-btn"]}
-              onClick={onClickLoginHandler}
-            >
+            <Button className={classes["login-btn"]} onClick={onLoginHandler}>
               Entrar
             </Button>
-            <a href="#" onClick={onClickRegisterHandler}>
-              criar conta
-            </a>
+            <Link to="/register">criar conta</Link>
           </>
         )}
       </div>
