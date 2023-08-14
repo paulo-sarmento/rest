@@ -22,12 +22,12 @@ const Home = () => {
   } else if (isSuccess) {
     content = (
       <>
-        <section>
+        <section className={classes.filter}>
           <Filter filteredProducts={setFilteredProducts} />
         </section>
         <main className={classes.main}>
           <Products
-            productsList={filteredProducts ? filteredProducts : products}
+            productsList={filteredProducts ? filteredProducts : products[1]}
           />
         </main>
       </>

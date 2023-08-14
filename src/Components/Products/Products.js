@@ -8,7 +8,7 @@ const Products = ({ productsList }) => {
       <Card
         key={item.id}
         id={item.id}
-        img={item.img}
+        img={item.imgSrc}
         name={item.name}
         price={item.price}
       />

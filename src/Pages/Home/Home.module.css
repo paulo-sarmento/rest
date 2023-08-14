@@ -1,3 +1,10 @@
 .main {
   background: #ff9540;
 }
+
+.filter {
+  background: #f2f0f0;
+  position: sticky;
+  z-index: 1;
+  top: 0;
+}

@@ -8,13 +8,8 @@
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
   width: 100%;
   color: #707070;
   background: #f2f0f0;
-  overflow-x: hidden;
 }
-/* .filter {
-  padding: 1rem 0;
-  overflow: hidden;
-} */

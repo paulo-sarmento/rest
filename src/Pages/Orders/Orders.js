@@ -2,12 +2,12 @@ import classes from "./Orders.module.css";
 import Card from "./UI/Card";
 import Container from "../../Components/Layout/Container/Container";
 
-import { useParams } from "react-router-dom";
-
 import { useGetOrdersQuery } from "../../features/orders/ordersSlice";
 
 const Orders = () => {
-  const { userId } = useParams();
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  console.log(user);
 
   const {
     data: orders,
@@ -15,7 +15,7 @@ const Orders = () => {
     isSuccess,
     isError,
     error,
-  } = useGetOrdersQuery(userId);
+  } = useGetOrdersQuery(user?.id);
 
   let content;
 
@@ -55,13 +55,7 @@ const Orders = () => {
   }
 
   return (
-    <>
-      {Number(userId) === 0 ? (
-        <p>faça login para vizualizar seus pedidos</p>
-      ) : (
-        content
-      )}
-    </>
+    <>{user?.id ? content : <p>faça login para vizualizar seus pedidos</p>}</>
   );
 };
 

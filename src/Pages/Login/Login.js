@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [login, result] = useLazyLoginQuery();
+  const [login] = useLazyLoginQuery();
 
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,8 +33,8 @@ const Login = () => {
       dispatch(authSliceActions.onLogin(loginQueryResponse));
 
       navigate("/");
-    } catch (error) {
-      setError(error.data);
+    } catch (err) {
+      setError(err.data);
     }
   };
 

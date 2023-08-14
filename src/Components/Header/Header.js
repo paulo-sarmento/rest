@@ -14,6 +14,7 @@ const Header = () => {
 
   const onClickHandler = () => {
     setShowModal(!showModal);
+    document.body.style.overflow = showModal ? "unset" : "hidden";
   };
 
   return (

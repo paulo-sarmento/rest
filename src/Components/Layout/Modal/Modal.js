@@ -35,7 +35,9 @@ const Modal = ({ showModal, closeModal }) => {
     closeModal();
   };
 
-  if (!showModal) return null;
+  if (!showModal) {
+    return null;
+  }
 
   return (
     <Container className={classes.modal}>
@@ -46,7 +48,7 @@ const Modal = ({ showModal, closeModal }) => {
         </span>
       </div>
       <div className={classes.wrapper}>
-        <Link to={`orders/${user.id || 0}`} onClick={onClickHandler}>
+        <Link to={"orders"} onClick={onClickHandler}>
           Pedidos
         </Link>
         <Link to="cart" onClick={onClickHandler}>

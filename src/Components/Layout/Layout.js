@@ -22,7 +22,7 @@ const Layout = () => {
         <Outlet />
       </div>
     );
-  } else if (pathname === "/dashboard") {
+  } else if (pathname.includes("dashboard")) {
     layout = (
       <div className={classes.app}>
         <Private>
