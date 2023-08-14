@@ -32,6 +32,11 @@
   margin-bottom: 1rem;
 }
 
+.btn-comprar:disabled {
+  opacity: 40%;
+  cursor: none;
+}
+
 .total,
 .price {
   display: inline-block;
@@ -41,4 +46,11 @@
 .price {
   color: #ffea4a;
   margin-left: 5px;
+}
+
+.message {
+  color: #f2f0f0;
+  text-align: center;
+  font-size: 1.375rem;
+  padding: 1rem;
 }

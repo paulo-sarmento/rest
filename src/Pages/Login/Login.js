@@ -1,61 +1,41 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import classes from "./Login.module.css";
-
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
 
-import Context from "../../Components/Context/Context";
+import { useNavigate } from "react-router-dom";
+import { useLazyLoginQuery } from "../../features/auth/authSlice";
+import { useState } from "react";
+import { authSliceActions } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const { onLogin } = useContext(Context);
-
   const navigate = useNavigate();
+
+  const [login] = useLazyLoginQuery();
 
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState("");
 
-  const onEmailChangeHandler = (e) => {
-    setMail(e.target.value);
-  };
+  const dispatch = useDispatch();
 
-  const onPasswordChangeHandler = (e) => {
-    setPassword(e.target.value);
-  };
+  const onEmailChangeHandler = (e) => setMail(e.target.value);
 
-  const onSubmitHandler = (e) => {
+  const onPasswordChangeHandler = (e) => setPassword(e.target.value);
+
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const req = async () => {
-      const url = "http://localhost:3001/signin";
+    try {
+      const loginQueryResponse = await login({ mail, password }).unwrap();
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mail,
-          password,
-        }),
-      });
+      dispatch(authSliceActions.onLogin(loginQueryResponse));
 
-      const data = await res.json();
-
-      if (data.error) {
-        setError(data.error);
-      }
-
-      if (data.id) {
-        onLogin(data);
-        navigate("/");
-      }
-    };
-
-    req();
+      navigate("/");
+    } catch (err) {
+      setError(err.data);
+    }
   };
 
   const onClickRegisterHandler = () => {

@@ -1,0 +1,23 @@
+.item {
+  border-bottom: 1px solid #ffea4a;
+}
+
+.item-title {
+  font-size: 0.75rem;
+  padding: 1rem 0;
+  font-weight: 700;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 70% 10% 20%;
+  padding-bottom: 1rem;
+}
+
+.total {
+  font-weight: 700;
+  color: #ffea4a;
+  display: inline-block;
+  padding-bottom: 1rem;
+  margin-left: 8px;
+}

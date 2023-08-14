@@ -1,20 +1,21 @@
-import React, { useContext } from "react";
-
 import classes from "./Card.module.css";
 
-import CartContext from "../../Context/CartContext";
+import { cartSliceActions } from "../../../features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Card = ({ id, img, name, price }) => {
-  const { addItem } = useContext(CartContext);
+  const dispatch = useDispatch();
 
   const onClickHandler = () => {
-    addItem({
-      id,
-      img,
-      name,
-      price,
-      amount: 1,
-    });
+    dispatch(
+      cartSliceActions.addItem({
+        id,
+        img,
+        name,
+        price,
+        quantity: 1,
+      })
+    );
   };
 
   return (
