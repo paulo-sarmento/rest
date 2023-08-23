@@ -17,7 +17,7 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      state.totalPrice = state.totalPrice + action.payload.price;
+      state.totalPrice += action.payload.price;
       state.totalQuantity++;
 
       let existingItem = state.entities[action.payload.id];
@@ -39,10 +39,8 @@ const cartSlice = createSlice({
         cartAdapter.removeOne(state, action.payload);
       }
     },
-    onOrder(state, action) {
-      cartAdapter.removeAll(state);
-      state.totalPrice = 0;
-      state.totalQuantity = 0;
+    resetCart(state, action) {
+      return initialState;
     },
   },
 });

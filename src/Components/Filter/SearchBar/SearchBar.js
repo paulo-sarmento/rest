@@ -1,10 +1,7 @@
 import classes from "./SearchBar.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-
 import { useRef } from "react";
 
-const Search = ({ onClickBack, filter }) => {
+const Search = ({ filter }) => {
   const inputRef = useRef();
 
   const onChangeHandler = () => {
@@ -21,9 +18,6 @@ const Search = ({ onClickBack, filter }) => {
           ref={inputRef}
           onChange={onChangeHandler}
         ></input>
-      </div>
-      <div className={classes["back-icon"]} onClick={onClickBack}>
-        <FontAwesomeIcon icon={solid("arrow-left")} />
       </div>
     </>
   );

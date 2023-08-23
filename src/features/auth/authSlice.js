@@ -29,6 +29,13 @@ export const extendedApiAuthSlice = apiSlice.injectEndpoints({
         body: { user },
       }),
     }),
+    register: builder.mutation({
+      query: (user) => ({
+        url: "/register",
+        method: "POST",
+        body: { user },
+      }),
+    }),
     dashboardAccess: builder.query({
       query: () => "/dashboard",
       keepUnusedDataFor: 0.0001,
@@ -36,7 +43,10 @@ export const extendedApiAuthSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLazyLoginQuery, useDashboardAccessQuery } =
-  extendedApiAuthSlice;
+export const {
+  useLazyLoginQuery,
+  useDashboardAccessQuery,
+  useRegisterMutation,
+} = extendedApiAuthSlice;
 
 export default authSlice.reducer;

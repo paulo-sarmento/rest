@@ -2,7 +2,7 @@ import classes from "./Login.module.css";
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useLazyLoginQuery } from "../../features/auth/authSlice";
 import { useState } from "react";
 import { authSliceActions } from "../../features/auth/authSlice";
@@ -10,19 +10,18 @@ import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const [login] = useLazyLoginQuery();
 
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
+  const onEmailChangeHandler = (e) => setMail(e.target.value);
+  const onPasswordChangeHandler = (e) => setPassword(e.target.value);
 
   const [error, setError] = useState("");
 
   const dispatch = useDispatch();
-
-  const onEmailChangeHandler = (e) => setMail(e.target.value);
-
-  const onPasswordChangeHandler = (e) => setPassword(e.target.value);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -31,6 +30,8 @@ const Login = () => {
       const loginQueryResponse = await login({ mail, password }).unwrap();
 
       dispatch(authSliceActions.onLogin(loginQueryResponse));
+
+      if (state?.from === "cart") return navigate("/cart");
 
       navigate("/");
     } catch (err) {

@@ -1,5 +1,7 @@
 import classes from "./Card.module.css";
 
+import { formatPrice } from "../../../utils/formatUtils";
+
 const Card = ({ id, data, products, totalPrice }) => {
   return (
     <>
@@ -11,25 +13,13 @@ const Card = ({ id, data, products, totalPrice }) => {
           <div className={classes.wrapper} key={index}>
             <h3>{product.name}</h3>
             <h3>{product.amount}</h3>
-            <h3>
-              {product.price.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}
-            </h3>
+            <h3>{formatPrice(product.price)}</h3>
           </div>
         ))}
         <div>
           <h2>
             Total:
-            <span className={classes.total}>
-              {totalPrice.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}
-            </span>
+            <span className={classes.total}>{formatPrice(totalPrice)}</span>
           </h2>
         </div>
       </li>

@@ -25,7 +25,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           }
         });
 
-        return [inactiveProducts, activeProducts];
+        return [activeProducts, inactiveProducts];
       },
       providesTags: (result, error, arg) =>
         result

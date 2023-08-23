@@ -19,13 +19,8 @@ const EditProduct = () => {
   const [name, setName] = useState(product?.name);
   const [price, setPrice] = useState(product?.price);
 
-  const onNameChangeHandler = (e) => {
-    setName(e.target.value);
-  };
-
-  const onPriceChangeHandler = (e) => {
-    setPrice(e.target.value);
-  };
+  const onNameChangeHandler = (e) => setName(e.target.value);
+  const onPriceChangeHandler = (e) => setPrice(e.target.value);
 
   const [file, setFile] = useState("");
   const [imageURL, setImageURL] = useState("");

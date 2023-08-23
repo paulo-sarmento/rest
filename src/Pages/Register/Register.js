@@ -1,67 +1,62 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import classes from "./Register.module.css";
 
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
 
-import Context from "../../Components/Context/Context";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../features/auth/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
-  const { onLogin } = useContext(Context);
-
   const navigate = useNavigate();
+
+  const [fetchUser] = useRegisterMutation();
 
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [error, setError] = useState("");
+  const onNameChangeHandler = (e) => setName(e.target.value);
+  const onEmailChangeHandler = (e) => setMail(e.target.value);
+  const onPasswordChangeHandler = (e) => setPassword(e.target.value);
 
-  const onNameChangeHandler = (e) => {
-    setName(e.target.value);
-  };
-
-  const onEmailChangeHandler = (e) => {
-    setMail(e.target.value);
-  };
-
-  const onPasswordChangeHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const req = async () => {
-      const url = "http://localhost:3001/register";
+    try {
+      await fetchUser({ name, mail, password }).unwrap();
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          mail,
-          password,
-        }),
+      toast.success("cadastro realizado!", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
       });
 
-      const data = await res.json();
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
+    } catch (err) {
+      setMail("");
+      setPassword("");
 
-      if (data.error) {
-        setError(data.error);
-      }
-
-      if (data.id) {
-        onLogin(data);
-        navigate("/");
-      }
-    };
-
-    req();
+      toast.error(err.data, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   const onClickLoginHandler = () => {
@@ -118,7 +113,6 @@ const Register = () => {
               />
             </div>
           </fieldset>
-          <p>{error}</p>
           <div className={classes["btn-field"]}>
             <button type="submit" className={classes.btn}>
               CADASTRAR
@@ -135,6 +129,18 @@ const Register = () => {
           </button>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
     </Container>
   );
 };

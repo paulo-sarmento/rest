@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { formatPrice } from "../../../utils/formatUtils";
 
 import { useInactivateProductMutation } from "../../../features/products/productsSlice";
 
@@ -59,13 +60,7 @@ const Product = ({ id, img, name, price, inactive }) => {
           </div>
           <div className={classes["wrapper-price"]}>
             <span className={classes.span}>Preço</span>
-            <h2>
-              {price.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}
-            </h2>
+            <h2>{formatPrice(price)}</h2>
           </div>
         </div>
       </li>

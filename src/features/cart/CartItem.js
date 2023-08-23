@@ -1,6 +1,7 @@
 import classes from "./CartItem.module.css";
 import { motion } from "framer-motion";
 import Button from "../../Components/UI/Button/Button";
+import { formatPrice } from "../../utils/formatUtils";
 
 const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
   const onClickAddHandler = () => {
@@ -38,13 +39,7 @@ const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
         <span>{amount}</span>
       </div>
       <div className={classes.wrapper}>
-        <h2 className={classes.price}>
-          {price.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-            minimumFractionDigits: 2,
-          })}
-        </h2>
+        <h2 className={classes.price}>{formatPrice(price)}</h2>
       </div>
     </motion.li>
   );

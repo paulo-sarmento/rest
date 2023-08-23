@@ -6,10 +6,13 @@ import Button from "../../Components/UI/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllItems, selectTotalPrice } from "./cartSlice";
 import { cartSliceActions, useOrderMutation } from "./cartSlice";
+import { formatPrice } from "../../utils/formatUtils";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 const CartItemsList = () => {
+  const navigate = useNavigate();
   const items = useSelector(selectAllItems);
 
   const cartTotalPrice = useSelector(selectTotalPrice);
@@ -18,10 +21,6 @@ const CartItemsList = () => {
   const [fetchOrder, result] = useOrderMutation();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [message, setMessage] = useState("");
-  const [showMessage, setShowMessage] = useState(false);
 
   const cartItemRemoveHandler = (id) => {
     dispatch(cartSliceActions.removeItem(id));
@@ -31,33 +30,34 @@ const CartItemsList = () => {
     dispatch(cartSliceActions.addItem(item));
   };
 
-  const canSave =
-    Boolean(user?.id) && Boolean(items?.length) && !result.isLoading;
+  const canSave = Boolean(items?.length) && !result.isLoading;
 
   const onClickBuyHandler = async () => {
+    if (!user) {
+      return navigate("/login", { state: { from: "cart" } });
+    }
+
     const order = { id: user.id, totalPrice: cartTotalPrice };
 
     try {
       const orderQueryResponse = await fetchOrder({ order, items }).unwrap();
 
-      setMessage(orderQueryResponse);
-      setShowMessage(true);
+      toast.success(orderQueryResponse, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
 
-      dispatch(cartSliceActions.onOrder());
+      dispatch(cartSliceActions.resetCart());
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (showMessage) {
-      const timeout = setTimeout(() => {
-        setShowMessage(false);
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [showMessage]);
 
   const cartItems = items.map((item) => (
     <CartItem
@@ -82,13 +82,7 @@ const CartItemsList = () => {
           <ul className={classes.list}>{cartItems}</ul>
           <div>
             <span className={classes.total}>Total:</span>
-            <span className={classes.price}>
-              {cartTotalPrice.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}
-            </span>
+            <span className={classes.price}>{formatPrice(cartTotalPrice)}</span>
           </div>
           <Button
             className={classes["btn-comprar"]}
@@ -97,7 +91,18 @@ const CartItemsList = () => {
           >
             finalizar compra
           </Button>
-          {showMessage && <p className={classes.message}>{message}</p>}
+          <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={false}
+            pauseOnHover={false}
+            theme="colored"
+          />
         </Container>
       </main>
     </>

@@ -2,12 +2,11 @@ import classes from "./Orders.module.css";
 import Card from "./UI/Card";
 import Container from "../../Components/Layout/Container/Container";
 
-import { useGetOrdersQuery } from "../../features/orders/ordersSlice";
+import { useGetOrdersByUserQuery } from "./ordersSlice";
+import { useParams } from "react-router-dom";
 
 const Orders = () => {
-  const user = JSON.parse(sessionStorage.getItem("user"));
-
-  console.log(user);
+  const { userId } = useParams();
 
   const {
     data: orders,
@@ -15,7 +14,15 @@ const Orders = () => {
     isSuccess,
     isError,
     error,
-  } = useGetOrdersQuery(user?.id);
+  } = useGetOrdersByUserQuery(userId);
+
+  console.log(orders);
+
+  if (userId === "undefined") {
+    return <p>faça login para visualizar seus pedidos</p>;
+  } else if (JSON.stringify(orders) === "{}") {
+    return <p>nenhum pedido realizado</p>;
+  }
 
   let content;
 
@@ -29,6 +36,7 @@ const Orders = () => {
       i++;
       ordersList.push(
         <Card
+          key={i}
           id={i}
           data={orders[key].data}
           products={orders[key].products}
@@ -50,13 +58,10 @@ const Orders = () => {
       </>
     );
   } else if (isError) {
-    content = <p>erro ao carregar pedidos</p>;
-    console.log(error);
+    content = <p>{error.data}</p>;
   }
 
-  return (
-    <>{user?.id ? content : <p>faça login para vizualizar seus pedidos</p>}</>
-  );
+  return <>{content}</>;
 };
 
 export default Orders;

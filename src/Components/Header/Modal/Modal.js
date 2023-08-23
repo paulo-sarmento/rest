@@ -1,6 +1,6 @@
 import classes from "./Modal.module.css";
 
-import Container from "../Container/Container";
+import Container from "../../Layout/Container/Container";
 import Logo from "../../UI/Logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
@@ -10,7 +10,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authSliceActions } from "../../../features/auth/authSlice";
-import { cartSliceActions } from "../../../features/cart/cartSlice";
 
 const Modal = ({ showModal, closeModal }) => {
   const [user, setUser] = useState(() => {
@@ -29,7 +28,6 @@ const Modal = ({ showModal, closeModal }) => {
 
   const onLogoutHandler = () => {
     dispatch(authSliceActions.onLogout());
-    dispatch(cartSliceActions.resetCart());
     setUser("");
   };
 
@@ -50,7 +48,7 @@ const Modal = ({ showModal, closeModal }) => {
         </span>
       </div>
       <div className={classes.wrapper}>
-        <Link to={`orders/${user.id}`} onClick={onClickHandler}>
+        <Link to={`orders/${user?.id}`} onClick={onClickHandler}>
           Pedidos
         </Link>
         <Link to="cart" onClick={onClickHandler}>

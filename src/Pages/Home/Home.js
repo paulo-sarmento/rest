@@ -23,11 +23,14 @@ const Home = () => {
     content = (
       <>
         <section className={classes.filter}>
-          <Filter filteredProducts={setFilteredProducts} />
+          <Filter
+            products={products[0]}
+            filteredProducts={setFilteredProducts}
+          />
         </section>
         <main className={classes.main}>
           <Products
-            productsList={filteredProducts ? filteredProducts : products[1]}
+            productsList={filteredProducts ? filteredProducts : products[0]}
           />
         </main>
       </>
