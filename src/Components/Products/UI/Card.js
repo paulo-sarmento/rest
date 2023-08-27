@@ -24,7 +24,7 @@ const Card = ({ id, img, name, price }) => {
       <div className={classes["container-img"]}>
         <img src={img} alt="" className={classes.img} />
       </div>
-      <h1>{name}</h1>
+      <h1 className={classes.name}>{name}</h1>
       <h2 className={classes.price}>{formatPrice(price)}</h2>
     </li>
   );

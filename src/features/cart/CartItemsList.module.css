@@ -3,9 +3,11 @@
 }
 
 .main {
-  background: #707070;
+  background: #f2f0f0;
   color: #fff;
-  padding-top: 1rem;
+  padding: 1rem 0;
+  flex: 1;
+  display: flex;
 }
 
 .title {
@@ -25,14 +27,13 @@
   padding: 1rem 0;
 }
 
-.btn-comprar {
+.btn-buy {
   width: 100%;
   text-transform: uppercase;
   font-size: 0.75rem;
-  margin-bottom: 1rem;
 }
 
-.btn-comprar:disabled {
+.btn-buy:disabled {
   opacity: 40%;
   cursor: none;
 }
@@ -53,4 +54,21 @@
   text-align: center;
   font-size: 1.375rem;
   padding: 1rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+@media only screen and (min-width: 992px) {
+  .price {
+    color: #ff2415;
+    font-weight: 600;
+  }
+
+  .container {
+    color: #707070;
+  }
 }

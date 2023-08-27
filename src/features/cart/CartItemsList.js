@@ -66,7 +66,7 @@ const CartItemsList = () => {
       img={item.img}
       name={item.name}
       price={item.price}
-      amount={item.amount}
+      quantity={item.quantity}
       onRemove={cartItemRemoveHandler}
       onAdd={cartItemAddHandler}
     />
@@ -74,23 +74,24 @@ const CartItemsList = () => {
 
   return (
     <>
-      <section>
-        <h1 className={classes.title}>CARRINHO</h1>
-      </section>
       <main className={classes.main}>
         <Container className={classes.container}>
           <ul className={classes.list}>{cartItems}</ul>
           <div>
-            <span className={classes.total}>Total:</span>
-            <span className={classes.price}>{formatPrice(cartTotalPrice)}</span>
+            <div>
+              <span className={classes.total}>Total:</span>
+              <span className={classes.price}>
+                {formatPrice(cartTotalPrice)}
+              </span>
+            </div>
+            <Button
+              className={classes["btn-buy"]}
+              onClick={onClickBuyHandler}
+              disabled={!canSave}
+            >
+              finalizar compra
+            </Button>
           </div>
-          <Button
-            className={classes["btn-comprar"]}
-            onClick={onClickBuyHandler}
-            disabled={!canSave}
-          >
-            finalizar compra
-          </Button>
           <ToastContainer
             position="bottom-center"
             autoClose={5000}

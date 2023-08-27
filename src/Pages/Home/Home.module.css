@@ -1,5 +1,6 @@
 .main {
-  background: #ff9540;
+  flex: 1;
+  background: #f2f0f0;
 }
 
 .filter {
@@ -7,4 +8,10 @@
   position: sticky;
   z-index: 1;
   top: 0;
+}
+
+@media only screen and (min-width: 992px) {
+  .main {
+    background: #f2f0f0;
+  }
 }

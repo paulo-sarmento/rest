@@ -1,5 +1,5 @@
 import classes from "./Products.module.css";
-import Card from "../UI/Card/Card";
+import Card from "./UI/Card";
 import Container from "../Layout/Container/Container";
 
 const Products = ({ productsList }) => {
@@ -20,6 +20,7 @@ const Products = ({ productsList }) => {
       <Container>
         <ul className={classes.list}>{items}</ul>
       </Container>
+      <div className={classes.test}></div>
     </section>
   );
 };

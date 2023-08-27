@@ -1,0 +1,111 @@
+header {
+  background: #fff;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 35%;
+  position: relative;
+}
+
+.nav a {
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  color: #707070;
+  padding: 1em;
+  font-size: 0.813em;
+  border-radius: 3px;
+}
+
+.nav a:hover {
+  outline: 2px solid black;
+}
+
+.cart {
+  display: flex;
+  position: relative;
+  color: #ff2415;
+}
+
+.cart-icon {
+  font-size: 1.875em;
+  color: #707070;
+}
+
+.number {
+  position: absolute;
+  left: 19px;
+  top: -4px;
+}
+
+.total-amountWrapper {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ff2415;
+  border-radius: 100%;
+  color: #fff;
+  position: relative;
+}
+
+.total-amount {
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hello {
+  background: none;
+  border: none;
+  font-weight: 600;
+  font-size: 0.813em;
+  color: #707070;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.hello:hover {
+  outline: 2px solid black;
+}
+
+.menu-wrapper {
+  width: 220px;
+  position: absolute;
+  right: 75px;
+  bottom: -85px;
+  z-index: 2;
+  background: #707070;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.menu-wrapper a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.menu-arrow {
+  border: 9px solid transparent;
+  border-bottom: 9px solid #707070;
+  position: absolute;
+  left: 185px;
+  top: -15px;
+}

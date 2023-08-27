@@ -1,6 +1,5 @@
 import classes from "./Modal.module.css";
 
-import Container from "../Container/Container";
 import Logo from "../../UI/Logo/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
@@ -37,14 +36,16 @@ const Modal = ({ showModal, closeModal }) => {
     closeModal();
   };
 
-  if (!showModal) {
-    return null;
+  if (showModal !== undefined) {
+    if (!showModal) {
+      return null;
+    }
   }
 
   return (
-    <Container className={classes.modal}>
+    <div className={classes.modal}>
       <div className={classes.header}>
-        <Logo />
+        <Logo className="queijo" />
         <span onClick={closeModal} className={classes["close-btn"]}>
           <FontAwesomeIcon icon={solid("x")} />
         </span>
@@ -77,7 +78,7 @@ const Modal = ({ showModal, closeModal }) => {
           </>
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 

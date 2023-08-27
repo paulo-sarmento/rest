@@ -65,7 +65,9 @@ const Register = () => {
 
   return (
     <Container className={classes.modal}>
-      <Logo />
+      <Container className={classes["logo-wrapper"]}>
+        <Logo />
+      </Container>
       <div className={classes.wrapper}>
         <form className={classes.form} onSubmit={onSubmitHandler}>
           <fieldset>

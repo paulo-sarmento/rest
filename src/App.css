@@ -8,8 +8,13 @@
 
 html,
 body {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   color: #707070;
   background: #f2f0f0;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
 }

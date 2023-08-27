@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import Button from "../../Components/UI/Button/Button";
 import { formatPrice } from "../../utils/formatUtils";
 
-const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
+const CartItem = ({ id, img, name, price, quantity, onRemove, onAdd }) => {
   const onClickAddHandler = () => {
-    onAdd({ id, img, name, price, amount });
+    onAdd({ id, img, name, price, quantity });
   };
 
   const onClickRemoveHandler = () => {
@@ -17,7 +17,7 @@ const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
       key={id}
       className={classes["cart-item"]}
       drag={"x"}
-      dragConstraints={{ right: 95, left: 0 }}
+      dragConstraints={{ right: 85, left: 0 }}
       dragElastic={0.1}
       dragMomentum={false}
     >
@@ -35,8 +35,8 @@ const CartItem = ({ id, img, name, price, amount, onRemove, onAdd }) => {
         </div>
         <h1 className={classes.name}>{name}</h1>
       </div>
-      <div className={`${classes.wrapper} ${classes.amount}`}>
-        <span>{amount}</span>
+      <div className={classes.quantity}>
+        <span>{quantity}</span>
       </div>
       <div className={classes.wrapper}>
         <h2 className={classes.price}>{formatPrice(price)}</h2>

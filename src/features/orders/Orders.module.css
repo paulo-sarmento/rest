@@ -1,24 +1,15 @@
 .section {
-  background: #707070;
-  color: #fff;
-}
-
-.title {
-  text-transform: uppercase;
-  color: #ff2415;
-  font-weight: 800;
-  text-align: center;
-  letter-spacing: 2px;
-  padding-bottom: 1rem;
+  background: #f2f2f0;
+  color: #707070;
 }
 
 .list {
   padding-top: 1.5rem;
-  padding-bottom: 2.25rem;
+  padding-bottom: 2.5rem;
 }
 
 .error {
-  color: #fff;
+  color: #707070;
   line-height: 1;
   font-size: 1.5rem;
   padding: 1.125rem 0;

@@ -16,8 +16,6 @@ const Orders = () => {
     error,
   } = useGetOrdersByUserQuery(userId);
 
-  console.log(orders);
-
   if (userId === "undefined") {
     return <p>faça login para visualizar seus pedidos</p>;
   } else if (JSON.stringify(orders) === "{}") {
@@ -47,9 +45,6 @@ const Orders = () => {
 
     content = (
       <>
-        <section>
-          <h1 className={classes.title}>PEDIDOS</h1>
-        </section>
         <section className={classes.section}>
           <Container>
             <ul className={classes.list}>{ordersList}</ul>

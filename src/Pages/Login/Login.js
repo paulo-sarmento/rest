@@ -45,7 +45,9 @@ const Login = () => {
 
   return (
     <Container className={classes.modal}>
-      <Logo />
+      <Container className={classes["logo-wrapper"]}>
+        <Logo />
+      </Container>
       <div className={classes.wrapper}>
         <form className={classes.form} onSubmit={onSubmitHandler}>
           <fieldset>
@@ -86,7 +88,6 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className={classes["btn-field"]}></div>
         <div className={classes["wrapper-btn"]}>
           <p>Não possui uma conta?</p>
           <button
