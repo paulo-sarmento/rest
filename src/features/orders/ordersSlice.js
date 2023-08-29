@@ -10,7 +10,7 @@ export const extendedApiOrdersSlice = apiSlice.injectEndpoints({
       transformResponse: (responseData) => {
         const groupedArr = groupByOrder(responseData);
 
-        return groupedArr;
+        return groupedArr.reverse();
       },
       providesTags: [{ type: "Orders" }],
     }),
@@ -56,7 +56,7 @@ const groupByOrder = (arr) => {
     result[orderId].totalPrice = item.total;
 
     return result;
-  }, {});
+  }, []);
 };
 
 export const { useGetOrdersByUserQuery, useGetOrdersQuery } =

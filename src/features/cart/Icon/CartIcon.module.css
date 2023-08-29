@@ -1,19 +1,19 @@
 .cart {
   font-size: 1.75rem;
-  color: #ff2415;
+  color: #707070;
   padding: 0.75rem;
   position: relative;
 }
 
 .number {
   position: absolute;
-  top: 12px;
-  right: 9px;
+  left: 35px;
+  top: 10px;
 }
 
 .total-amountWrapper {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

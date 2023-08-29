@@ -1,4 +1,4 @@
-.wrapper {
+.container {
   background: #fff;
 }
 
@@ -12,6 +12,9 @@
 
 .form-wrapper {
   width: 100%;
+  border: 2px solid #dadce0;
+  border-radius: 5px;
+  padding: 1.5em;
 }
 
 .title {
@@ -39,6 +42,7 @@ input[type="file"] {
 .label {
   font-size: 0.875rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .label-file {
@@ -76,8 +80,8 @@ input[type="file"] {
 }
 
 .img-preview {
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   border-radius: 5px;
 }
@@ -95,4 +99,11 @@ input[type="file"] {
 .btn:disabled {
   opacity: 40%;
   cursor: none;
+}
+
+@media only screen and (min-width: 992px) {
+  .form {
+    width: 45%;
+    margin: 0 auto;
+  }
 }

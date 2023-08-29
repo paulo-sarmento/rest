@@ -4,9 +4,11 @@ import Container from "../../Components/Layout/Container/Container";
 
 import { useGetOrdersByUserQuery } from "./ordersSlice";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   const {
     data: orders,
@@ -17,15 +19,23 @@ const Orders = () => {
   } = useGetOrdersByUserQuery(userId);
 
   if (userId === "undefined") {
-    return <p>faça login para visualizar seus pedidos</p>;
+    navigate("/login");
   } else if (JSON.stringify(orders) === "{}") {
-    return <p>nenhum pedido realizado</p>;
+    return (
+      <main className={classes.main}>
+        <p>nenhum pedido realizado</p>
+      </main>
+    );
   }
 
   let content;
 
   if (isLoading) {
-    content = <p>Carregando pedidos...</p>;
+    content = (
+      <main className={classes.main}>
+        <p>Carregando pedidos...</p>
+      </main>
+    );
   } else if (isSuccess) {
     let ordersList = [];
     let i = 0;
@@ -56,7 +66,7 @@ const Orders = () => {
     content = <p>{error.data}</p>;
   }
 
-  return <>{content}</>;
+  return <main className={classes.main}>{content}</main>;
 };
 
 export default Orders;

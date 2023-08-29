@@ -1,8 +1,11 @@
+.order {
+  display: grid;
+  grid-template-columns: 70% 10% 20%;
+  line-height: 1.1;
+}
+
 .item {
-  border-bottom: 1px solid #ff2415;
-  cursor: pointer;
-  transition: all 0.5s;
-  transition-timing-function: ease-in;
+  border-bottom: 2px solid #ff2415;
 }
 
 .item-title {
@@ -11,37 +14,9 @@
   font-weight: 700;
 }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: 70% 10% 20%;
-  line-height: 1.1;
-}
-
 .total {
   font-weight: 700;
   display: inline-block;
   margin-left: 8px;
   padding: 1rem 0;
-}
-
-.list {
-  opacity: 0;
-  height: 0;
-}
-
-.active {
-  animation: items-appear 0.5s ease-out forwards;
-}
-
-@keyframes items-appear {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-
-  to {
-    opacity: 1;
-    height: auto;
-    transform: translateY(0);
-  }
 }

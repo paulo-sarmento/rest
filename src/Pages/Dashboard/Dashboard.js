@@ -68,7 +68,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <Logo />
+      <Container>
+        <Logo />
+      </Container>
       <Container className={classes["container-products"]}>
         <div className={classes.wrapper}>
           <h1 className={classes.title}>Produtos</h1>

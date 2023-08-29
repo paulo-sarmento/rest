@@ -1,5 +1,4 @@
 import classes from "./CartItem.module.css";
-import { motion } from "framer-motion";
 import Button from "../../Components/UI/Button/Button";
 import { formatPrice } from "../../utils/formatUtils";
 
@@ -13,14 +12,17 @@ const CartItem = ({ id, img, name, price, quantity, onRemove, onAdd }) => {
   };
 
   return (
-    <motion.li
-      key={id}
-      className={classes["cart-item"]}
-      drag={"x"}
-      dragConstraints={{ right: 85, left: 0 }}
-      dragElastic={0.1}
-      dragMomentum={false}
-    >
+    <li key={id} className={classes["cart-item"]}>
+      <div className={classes["wrapper-product"]}>
+        <div className={classes["container-img"]}>
+          <img src={img} alt="" className={classes.img} />
+          <h1 className={classes.name}>{name}</h1>
+        </div>
+        <div className={classes.summary}>
+          <h2 className={classes.price}>{formatPrice(price)}</h2>
+          <span className={classes.quantity}>{`x ${quantity}`}</span>
+        </div>
+      </div>
       <div className={classes["action-wrapper"]}>
         <Button className={classes.button} onClick={onClickAddHandler}>
           +
@@ -29,19 +31,7 @@ const CartItem = ({ id, img, name, price, quantity, onRemove, onAdd }) => {
           −
         </Button>
       </div>
-      <div className={classes["wrapper-product"]}>
-        <div className={classes["container-img"]}>
-          <img src={img} alt="" className={classes.img} />
-        </div>
-        <h1 className={classes.name}>{name}</h1>
-      </div>
-      <div className={classes.quantity}>
-        <span>{quantity}</span>
-      </div>
-      <div className={classes.wrapper}>
-        <h2 className={classes.price}>{formatPrice(price)}</h2>
-      </div>
-    </motion.li>
+    </li>
   );
 };
 

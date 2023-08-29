@@ -1,7 +1,7 @@
 .list-item {
   display: flex;
   display: flex;
-  margin-bottom: 15px;
+  padding: 10px 0;
   border-bottom: 1px solid #d9d7d7;
 }
 
@@ -9,43 +9,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 10px;
-}
-
-.btn-edit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 35px;
-  height: 35px;
-  font-size: 1rem;
-  background: #592a19;
-  border-radius: 5px;
-  color: #fff;
-  margin-bottom: 10px;
+  justify-content: space-between;
 }
 
 .btn {
   border: none;
-}
-
-.btn-inactive {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  height: 35px;
-  font-size: 1rem;
-  background: #ff2415;
+  width: 4rem;
+  padding: 0.78rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
   border-radius: 5px;
   color: #fff;
-  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background: #592a19;
+}
+
+.btn-inactive {
+  background: #ff2415;
 }
 
 .wrapper-item {
   flex: 1;
   display: grid;
-  grid-template-columns: 15% 10% 50% 25%;
+  grid-template-columns: 20% 10% 45% 25%;
 }
 
 .wrapper-img {
@@ -72,8 +64,8 @@
 }
 
 .img {
-  width: 50px;
-  height: 50px;
+  width: 85px;
+  height: 85px;
   object-fit: contain;
 }
 
@@ -106,13 +98,8 @@ h2 {
 .modal-content {
   text-align: center;
   background-color: #f2f0f0;
-  padding: 20px;
   border-radius: 3px;
   padding: 2rem;
-}
-
-.btn {
-  color: #fff;
 }
 
 .btn-confirm {
@@ -120,6 +107,10 @@ h2 {
   font-size: 1.5rem;
   padding: 0.5rem 0rem;
   width: 50%;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 0.5em;
 }
 
 .btn-reject {
@@ -127,4 +118,7 @@ h2 {
   font-size: 1.5rem;
   padding: 0.5rem 0rem;
   width: 50%;
+  border: none;
+  color: #fff;
+  cursor: pointer;
 }

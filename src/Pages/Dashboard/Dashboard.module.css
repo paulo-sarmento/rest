@@ -1,7 +1,3 @@
-.container-products {
-  padding: 0 0.313rem;
-}
-
 .container-orders {
   margin-top: 5rem;
   padding: 0 0.313rem;
@@ -23,6 +19,7 @@
 }
 
 .btn-add {
+  cursor: pointer;
   color: #ff9540;
   padding: 1rem;
   margin-left: 1rem;
@@ -179,12 +176,4 @@ input:checked + .slider:before {
   background-position: 10px 12px;
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
-}
-
-.back-icon {
-  font-size: 1.125rem;
-  color: #707070;
-  padding: 1rem;
-  position: absolute;
-  right: -5px;
 }

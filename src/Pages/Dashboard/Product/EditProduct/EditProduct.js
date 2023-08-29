@@ -75,78 +75,80 @@ const EditProduct = () => {
   };
 
   return (
-    <Container className={classes.wrapper}>
-      <form className={classes.form} onSubmit={onFormSubmitHandler}>
-        <fieldset className={classes["form-wrapper"]}>
-          <legend className={classes.title}>EDITAR PRODUTO</legend>
-          <div className={classes["wrapper-input"]}>
-            <label
-              htmlFor="img"
-              className={`${classes.label} ${classes["label-file"]}`}
-            >
-              Escolha uma imagem
-              <span className={classes["icon-wrapper"]}>
-                <FontAwesomeIcon
-                  icon={solid("file")}
-                  className={classes.icon}
-                />
-                <span className={classes["file-info"]}>
-                  {file?.name ? file.name : "nenhum arquivo selecionado..."}
+    <div className={classes.container}>
+      <Container className={classes.wrapper}>
+        <form className={classes.form} onSubmit={onFormSubmitHandler}>
+          <fieldset className={classes["form-wrapper"]}>
+            <legend className={classes.title}>EDITAR PRODUTO</legend>
+            <div className={classes["wrapper-input"]}>
+              <label
+                htmlFor="img"
+                className={`${classes.label} ${classes["label-file"]}`}
+              >
+                Escolha uma imagem
+                <span className={classes["icon-wrapper"]}>
+                  <FontAwesomeIcon
+                    icon={solid("file")}
+                    className={classes.icon}
+                  />
+                  <span className={classes["file-info"]}>
+                    {file?.name ? file.name : "nenhum arquivo selecionado..."}
+                  </span>
                 </span>
-              </span>
-            </label>
-            <input
-              className={classes.input}
-              type="file"
-              name="img"
-              id="img"
-              onChange={onInputImageChangeHandler}
-              accept="image/*"
-            />
-          </div>
-          <div className={classes["wrapper-preview"]}>
-            <img
-              src={imageURL ? imageURL : product.imgSrc}
-              className={classes["img-preview"]}
-            />
-          </div>
-          <div className={classes["wrapper-input"]}>
-            <label htmlFor="name" className={classes.label}>
-              Nome
-            </label>
-            <input
-              className={classes.input}
-              type="text"
-              name="name"
-              id="name"
-              onChange={onNameChangeHandler}
-              value={name}
-              required
-            />
-          </div>
-          <div className={classes["wrapper-input"]}>
-            <label htmlFor="price" className={classes.label}>
-              Preço
-            </label>
-            <input
-              className={classes.input}
-              type="number"
-              step="any"
-              name="price"
-              id="price"
-              onChange={onPriceChangeHandler}
-              value={price}
-              required
-            />
-          </div>
-        </fieldset>
-        <div>
-          <button type="submit" className={classes.btn} disabled={canSave}>
-            SALVAR
-          </button>
-        </div>
-      </form>
-    </Container>
+              </label>
+              <input
+                className={classes.input}
+                type="file"
+                name="img"
+                id="img"
+                onChange={onInputImageChangeHandler}
+                accept="image/*"
+              />
+            </div>
+            <div className={classes["wrapper-preview"]}>
+              <img
+                src={imageURL ? imageURL : product.imgSrc}
+                className={classes["img-preview"]}
+              />
+            </div>
+            <div className={classes["wrapper-input"]}>
+              <label htmlFor="name" className={classes.label}>
+                Nome
+              </label>
+              <input
+                className={classes.input}
+                type="text"
+                name="name"
+                id="name"
+                onChange={onNameChangeHandler}
+                value={name}
+                required
+              />
+            </div>
+            <div className={classes["wrapper-input"]}>
+              <label htmlFor="price" className={classes.label}>
+                Preço
+              </label>
+              <input
+                className={classes.input}
+                type="number"
+                step="any"
+                name="price"
+                id="price"
+                onChange={onPriceChangeHandler}
+                value={price}
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" className={classes.btn} disabled={canSave}>
+                SALVAR
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </Container>
+    </div>
   );
 };
 

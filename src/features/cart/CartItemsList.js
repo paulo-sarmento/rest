@@ -77,8 +77,8 @@ const CartItemsList = () => {
       <main className={classes.main}>
         <Container className={classes.container}>
           <ul className={classes.list}>{cartItems}</ul>
-          <div>
-            <div>
+          <div className={classes.wrapper}>
+            <div className={classes.summary}>
               <span className={classes.total}>Total:</span>
               <span className={classes.price}>
                 {formatPrice(cartTotalPrice)}

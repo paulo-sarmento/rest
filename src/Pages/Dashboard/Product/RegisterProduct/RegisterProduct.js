@@ -84,92 +84,96 @@ const AddProduct = () => {
   };
 
   return (
-    <Container className={classes.wrapper}>
-      <form className={classes.form} onSubmit={onFormSubmitHandler}>
-        <fieldset className={classes["form-wrapper"]}>
-          <legend className={classes.title}>CADASTRAR PRODUTO</legend>
-          <div className={classes["wrapper-input"]}>
-            <label
-              htmlFor="img"
-              className={`${classes.label} ${classes["label-file"]}`}
-            >
-              Escolha uma imagem
-              <span className={classes["icon-wrapper"]}>
-                <FontAwesomeIcon
-                  icon={solid("file")}
-                  className={classes.icon}
-                />
-                <span className={classes["file-info"]}>
-                  {file?.name ? file.name : "nenhum arquivo selecionado..."}
+    <div className={classes.container}>
+      <Container className={classes.wrapper}>
+        <form className={classes.form} onSubmit={onFormSubmitHandler}>
+          <fieldset className={classes["form-wrapper"]}>
+            <legend className={classes.title}>CADASTRAR PRODUTO</legend>
+            <div className={classes["wrapper-input"]}>
+              <label
+                htmlFor="img"
+                className={`${classes.label} ${classes["label-file"]}`}
+              >
+                Escolha uma imagem
+                <span className={classes["icon-wrapper"]}>
+                  <FontAwesomeIcon
+                    icon={solid("file")}
+                    className={classes.icon}
+                  />
+                  <span className={classes["file-info"]}>
+                    {file?.name ? file.name : "nenhum arquivo selecionado..."}
+                  </span>
                 </span>
-              </span>
-            </label>
-            <input
-              className={classes.input}
-              type="file"
-              name="img"
-              id="img"
-              accept="image/*"
-              onChange={onInputImageChangeHandler}
-            />
-          </div>
-          <div className={classes["wrapper-preview"]}>
-            <img
-              src={
-                imageURL ? imageURL : "http://localhost:3001/static/default.jpg"
-              }
-              className={classes["img-preview"]}
-            />
-          </div>
-          <div className={classes["wrapper-input"]}>
-            <label htmlFor="name" className={classes.label}>
-              Nome
-            </label>
-            <input
-              className={classes.input}
-              type="text"
-              name="name"
-              id="name"
-              onChange={onNameChangeHandler}
-              value={name}
-              required
-            />
-          </div>
-          <div className={classes["wrapper-input"]}>
-            <label htmlFor="price" className={classes.label}>
-              Preço
-            </label>
-            <input
-              className={classes.input}
-              type="number"
-              step="any"
-              name="price"
-              id="price"
-              onChange={onPriceChangeHandler}
-              value={price}
-              required
-            />
-          </div>
-        </fieldset>
-        <div>
-          <button type="submit" className={classes.btn}>
-            SALVAR
-          </button>
-        </div>
-      </form>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-        theme="colored"
-      />
-    </Container>
+              </label>
+              <input
+                className={classes.input}
+                type="file"
+                name="img"
+                id="img"
+                accept="image/*"
+                onChange={onInputImageChangeHandler}
+              />
+            </div>
+            <div className={classes["wrapper-preview"]}>
+              <img
+                src={
+                  imageURL
+                    ? imageURL
+                    : "http://localhost:3001/static/default.jpg"
+                }
+                className={classes["img-preview"]}
+              />
+            </div>
+            <div className={classes["wrapper-input"]}>
+              <label htmlFor="name" className={classes.label}>
+                Nome
+              </label>
+              <input
+                className={classes.input}
+                type="text"
+                name="name"
+                id="name"
+                onChange={onNameChangeHandler}
+                value={name}
+                required
+              />
+            </div>
+            <div className={classes["wrapper-input"]}>
+              <label htmlFor="price" className={classes.label}>
+                Preço
+              </label>
+              <input
+                className={classes.input}
+                type="number"
+                step="any"
+                name="price"
+                id="price"
+                onChange={onPriceChangeHandler}
+                value={price}
+                required
+              />
+            </div>
+            <div>
+              <button type="submit" className={classes.btn}>
+                SALVAR
+              </button>
+            </div>
+          </fieldset>
+        </form>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          theme="colored"
+        />
+      </Container>
+    </div>
   );
 };
 export default AddProduct;

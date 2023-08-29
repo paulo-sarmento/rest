@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   align-items: center;
-  position: relative;
 }
 
 .list {
@@ -13,7 +12,6 @@
 
 .list__item {
   padding: 0.75rem;
-  position: relative;
 }
 
 .list__item__link {
@@ -30,5 +28,5 @@
   right: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }

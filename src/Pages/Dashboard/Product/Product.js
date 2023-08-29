@@ -33,11 +33,11 @@ const Product = ({ id, img, name, price, inactive }) => {
     <>
       <li key={id} className={classes["list-item"]}>
         <div className={classes["wrapper-btn"]}>
-          <button className={`${classes.btn} ${classes["btn-edit"]}`}>
-            <Link to={`edit/${id}`} className={classes.link}>
+          <Link to={`edit/${id}`} className={classes.link}>
+            <button className={`${classes.btn} ${classes["btn-edit"]}`}>
               <FontAwesomeIcon icon={solid("file-pen")} />
-            </Link>
-          </button>
+            </button>
+          </Link>
           <button
             className={`${classes.btn} ${classes["btn-inactive"]}`}
             onClick={onInactiveProductHandler}
@@ -69,13 +69,13 @@ const Product = ({ id, img, name, price, inactive }) => {
           <div className={classes["modal-content"]}>
             {inactive ? <p>Ativar produto?</p> : <p>Inativar produto?</p>}
             <button
-              className={`${classes.btn} ${classes["btn-confirm"]}`}
+              className={classes["btn-confirm"]}
               onClick={onConfirmInactiveProductHandler}
             >
               <FontAwesomeIcon icon={solid("check")} />
             </button>
             <button
-              className={`${classes.btn} ${classes["btn-reject"]}`}
+              className={classes["btn-reject"]}
               onClick={onInactiveProductHandler}
             >
               <FontAwesomeIcon icon={solid("xmark")} />

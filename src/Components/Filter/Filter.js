@@ -1,6 +1,6 @@
 import classes from "./Filter.module.css";
-import Container from "../Layout/Container/Container";
 import SearchBar from "./SearchBar/SearchBar";
+import Container from "../Layout/Container/Container";
 
 import { normalizeString } from "../../utils/formatUtils";
 
@@ -22,10 +22,8 @@ const Filter = ({ products, filteredProducts }) => {
   };
 
   return (
-    <Container>
-      <div className={classes.wrapper}>
-        <SearchBar filter={filterProducts} />
-      </div>
+    <Container className={classes.wrapper}>
+      <SearchBar filter={filterProducts} />
     </Container>
   );
 };
