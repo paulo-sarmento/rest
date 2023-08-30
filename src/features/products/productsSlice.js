@@ -14,7 +14,10 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             name: product.nome,
             price: product.preco,
             img: product.img,
-            imgSrc: `http://localhost:3001/${product.img}`,
+            imgSrc:
+              product.img === "default.jpg"
+                ? `http://localhost:3001/static/${product.img}`
+                : `http://localhost:3001/${product.img}`,
             inactive: product.inativo,
           };
 

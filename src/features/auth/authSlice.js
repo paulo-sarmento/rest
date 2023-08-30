@@ -36,6 +36,13 @@ export const extendedApiAuthSlice = apiSlice.injectEndpoints({
         body: { user },
       }),
     }),
+    changePassword: builder.mutation({
+      query: (user) => ({
+        url: "/change-password",
+        method: "POST",
+        body: user,
+      }),
+    }),
     dashboardAccess: builder.query({
       query: () => "/dashboard",
       keepUnusedDataFor: 0.0001,
@@ -45,8 +52,9 @@ export const extendedApiAuthSlice = apiSlice.injectEndpoints({
 
 export const {
   useLazyLoginQuery,
-  useDashboardAccessQuery,
   useRegisterMutation,
+  useChangePasswordMutation,
+  useDashboardAccessQuery,
 } = extendedApiAuthSlice;
 
 export default authSlice.reducer;

@@ -23,7 +23,11 @@ const Layout = () => {
     </div>
   );
 
-  if (pathname === "/login" || pathname === "/register") {
+  if (
+    pathname === "/login" ||
+    pathname === "/register" ||
+    pathname === "/forgot-password"
+  ) {
     layout = (
       <div className={classes.app}>
         <Outlet />

@@ -95,6 +95,7 @@ input[type="file"] {
   padding: 0.8rem 5rem;
   margin-top: 0.8rem;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .btn:disabled {

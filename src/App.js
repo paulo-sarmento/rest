@@ -5,6 +5,7 @@ import Layout from "./Components/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import ChangePassword from "./Pages/ChangePassword/ChangePassword.js";
 import CartItemsList from "./features/cart/CartItemsList";
 import Orders from "./features/orders/Orders";
 import Private from "./Pages/Private/Private";
@@ -23,6 +24,7 @@ const App = () => {
 
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
+          <Route path="forgot-password" element={<ChangePassword />}></Route>
 
           <Route path="cart" element={<CartItemsList />}></Route>
 
