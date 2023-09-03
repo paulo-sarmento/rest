@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectTotalQuantity } from "../../features/cart/cartSlice";
+import { cartSliceActions } from "../../features/cart/cartSlice";
 import { authSliceActions } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
 
@@ -25,6 +26,7 @@ const HeaderDesktop = () => {
 
   const onLogoutHandler = () => {
     dispatch(authSliceActions.onLogout());
+    dispatch(cartSliceActions.resetCart());
     setUser("");
   };
 

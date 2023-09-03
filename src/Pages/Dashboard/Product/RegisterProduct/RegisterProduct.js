@@ -20,7 +20,7 @@ const RegisterProduct = () => {
   const formRef = useRef(null);
   const [file, setFile] = useState("");
   const [imageURL, setImageURL] = useState("");
-  const [img, setImg] = useState("default.jpg");
+  let img = "default.jpg";
 
   //pega a imagem do input do usuário e salva no state file e cria uma URL da imagem para o preview
   const onInputImageChangeHandler = (e) => {
@@ -52,7 +52,7 @@ const RegisterProduct = () => {
           throw new Error(err);
         }
 
-        setImg(await response.json());
+        img = await response.json();
       }
 
       await fetchProduct({
@@ -77,7 +77,7 @@ const RegisterProduct = () => {
       setPrice("");
       setFile("");
       setImageURL("");
-      setImg("default.jpg");
+      img = "default";
     } catch (err) {
       toast.error(err.message, {
         position: "bottom-center",
@@ -93,7 +93,7 @@ const RegisterProduct = () => {
       formRef.current.reset();
       setFile("");
       setImageURL("");
-      setImg("default.jpg");
+      img = "default";
     }
   };
 

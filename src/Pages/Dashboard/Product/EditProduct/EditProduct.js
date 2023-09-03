@@ -9,6 +9,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useProductById } from "../../../../features/products/productsSlice";
 import { useUpdateProductMutation } from "../../../../features/products/productsSlice";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const EditProduct = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -42,21 +45,25 @@ const EditProduct = () => {
 
     let img = product?.img;
 
-    //se tiver um file cria um objeto formData e appenda o file, isso é feito para enviar multipart/form-data para o server
-
-    if (file) {
-      const formData = new FormData();
-      formData.append("img", file);
-
-      const up = await fetch("http://localhost:3001/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      img = await up.json();
-    }
-
     try {
+      //se tiver um file cria um objeto formData e appenda o file, isso é feito para enviar multipart/form-data para o server
+      if (file) {
+        const formData = new FormData();
+        formData.append("img", file);
+
+        const response = await fetch("http://localhost:3001/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err);
+        }
+
+        img = await response.json();
+      }
+
       await updateProduct({
         id: product.id,
         name,
@@ -71,6 +78,17 @@ const EditProduct = () => {
       navigate("/dashboard");
     } catch (err) {
       console.error(err.data);
+
+      toast.error(err.message, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -147,6 +165,18 @@ const EditProduct = () => {
             </div>
           </fieldset>
         </form>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          theme="colored"
+        />
       </Container>
     </div>
   );

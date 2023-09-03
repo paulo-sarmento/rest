@@ -19,7 +19,7 @@ const Orders = () => {
   } = useGetOrdersByUserQuery(userId);
 
   if (userId === "undefined") {
-    navigate("/login");
+    navigate("/login", { state: { from: "orders" } });
   } else if (JSON.stringify(orders) === "{}") {
     return (
       <main className={classes.main}>

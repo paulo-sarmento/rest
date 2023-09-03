@@ -32,6 +32,8 @@ const Login = () => {
       dispatch(authSliceActions.onLogin(loginQueryResponse));
 
       if (state?.from === "cart") return navigate("/cart");
+      if (state?.from === "orders")
+        return navigate(`/orders/${loginQueryResponse.id}`);
 
       navigate("/");
     } catch (err) {
