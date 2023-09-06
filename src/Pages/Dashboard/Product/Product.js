@@ -23,7 +23,7 @@ const Product = ({ id, img, name, price, inactive }) => {
         id,
       }).unwrap();
     } catch (err) {
-      console.error("Failed to save the post", err);
+      console.error("Falha ao inativar o produto", err);
     }
 
     setShowInactiveModal(!showInactiveModal);

@@ -51,15 +51,21 @@ const Modal = ({ showModal, closeModal }) => {
         </span>
       </div>
       <div className={classes.wrapper}>
-        <Link to={`orders/${user.id}`} onClick={onClickHandler}>
+        <Link
+          to={user ? `orders/${user.id}` : "login"}
+          state={{ from: "orders" }}
+          onClick={onClickHandler}
+        >
           Pedidos
         </Link>
         <Link to="cart" onClick={onClickHandler}>
           Carrinho
         </Link>
-        <Link to="dashboard" onClick={onClickHandler}>
-          Administrador
-        </Link>
+        {user?.name === "adm" && (
+          <Link to="dashboard" onClick={onClickHandler}>
+            Administrador
+          </Link>
+        )}
 
         {user.id ? (
           <>

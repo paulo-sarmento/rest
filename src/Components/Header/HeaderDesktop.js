@@ -41,8 +41,13 @@ const HeaderDesktop = () => {
       <Container className={classes.wrapper}>
         <Logo />
         <nav className={classes.nav}>
-          <Link to={`orders/${user?.id}`}>Pedidos</Link>
-          <Link to="dashboard">Administrador</Link>
+          <Link
+            to={user ? `orders/${user.id}` : "login"}
+            state={{ from: "orders" }}
+          >
+            Pedidos
+          </Link>
+          {user?.name === "adm" && <Link to="dashboard">Administrador</Link>}
           {user.id ? (
             <>
               <button className={classes.hello} onClick={onClickUserHandler}>

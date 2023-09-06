@@ -1,3 +1,6 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
 import "./reset.css";
 import "./App.css";
 
@@ -7,14 +10,21 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword.js";
 import CartItemsList from "./features/cart/CartItemsList";
-import Orders from "./features/orders/Orders";
 import Private from "./Pages/Private/Private";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import EditProduct from "./Pages/Dashboard/Product/EditProduct/EditProduct";
-import RegisterProduct from "./Pages/Dashboard/Product/RegisterProduct/RegisterProduct";
+
+const Orders = lazy(() => import("./features/orders/Orders"));
+
+const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
+
+const EditProduct = lazy(() =>
+  import("./Pages/Dashboard/Product/EditProduct/EditProduct")
+);
+
+const RegisterProduct = lazy(() =>
+  import("./Pages/Dashboard/Product/RegisterProduct/RegisterProduct")
+);
 
 // import { Routes, Route } from "react-router-dom";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -28,16 +38,44 @@ const router = createBrowserRouter([
 
       { path: "cart", element: <CartItemsList /> },
 
-      { path: "orders/:userId", element: <Orders /> },
+      {
+        path: "orders/:userId",
+        element: (
+          <Suspense fallback={<p>Carregando...</p>}>
+            <Orders />
+          </Suspense>
+        ),
+      },
 
       {
         path: "dashboard",
         element: <Private />,
         children: [
-          { index: true, element: <Dashboard /> },
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<p>Carregando...</p>}>
+                <Dashboard />
+              </Suspense>
+            ),
+          },
 
-          { path: "edit/:productId", element: <EditProduct /> },
-          { path: "register", element: <RegisterProduct /> },
+          {
+            path: "edit/:productId",
+            element: (
+              <Suspense fallback={<p>Carregando...</p>}>
+                <EditProduct />
+              </Suspense>
+            ),
+          },
+          {
+            path: "register",
+            element: (
+              <Suspense fallback={<p>Carregando...</p>}>
+                <RegisterProduct />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],

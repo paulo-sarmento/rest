@@ -4,11 +4,11 @@ import { formatPrice } from "../../../utils/formatUtils";
 
 const Card = ({ id, data, products, totalPrice }) => {
   let productsContent = products.map((product, index) => (
-    <li className={classes.order}>
+    <div className={classes.order}>
       <h3>{product.name}</h3>
       <h3>{product.amount}</h3>
       <h3>{formatPrice(product.price)}</h3>
-    </li>
+    </div>
   ));
 
   return (
@@ -17,7 +17,7 @@ const Card = ({ id, data, products, totalPrice }) => {
         <div>
           <h2 className={classes["item-title"]}>{`PEDIDO - ${data}`}</h2>
         </div>
-        <ul>{productsContent}</ul>
+        <section>{productsContent}</section>
         <div>
           <h2>
             Total:

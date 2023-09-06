@@ -76,7 +76,7 @@ const Dashboard = () => {
           <h1 className={classes.title}>Produtos</h1>
           <Link to="register">
             <button className={`${classes.btn} ${classes["btn-add"]}`}>
-              add novo
+              cadastrar produto
             </button>
           </Link>
           <div

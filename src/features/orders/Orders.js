@@ -4,11 +4,9 @@ import Container from "../../Components/Layout/Container/Container";
 
 import { useGetOrdersByUserQuery } from "./ordersSlice";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
   const { userId } = useParams();
-  const navigate = useNavigate();
 
   const {
     data: orders,
@@ -18,9 +16,7 @@ const Orders = () => {
     error,
   } = useGetOrdersByUserQuery(userId);
 
-  if (userId === "undefined") {
-    navigate("/login", { state: { from: "orders" } });
-  } else if (JSON.stringify(orders) === "{}") {
+  if (JSON.stringify(orders) === "{}") {
     return (
       <main className={classes.main}>
         <p>nenhum pedido realizado</p>
