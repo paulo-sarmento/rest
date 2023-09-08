@@ -51,10 +51,13 @@ const EditProduct = () => {
         const formData = new FormData();
         formData.append("img", file);
 
-        const response = await fetch("http://localhost:3001/upload", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          "https://restmeal-api.onrender.com:443/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (!response.ok) {
           const err = await response.json();
