@@ -64,7 +64,9 @@ const HeaderDesktop = () => {
                 <>
                   <div className={classes["menu-wrapper"]}>
                     <div className={classes["menu-arrow"]}></div>
-                    <Link to={"forgot-password"}>Alterar Senha</Link>
+                    <Link to={"change-password"} onClick={onClickUserHandler}>
+                      Alterar Senha
+                    </Link>
                     <a
                       className={classes["logout-btn"]}
                       onClick={onLogoutHandler}
