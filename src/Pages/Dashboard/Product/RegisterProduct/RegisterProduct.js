@@ -141,7 +141,7 @@ const RegisterProduct = () => {
                 src={
                   imageURL
                     ? imageURL
-                    : "http://localhost:3001/static/default.jpg"
+                    : "https://restmeal-api.onrender.com:443/static/default.jpg"
                 }
                 className={classes["img-preview"]}
               />
