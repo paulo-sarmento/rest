@@ -98,11 +98,7 @@ const EditProduct = () => {
   return (
     <div className={classes.container}>
       <Container className={classes.wrapper}>
-        <form
-          className={classes.form}
-          onSubmit={onFormSubmitHandler}
-          encType="multipart/form-data"
-        >
+        <form className={classes.form} onSubmit={onFormSubmitHandler}>
           <fieldset className={classes["form-wrapper"]}>
             <legend className={classes.title}>EDITAR PRODUTO</legend>
             <div className={classes["wrapper-input"]}>
