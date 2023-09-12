@@ -107,6 +107,7 @@ const RegisterProduct = () => {
           ref={formRef}
           className={classes.form}
           onSubmit={onFormSubmitHandler}
+          encType="multipart/form-data"
         >
           <fieldset className={classes["form-wrapper"]}>
             <legend className={classes.title}>CADASTRAR PRODUTO</legend>
