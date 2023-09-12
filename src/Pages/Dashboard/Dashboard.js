@@ -45,7 +45,7 @@ const Dashboard = () => {
           <Product
             key={item.id}
             id={item.id}
-            img={item.imgSrc}
+            img={item.imageUrl}
             name={item.name}
             price={item.price}
             inactive={item.inactive}

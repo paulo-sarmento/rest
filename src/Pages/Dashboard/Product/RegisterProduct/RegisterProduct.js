@@ -45,7 +45,6 @@ const RegisterProduct = () => {
         const response = await fetch(
           "https://restmeal-api.onrender.com:443/upload",
           {
-            headers: { "Content-Type": "multipart/form-data" },
             method: "POST",
             body: formData,
           }
