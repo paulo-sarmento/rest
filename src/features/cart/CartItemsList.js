@@ -63,7 +63,7 @@ const CartItemsList = () => {
     <CartItem
       key={item.id}
       id={item.id}
-      img={item.imageUrl}
+      img={item.imgUrl}
       name={item.name}
       price={item.price}
       quantity={item.quantity}
