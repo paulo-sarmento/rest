@@ -14,10 +14,11 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             name: product.nome,
             price: product.preco,
             img: product.img,
-            imgSrc:
-              product.img === "default.jpg"
-                ? `https://restmeal-api.onrender.com:443/static/${product.img}`
-                : `https://restmeal-api.onrender.com:443/${product.img}`,
+            // imgUrl:
+            //   product.img === "default.jpg"
+            //     ? `https://restmeal-api.onrender.com:443/static/${product.img}`
+            //     : `https://restmeal-api.onrender.com:443/${product.img}`,
+            imgUrl: product.imageUrl,
             inactive: product.inativo,
           };
 

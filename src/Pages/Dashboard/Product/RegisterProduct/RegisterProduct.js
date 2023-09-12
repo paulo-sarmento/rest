@@ -45,6 +45,7 @@ const RegisterProduct = () => {
         const response = await fetch(
           "https://restmeal-api.onrender.com:443/upload",
           {
+            headers: { "Content-Type": "multipart/form-data" },
             method: "POST",
             body: formData,
           }
@@ -107,7 +108,6 @@ const RegisterProduct = () => {
           ref={formRef}
           className={classes.form}
           onSubmit={onFormSubmitHandler}
-          encType="multipart/form-data"
         >
           <fieldset className={classes["form-wrapper"]}>
             <legend className={classes.title}>CADASTRAR PRODUTO</legend>
