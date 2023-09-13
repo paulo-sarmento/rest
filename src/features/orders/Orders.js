@@ -21,7 +21,7 @@ const Orders = () => {
     console.log(orders);
   }
 
-  if (isSuccess && JSON.stringify(orders) === "{}") {
+  if (isSuccess && orders.length === 0) {
     return (
       <main className={classes.main}>
         <p>nenhum pedido realizado</p>
