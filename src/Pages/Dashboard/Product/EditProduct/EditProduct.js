@@ -170,7 +170,11 @@ const EditProduct = () => {
               />
             </div>
             <div>
-              <button type="submit" className={classes.btn} disabled={canSave}>
+              <button
+                type="submit"
+                className={classes.btn}
+                disabled={canSave || isFetching}
+              >
                 {isFetching ? <Spinner className={classes.loader} /> : "SALVAR"}
               </button>
             </div>
