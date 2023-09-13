@@ -1,6 +1,7 @@
 import classes from "./Orders.module.css";
 import Card from "./UI/Card";
 import Container from "../../Components/Layout/Container/Container";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import { useGetOrdersByUserQuery } from "./ordersSlice";
 import { useParams } from "react-router-dom";
@@ -28,8 +29,8 @@ const Orders = () => {
 
   if (isLoading) {
     content = (
-      <main className={classes.main}>
-        <p>Carregando pedidos...</p>
+      <main>
+        <Spinner />
       </main>
     );
   } else if (isSuccess) {
@@ -51,18 +52,20 @@ const Orders = () => {
 
     content = (
       <>
-        <section className={classes.section}>
-          <Container>
-            <ul className={classes.list}>{ordersList}</ul>
-          </Container>
-        </section>
+        <main className={classes.main}>
+          <section className={classes.section}>
+            <Container>
+              <ul className={classes.list}>{ordersList}</ul>
+            </Container>
+          </section>
+        </main>
       </>
     );
   } else if (isError) {
     content = <p>{error.data}</p>;
   }
 
-  return <main className={classes.main}>{content}</main>;
+  return content;
 };
 
 export default Orders;

@@ -102,7 +102,7 @@
 }
 
 .inactive-wrapper[disabled] {
-  opacity: 0.1; /* Define a opacidade quando o atributo disabled está presente */
+  opacity: 0.1;
 }
 
 .inactive-span {

@@ -1,4 +1,7 @@
-.main {
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   background: #f2f0f0;
 }
@@ -10,8 +13,9 @@
   top: 0;
 }
 
-@media only screen and (min-width: 992px) {
-  .main {
-    background: #f2f0f0;
-  }
+.loader {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

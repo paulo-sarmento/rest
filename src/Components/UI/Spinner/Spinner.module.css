@@ -1,0 +1,22 @@
+.wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #e3e3e3;
+  border-radius: 50%;
+  border-right-color: #ff2415;
+  animation: spin 1s ease infinite;
+  align-self: center;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

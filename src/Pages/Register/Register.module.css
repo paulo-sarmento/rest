@@ -66,6 +66,7 @@
 }
 
 .btn {
+  font-size: 1rem;
   font-family: inherit;
   width: 70%;
   background: #ff2415;
@@ -74,6 +75,19 @@
   padding: 0.8rem;
   margin-top: 0.8rem;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.loader {
+  width: 25px;
+  height: 25px;
+  border: 3px solid #e3e3e3;
+  border-right-color: #ff2415;
 }
 
 .btn-password {

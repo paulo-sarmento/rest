@@ -1,6 +1,7 @@
 import classes from "./RegisterProduct.module.css";
 
 import Container from "../../../../Components/Layout/Container/Container";
+import Spinner from "../../../../Components/UI/Spinner/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState, useRef } from "react";
@@ -16,6 +17,8 @@ const RegisterProduct = () => {
 
   const onNameChangeHandler = (e) => setName(e.target.value);
   const onPriceChangeHandler = (e) => setPrice(e.target.value);
+
+  const [disabled, setDisabled] = useState(false);
 
   const formRef = useRef(null);
   const [file, setFile] = useState("");
@@ -35,6 +38,8 @@ const RegisterProduct = () => {
 
   const onFormSubmitHandler = async (e) => {
     e.preventDefault();
+
+    setDisabled(true);
 
     try {
       //se o usuário selecionou uma imagem, essa imagem será passada ao formData e será feita o upload da imagem ao servidor
@@ -97,6 +102,8 @@ const RegisterProduct = () => {
       setFile("");
       setImageURL("");
       img = "default";
+    } finally {
+      setDisabled(false);
     }
   };
 
@@ -175,8 +182,8 @@ const RegisterProduct = () => {
               />
             </div>
             <div>
-              <button type="submit" className={classes.btn}>
-                SALVAR
+              <button type="submit" className={classes.btn} disabled={disabled}>
+                {disabled ? <Spinner className={classes.loader} /> : "SALVAR"}
               </button>
             </div>
           </fieldset>

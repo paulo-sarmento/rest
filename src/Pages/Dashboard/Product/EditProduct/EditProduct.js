@@ -1,6 +1,7 @@
 import classes from "./EditProduct.module.css";
 
 import Container from "../../../../Components/Layout/Container/Container";
+import Spinner from "../../../../Components/UI/Spinner/Spinner";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -28,6 +29,8 @@ const EditProduct = () => {
   const [file, setFile] = useState("");
   const [imageURL, setImageURL] = useState("");
 
+  const [isFetching, setIsFetching] = useState(false);
+
   //pega a imagem do input do usuário e salva no state file e cria uma URL da imagem para o preview
   const onInputImageChangeHandler = (e) => {
     let file = e.target.files[0];
@@ -38,10 +41,13 @@ const EditProduct = () => {
   const canSave =
     name === product?.name &&
     Number(price) === Number(product?.price) &&
-    imageURL === "";
+    imageURL === "" &&
+    !isFetching;
 
   const onFormSubmitHandler = async (e) => {
     e.preventDefault();
+
+    setIsFetching(true);
 
     let img = product?.img;
 
@@ -92,6 +98,8 @@ const EditProduct = () => {
         progress: undefined,
         theme: "colored",
       });
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -163,7 +171,7 @@ const EditProduct = () => {
             </div>
             <div>
               <button type="submit" className={classes.btn} disabled={canSave}>
-                SALVAR
+                {isFetching ? <Spinner className={classes.loader} /> : "SALVAR"}
               </button>
             </div>
           </fieldset>

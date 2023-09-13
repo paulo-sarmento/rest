@@ -2,6 +2,7 @@ import classes from "./Register.module.css";
 
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   const navigate = useNavigate();
 
-  const [fetchUser] = useRegisterMutation();
+  const [fetchUser, result] = useRegisterMutation();
 
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -28,20 +29,7 @@ const Register = () => {
     try {
       await fetchUser({ name, mail, password }).unwrap();
 
-      toast.success("cadastro realizado!", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      });
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 2500);
+      navigate("/login");
     } catch (err) {
       setMail("");
       setPassword("");
@@ -116,8 +104,16 @@ const Register = () => {
             </div>
           </fieldset>
           <div className={classes["btn-field"]}>
-            <button type="submit" className={classes.btn}>
-              CADASTRAR
+            <button
+              type="submit"
+              className={classes.btn}
+              disabled={result.isLoading}
+            >
+              {result.isLoading ? (
+                <Spinner className={classes.loader} />
+              ) : (
+                "CADASTRAR"
+              )}
             </button>
           </div>
         </form>

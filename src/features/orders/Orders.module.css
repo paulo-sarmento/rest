@@ -1,5 +1,6 @@
 .main {
   flex: 1;
+  display: block;
 }
 
 .section {
@@ -22,7 +23,7 @@
 
 @media only screen and (min-width: 992px) {
   .list {
-    width: 70%;
+    width: 75%;
     margin: 0 auto;
   }
 }

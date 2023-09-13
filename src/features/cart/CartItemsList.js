@@ -2,6 +2,7 @@ import classes from "./CartItemsList.module.css";
 import CartItem from "./CartItem";
 import Container from "../../Components/Layout/Container/Container";
 import Button from "../../Components/UI/Button/Button";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAllItems, selectTotalPrice } from "./cartSlice";
@@ -89,7 +90,11 @@ const CartItemsList = () => {
               onClick={onClickBuyHandler}
               disabled={!canSave}
             >
-              finalizar compra
+              {result.isLoading ? (
+                <Spinner className={classes.loader} />
+              ) : (
+                "finalizar compra"
+              )}
             </Button>
           </div>
           <ToastContainer

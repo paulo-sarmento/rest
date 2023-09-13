@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { formatPrice } from "../../../utils/formatUtils";
+import Spinner from "../../../Components/UI/Spinner/Spinner";
 
 import { useInactivateProductMutation } from "../../../features/products/productsSlice";
 
@@ -13,17 +14,23 @@ const Product = ({ id, img, name, price, inactive }) => {
 
   const [inactivateProduct] = useInactivateProductMutation();
 
+  const [disabled, setDisabled] = useState(false);
+
   const onInactiveProductHandler = (e) => {
     setShowInactiveModal(!showInactiveModal);
   };
 
   const onConfirmInactiveProductHandler = async () => {
+    setDisabled(true);
+
     try {
       await inactivateProduct({
         id,
       }).unwrap();
     } catch (err) {
       console.error("Falha ao inativar o produto", err);
+    } finally {
+      setDisabled(false);
     }
 
     setShowInactiveModal(!showInactiveModal);
@@ -68,18 +75,24 @@ const Product = ({ id, img, name, price, inactive }) => {
         <div className={classes.modal}>
           <div className={classes["modal-content"]}>
             {inactive ? <p>Ativar produto?</p> : <p>Inativar produto?</p>}
-            <button
-              className={classes["btn-confirm"]}
-              onClick={onConfirmInactiveProductHandler}
-            >
-              <FontAwesomeIcon icon={solid("check")} />
-            </button>
-            <button
-              className={classes["btn-reject"]}
-              onClick={onInactiveProductHandler}
-            >
-              <FontAwesomeIcon icon={solid("xmark")} />
-            </button>
+            {disabled ? (
+              <Spinner />
+            ) : (
+              <>
+                <button
+                  className={classes["btn-confirm"]}
+                  onClick={onConfirmInactiveProductHandler}
+                >
+                  <FontAwesomeIcon icon={solid("check")} />
+                </button>
+                <button
+                  className={classes["btn-reject"]}
+                  onClick={onInactiveProductHandler}
+                >
+                  <FontAwesomeIcon icon={solid("xmark")} />
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

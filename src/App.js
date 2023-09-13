@@ -11,8 +11,8 @@ import Register from "./Pages/Register/Register";
 import ChangePassword from "./Pages/ChangePassword/ChangePassword.js";
 import CartItemsList from "./features/cart/CartItemsList";
 import Private from "./Pages/Private/Private";
-
-const Orders = lazy(() => import("./features/orders/Orders"));
+import Orders from "./features/orders/Orders";
+import Spinner from "./Components/UI/Spinner/Spinner";
 
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
 
@@ -40,11 +40,7 @@ const router = createBrowserRouter([
 
       {
         path: "orders/:userId",
-        element: (
-          <Suspense fallback={<p>Carregando...</p>}>
-            <Orders />
-          </Suspense>
-        ),
+        element: <Orders />,
       },
 
       {
@@ -54,7 +50,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<p>Carregando...</p>}>
+              <Suspense fallback={<Spinner />}>
                 <Dashboard />
               </Suspense>
             ),
@@ -63,7 +59,7 @@ const router = createBrowserRouter([
           {
             path: "edit/:productId",
             element: (
-              <Suspense fallback={<p>Carregando...</p>}>
+              <Suspense fallback={<Spinner />}>
                 <EditProduct />
               </Suspense>
             ),
@@ -71,7 +67,7 @@ const router = createBrowserRouter([
           {
             path: "register",
             element: (
-              <Suspense fallback={<p>Carregando...</p>}>
+              <Suspense fallback={<Spinner />}>
                 <RegisterProduct />
               </Suspense>
             ),

@@ -1,6 +1,7 @@
 import classes from "./Home.module.css";
 import Filter from "../../Components/Filter/Filter";
 import Products from "../../Components/Products/Products";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import { useGetProductsQuery } from "../../features/products/productsSlice";
 import { useState } from "react";
@@ -18,7 +19,13 @@ const Home = () => {
 
   let content;
   if (isLoading) {
-    content = <p>Carregando...</p>;
+    content = (
+      <main>
+        <div className={classes.loader}>
+          <Spinner />
+        </div>
+      </main>
+    );
   } else if (isSuccess) {
     content = (
       <>
@@ -28,7 +35,7 @@ const Home = () => {
             filteredProducts={setFilteredProducts}
           />
         </section>
-        <main className={classes.main}>
+        <main>
           <Products
             productsList={filteredProducts ? filteredProducts : products[0]}
           />

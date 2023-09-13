@@ -1,6 +1,7 @@
 import classes from "./Login.module.css";
 import Container from "../../Components/Layout/Container/Container";
 import Logo from "../../Components/UI/Logo/Logo";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import { useLazyLoginQuery } from "../../features/auth/authSlice";
@@ -12,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const [login] = useLazyLoginQuery();
+  const [login, result] = useLazyLoginQuery();
 
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,8 +86,16 @@ const Login = () => {
           </fieldset>
           <p className={classes.error}>{error}</p>
           <div className={classes["btn-field"]}>
-            <button type="submit" className={classes.btn}>
-              LOGIN
+            <button
+              type="submit"
+              className={classes.btn}
+              disabled={result.isFetching}
+            >
+              {result.isFetching ? (
+                <Spinner className={classes.loader} />
+              ) : (
+                "LOGIN"
+              )}
             </button>
           </div>
         </form>
