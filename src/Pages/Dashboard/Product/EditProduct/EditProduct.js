@@ -136,7 +136,7 @@ const EditProduct = () => {
             </div>
             <div className={classes["wrapper-preview"]}>
               <img
-                src={imageURL ? imageURL : product.imgSrc}
+                src={imageURL ? imageURL : product.imgUrl}
                 className={classes["img-preview"]}
               />
             </div>
