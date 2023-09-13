@@ -17,6 +17,10 @@ const Orders = () => {
     error,
   } = useGetOrdersByUserQuery(userId);
 
+  if (isSuccess) {
+    console.log(orders);
+  }
+
   if (isSuccess && JSON.stringify(orders) === "{}") {
     return (
       <main className={classes.main}>
