@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-right: 10px;
 }
 
 .btn {
@@ -47,6 +48,12 @@
   text-align: center;
 }
 
+.img {
+  width: 100%;
+  height: 85px;
+  object-fit: contain;
+}
+
 .wrapper-id {
   display: flex;
   flex-direction: column;
@@ -61,12 +68,6 @@
 .wrapper-price {
   display: flex;
   flex-direction: column;
-}
-
-.img {
-  width: 85px;
-  height: 85px;
-  object-fit: contain;
 }
 
 .span {
