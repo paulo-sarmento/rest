@@ -17,7 +17,7 @@ const Orders = () => {
     error,
   } = useGetOrdersByUserQuery(userId);
 
-  if (JSON.stringify(orders) === "{}") {
+  if (isSuccess && JSON.stringify(orders) === "{}") {
     return (
       <main className={classes.main}>
         <p>nenhum pedido realizado</p>
