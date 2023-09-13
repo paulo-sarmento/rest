@@ -24,7 +24,7 @@ const Orders = () => {
   if (isSuccess && orders.length === 0) {
     return (
       <main className={classes.main}>
-        <p>nenhum pedido realizado</p>
+        <p className={classes.info}>nenhum pedido realizado</p>
       </main>
     );
   }
