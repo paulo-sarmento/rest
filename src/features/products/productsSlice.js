@@ -16,7 +16,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             img: product.img,
             imgUrl:
               product.img === "default.jpg"
-                ? "http://localhost:3001/static/default.jpg"
+                ? "https://restmeal-api.onrender.com/static/default.jpg"
                 : product.imageUrl,
             inactive: product.inativo,
           };
