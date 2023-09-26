@@ -78,6 +78,10 @@ header {
   border-radius: 3px;
 }
 
+.hello span:first-child {
+  margin-right: 5px;
+}
+
 .hello:hover {
   outline: 2px solid black;
 }

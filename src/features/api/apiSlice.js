@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://restmeal-api.onrender.com:443",
+    baseUrl: "http://localhost:3001",
     prepareHeaders: (headers) => {
       const user = JSON.parse(sessionStorage.getItem("user"));
       if (user?.token) {

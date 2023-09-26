@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authSliceActions } from "../../../features/auth/authSlice";
 import { cartSliceActions } from "../../../features/cart/cartSlice";
+import { motion } from "framer-motion";
 
 const Modal = ({ showModal, closeModal }) => {
   const [user, setUser] = useState(() => {
@@ -43,7 +44,13 @@ const Modal = ({ showModal, closeModal }) => {
   }
 
   return (
-    <div className={classes.modal}>
+    <motion.div
+      key="modal-content"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 30 }}
+      className={classes.modal}
+    >
       <div className={classes.header}>
         <Logo className="queijo" />
         <span onClick={closeModal} className={classes["close-btn"]}>
@@ -84,7 +91,7 @@ const Modal = ({ showModal, closeModal }) => {
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

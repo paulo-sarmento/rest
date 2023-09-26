@@ -12,6 +12,7 @@ import { selectTotalQuantity } from "../../features/cart/cartSlice";
 import { cartSliceActions } from "../../features/cart/cartSlice";
 import { authSliceActions } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const HeaderDesktop = () => {
   const [user, setUser] = useState(() => {
@@ -20,7 +21,7 @@ const HeaderDesktop = () => {
     return storedValue ? JSON.parse(storedValue) : "";
   });
 
-  const [caret, setCaret] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const HeaderDesktop = () => {
   };
 
   const onClickUserHandler = () => {
-    setCaret(!caret);
+    setIsExpanded(!isExpanded);
   };
 
   const cartItemsQuantity = useSelector(selectTotalQuantity);
@@ -52,17 +53,22 @@ const HeaderDesktop = () => {
             <>
               <button className={classes.hello} onClick={onClickUserHandler}>
                 <span>{`Olá, ${user.name}`}</span>
-                <span>
-                  {caret ? (
-                    <FontAwesomeIcon icon={solid("caret-down")} />
-                  ) : (
-                    <FontAwesomeIcon icon={solid("caret-up")} />
-                  )}
-                </span>
+                <motion.span animate={{ rotate: isExpanded ? 180 : 0 }}>
+                  <FontAwesomeIcon icon={solid("caret-up")} />
+                </motion.span>
               </button>
-              {!caret && (
+              {isExpanded && (
                 <>
-                  <div className={classes["menu-wrapper"]}>
+                  <motion.div
+                    className={classes["menu-wrapper"]}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                  >
                     <div className={classes["menu-arrow"]}></div>
                     <Link to={"change-password"} onClick={onClickUserHandler}>
                       Alterar Senha
@@ -73,7 +79,7 @@ const HeaderDesktop = () => {
                     >
                       Logout
                     </a>
-                  </div>
+                  </motion.div>
                 </>
               )}
             </>
@@ -81,7 +87,12 @@ const HeaderDesktop = () => {
             <Link to="login">Login</Link>
           )}
           <Link to="cart">
-            <div className={classes.cart}>
+            <motion.div
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 0.3 }}
+              className={classes.cart}
+              key={cartItemsQuantity}
+            >
               <div className={classes["cart-icon"]}>
                 <div className={classes.number}>
                   <div className={classes["total-amountWrapper"]}>
@@ -92,7 +103,7 @@ const HeaderDesktop = () => {
                 </div>
                 <FontAwesomeIcon icon={solid("cart-plus")} />
               </div>
-            </div>
+            </motion.div>
           </Link>
         </nav>
       </Container>

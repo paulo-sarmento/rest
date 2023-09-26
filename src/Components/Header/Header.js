@@ -9,6 +9,7 @@ import Modal from "../Layout/Modal/Modal";
 
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +31,15 @@ const Header = () => {
         </Container>
       </header>
       {createPortal(
-        <Modal showModal={showModal} closeModal={onClickHandler} />,
+        <AnimatePresence>
+          {showModal && (
+            <Modal
+              key="modal"
+              showModal={showModal}
+              closeModal={onClickHandler}
+            />
+          )}
+        </AnimatePresence>,
         document.getElementById("root")
       )}
     </>

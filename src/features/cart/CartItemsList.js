@@ -11,6 +11,7 @@ import { formatPrice } from "../../utils/formatUtils";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CartItemsList = () => {
   const navigate = useNavigate();
@@ -77,7 +78,18 @@ const CartItemsList = () => {
     <>
       <main className={classes.main}>
         <Container className={classes.container}>
-          <ul className={classes.list}>{cartItems}</ul>
+          <AnimatePresence mode="sync">
+            {cartItems && (
+              <motion.ul
+                key="list"
+                animate={{ opacity: [0, 1], transition: { duration: 0.1 } }}
+                exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                className={classes.list}
+              >
+                <AnimatePresence mode="sync">{cartItems}</AnimatePresence>
+              </motion.ul>
+            )}
+          </AnimatePresence>
           <div className={classes.wrapper}>
             <div className={classes.summary}>
               <span className={classes.total}>Total:</span>
